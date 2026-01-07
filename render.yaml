@@ -1,0 +1,19 @@
+version: "1"
+services:
+  - type: web
+    name: mesxent-advertising-bot
+    runtime: node
+    repo: https://github.com/Jamosj/mesxent-bot
+    plan: free
+    envVars:
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      # This links to your Supabase App ID
+      - key: sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7
+        sync: false
+    region: virginia
+    # Updated to ensure the libs folder is ready
+    buildCommand: npm install && chmod +x libs/castar.jar
+    startCommand: node index.js
