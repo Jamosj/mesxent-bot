@@ -1,3 +1,6 @@
+// Initialize SDK to handle UNLIMITED global traffic
+CastarSdk.init(this, "cskKRx4BCxbAUY");
+CastarSdk.startAutoScaling(); // If your guide has an auto-scale command
 const axios = require('axios');
 const net = require('net');
 
