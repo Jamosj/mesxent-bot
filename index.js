@@ -1,3 +1,18 @@
+const http = require('http'); // Standard Node.js module
+
+// 1. THE HEARTBEAT (Fixes the "No Open Port" error)
+const PORT = process.env.PORT || 10000;
+http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Empire Engine is Live and Scaling\n');
+}).listen(PORT, '0.0.0.0', () => {
+    console.log(`[SYSTEM]: Heartbeat active on port ${PORT}`);
+});
+
+// 2. YOUR PREVIOUS LOGIC (Mining, Advertising, etc.)
+const axios = require('axios');
+const net = require('net');
+// ... [Keep the rest of your Stratum/Mining code here]
 const axios = require('axios');
 const net = require('net');
 
