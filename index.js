@@ -31,7 +31,8 @@ async function anchorProof(msg) {
 
 // 5. STRATUM WORKER (Connecting to the Pool)
 const client = new net.Socket();
-client.connect(3333, 'solo.ckpool.org', () => {
+// NEW EU-OPTIMIZED CONNECTION
+client.connect(3333, 'eusolo.ckpool.org', () => { 
     client.write(JSON.stringify({id: 1, method: "mining.subscribe", params: []}) + '\n');
     client.write(JSON.stringify({id: 2, method: "mining.authorize", params: [ORG_ID + ".bot01", "x"]}) + '\n');
     console.log("⛏️ [MINER]: Connected to Pool. Revenue flowing to Bybit.");
