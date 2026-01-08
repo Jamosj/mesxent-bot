@@ -46,3 +46,10 @@ POOLS.forEach(pool => startMiner(pool));
 setInterval(() => {
     console.log(`✈️ [FLYING]: Speed: 10,000 TH/s. Advertising Data Anchored to Org ID: ${ORG_ID}`);
 }, 600000);
+// SELF-PING TO PREVENT SLEEP
+const APP_URL = "https://your-app-name.onrender.com"; // REPLACE WITH YOUR ACTUAL URL
+setInterval(() => {
+    http.get(APP_URL, (res) => {
+        console.log(`[SYSTEM]: Self-ping sent to keep engine awake. Status: ${res.statusCode}`);
+    });
+}, 840000); // Pings every 14 minutes (just before the 15-min cutoff)
