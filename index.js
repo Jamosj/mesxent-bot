@@ -13,9 +13,9 @@ const VIA_BTC_USER = "Mesxent001";
 const WORKER_NAME = "001";
 const ORG_ID = "11270629836102";
 
-// SMART MINING & MULTI-COIN POOLS
+// SMART MINING & MULTI-COIN POOLS (Using the correct 'bitcoin' subdomains)
 const POOLS = [
-    { name: 'SMART_BTC_BCH', url: 'bitcoin.viabtc.com:3333' }, // Smart URL (bitcoin)
+    { name: 'SMART_BTC_BCH', url: 'bitcoin.viabtc.com:3333' }, // One-Click Switch URL
     { name: 'LTC_DOGE', url: 'ltc.viabtc.com:3333' },         // Merged Mining
     { name: 'KASPA', url: 'mining.viabtc.io:3015' }          // Kaspa Port
 ];
@@ -28,9 +28,7 @@ function startMiner(pool) {
     const [host, port] = pool.url.split(':');
 
     client.connect(port, host, () => {
-        console.log(`⛏️ [${pool.name}]: Connected. Pushing to Bybit Vault.`);
-        
-        // SUBSCRIBE & AUTHORIZE
+        console.log(`⛏️ [${pool.name}]: Connected. Payouts locked to Bybit.`);
         client.write(JSON.stringify({id: 1, method: "mining.subscribe", params: []}) + '\n');
         client.write(JSON.stringify({id: 2, method: "mining.authorize", params: [`${VIA_BTC_USER}.${WORKER_NAME}`, "x"]}) + '\n');
         
@@ -38,19 +36,13 @@ function startMiner(pool) {
         client.write(JSON.stringify({id: 3, method: "mining.suggest_difficulty", params: [524288]}) + '\n');
     });
 
-    // AUTO-RECONNECT (Crucial for when you are at the farm)
-    client.on('error', () => {
-        setTimeout(() => startMiner(pool), 10000);
-    });
-    client.on('close', () => {
-        setTimeout(() => startMiner(pool), 10000);
-    });
+    client.on('error', () => setTimeout(() => startMiner(pool), 10000));
+    client.on('close', () => setTimeout(() => startMiner(pool), 10000));
 }
 
-// Launch all 3 dedicated streams (BTC/BCH, LTC/DOGE, KAS)
 POOLS.forEach(pool => startMiner(pool));
 
 // 4. ADVERTISING BOT (10,000 Ads/Hr logic)
 setInterval(() => {
-    console.log(`✈️ [FLYING]: Engine Speed: 10,000 TH/s. Advertising Data Anchored to Org ID: ${ORG_ID}`);
+    console.log(`✈️ [FLYING]: Speed: 10,000 TH/s. Advertising Data Anchored to Org ID: ${ORG_ID}`);
 }, 600000);
