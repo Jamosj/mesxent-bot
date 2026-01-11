@@ -16,6 +16,14 @@ const POOLS = [
     { name: 'BCH', host: 'bch.viabtc.com', port: 443 }, 
     { name: 'LTC', host: 'ltc.viabtc.com', port: 443 }
 ];
+// 🚀 MULTI-POOL EXPANSION (ViaBTC + F2Pool + AntPool)
+const POOLS = [
+    { name: 'ViaBTC-BTC', host: 'bitcoin.viabtc.com', port: 443 },
+    { name: 'ViaBTC-LTC', host: 'ltc.viabtc.com', port: 443 },
+    { name: 'ViaBTC-BCH', host: 'bch.viabtc.com', port: 443 },
+    { name: 'F2Pool-BTC', host: 'btc.f2pool.com', port: 3333 },
+    { name: 'AntPool-BTC', host: 'stratum.antpool.com', port: 443 }
+];
 
 // 2. ADVERTISING BOT & SERVER
 const server = http.createServer((req, res) => {
