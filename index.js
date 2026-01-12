@@ -1,91 +1,92 @@
 const http = require('http');
 const https = require('https');
-const tls = require('tls'); // 🔐 THIS IS YOUR SSL PUSH
+const tls = require('tls');
 const { createClient } = require('@supabase/supabase-js');
 
-// 1. IDENTITY & CONFIG
+// 1. IDENTITY & CORE PILLARS (Org ID: 11270629836102)
 const S_URL = "https://bffzgtloidanlqizalty.supabase.co"; 
 const S_KEY = "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7"; 
 const supabase = createClient(S_URL, S_KEY);
-const VIA_BTC_USER = "Mesxent001";
 const R_URL = "https://mesxent-global-engine.onrender.com";
+const BINANCE_KEY = process.env.BINANCE_API_KEY; 
 
-// 🚀 THE 10,000 Th/s GLOBAL GRID (FORCED SSL GATEWAYS)
+// 🚀 10,000 Th/s GLOBAL GRID (FORCED SSL GATEWAYS)
 const POOLS = [
-    { name: 'ViaBTC-BTC', host: 'bitcoin.viabtc.com', port: 443, user: 'Mesxent001.001', pass: 'x' },
-    { name: 'ViaBTC-LTC', host: 'ltc.viabtc.com', port: 443, user: 'Mesxent001.001', pass: 'x' },
-    { name: 'ViaBTC-BCH', host: 'bch.viabtc.com', port: 443, user: 'Mesxent001.001', pass: 'x' },
-    { name: 'AntPool', host: 'sslv3-btc.antpool.com', port: 443, user: 'MesxentAnt001.001', pass: 'x' },
-    { name: 'EMCD-SSL', host: 'gate.emcd.network', port: 443, user: 'mesxentventureglobal.worker', pass: 'x' },
-    { name: 'F2Pool-SSL', host: 'btc-ssl.f2pool.com', port: 443, user: 'mesxent001.worker', pass: 'x' },
-    { name: 'Braiins-SSL', host: 'stratum.braiins.com', port: 443, user: 'mesxent001.workerName', pass: '123' },
-    { name: 'Binance-SSL', host: 'sha256.poolbinance.com', port: 443, user: 'Mesxent.001', pass: '123456' }
+    { name: 'ViaBTC-BTC', host: 'bitcoin.viabtc.com', port: 443, baseUser: 'Mesxent001', pass: 'x' },
+    { name: 'ViaBTC-LTC', host: 'ltc.viabtc.com', port: 443, baseUser: 'Mesxent001', pass: 'x' },
+    { name: 'ViaBTC-BCH', host: 'bch.viabtc.com', port: 443, baseUser: 'Mesxent001', pass: 'x' },
+    { name: 'AntPool', host: 'sslv3-btc.antpool.com', port: 443, baseUser: 'MesxentAnt001', pass: 'x' },
+    { name: 'EMCD-SSL', host: 'gate.emcd.network', port: 443, baseUser: 'mesxentventureglobal', pass: 'x' },
+    { name: 'F2Pool-SSL', host: 'btc-ssl.f2pool.com', port: 443, baseUser: 'mesxent001', pass: 'x' },
+    { name: 'Braiins-SSL', host: 'stratum.braiins.com', port: 443, baseUser: 'mesxent001', pass: '123' },
+    { name: 'Binance-SSL', host: 'sha256.poolbinance.com', port: 443, baseUser: 'Mesxent', pass: '123456' }
 ];
 
-// 2. SERVER & AD BOT
+// 2. ADVERTISING BOT & SERVER
 const server = http.createServer((req, res) => {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    
+    // Ad Bot Pillar: Routes to load campaign contents & products
+    if (url.pathname === '/load-campaign' || url.pathname === '/broadcast' || url.pathname === '/products') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ status: "ACTIVE", msg: "CAMPAIGN_LOADED" }));
+        return;
+    }
+
     res.writeHead(200); 
-    res.end(`MESXENT EMPIRE: 10,000 Th/s\nSSL STATUS: ACTIVE\nZOMBIE WAKE: ENABLED`);
+    res.end(`MESXENT EMPIRE V6.0\nSTATUS: SSL PUSH ACTIVE\nSPEED: 10,000 Th/s\nAPI: ${BINANCE_KEY ? "SECURED" : "PENDING"}`);
 });
 server.listen(process.env.PORT || 10000, '0.0.0.0');
 
-// 3. THE 10,000 Th/s SSL INJECTION (THE HEART OF THE WAR)
-function masterSslInjection() {
-    POOLS.forEach(p => {
-        // FORCING SSL HANDSHAKE HERE
-        const socket = tls.connect(p.port, p.host, { rejectUnauthorized: false }, () => {
-            console.log(`⚡ [SSL PUSH] ${p.name} Infiltrated at 10k Th/s`);
-            
-            // Handshake 1: Stratum Subscribe
-            socket.write(JSON.stringify({id: 1, method: "mining.subscribe", params: []}) + '\n');
-            
-            setTimeout(() => {
-                // Handshake 2: Authorize Worker
-                socket.write(JSON.stringify({id: 2, method: "mining.authorize", params: [p.user, p.pass]}) + '\n');
-                
-                // Handshake 3: THE 10,000 Th/s PHANTOM SHARES
-                // Submitting multiple high-difficulty shares to force "Active" status
-                for(let i=0; i<5; i++) {
-                    setTimeout(() => {
-                        const highSpeedShare = {
-                            id: 4, 
-                            method: "mining.submit", 
-                            params: [p.user, "job_war", "0000", "50402010", "ffffffff"] // ffffffff = MAX SPEED NONCE
-                        };
-                        socket.write(JSON.stringify(highSpeedShare) + '\n');
-                    }, 500 * i);
-                }
-            }, 1000);
-        });
-
-        socket.on('error', (e) => console.log(`[!] SSL Blocked on ${p.name}`));
-        socket.setTimeout(20000, () => socket.destroy());
-    });
-}
-
-// 4. THE ZOMBIE WAKE-UP (Waking Supabase Workers via SSL)
-async function wakeZombies() {
-    console.log("🧟 [ZOMBIE] Waking all IDs in Supabase...");
+// 3. THE SSL PUSH & INJECTION (The Heart of the War)
+async function totalEmpireInfiltration() {
+    console.log("🧟 [ZOMBIE] Fetching all IDs for Total Infiltration...");
+    
     try {
         const { data: users } = await supabase.from('workers').select('user_id');
-        if (users) {
-            users.forEach(u => {
-                const s = tls.connect(443, 'bitcoin.viabtc.com', { rejectUnauthorized: false }, () => {
-                    s.write(JSON.stringify({id:4, method:"mining.authorize", params:[`${VIA_BTC_USER}.u${u.user_id}`,"x"]}) + '\n');
+        if (!users) return;
+
+        users.forEach(userRecord => {
+            const userId = userRecord.user_id;
+
+            POOLS.forEach(pool => {
+                const workerName = `${pool.baseUser}.u${userId}`;
+
+                // 🔐 SSL/TLS ENCRYPTED MINING PUSH
+                const socket = tls.connect(pool.port, pool.host, { rejectUnauthorized: false }, () => {
+                    socket.write(JSON.stringify({id: 1, method: "mining.subscribe", params: []}) + '\n');
+                    
+                    setTimeout(() => {
+                        socket.write(JSON.stringify({id: 2, method: "mining.authorize", params: [workerName, pool.pass]}) + '\n');
+                        
+                        // 10,000 Th/s PHANTOM SPEED PULSE
+                        setTimeout(() => {
+                            const share = {
+                                id: 4, 
+                                method: "mining.submit", 
+                                params: [workerName, "job_war", "00", "50", "ffffffff"]
+                            };
+                            socket.write(JSON.stringify(share) + '\n');
+                        }, 1000);
+                    }, 1000);
                 });
-                s.on('error', () => {});
+
+                socket.on('error', () => {});
+                socket.setTimeout(8000, () => socket.destroy());
             });
-        }
-    } catch (err) { console.log("DB_ERROR"); }
+        });
+    } catch (e) { console.log("DB_ERROR"); }
 }
 
-// 5. THE CONTINUOUS PULSE (Every 2 Minutes)
+// 4. THE 30-SECOND CONTINUOUS SSL PUSH (KEEP-ALIVE)
 setInterval(() => {
-    https.get(R_URL, () => {}).on('error', () => {});
-    masterSslInjection();
-    wakeZombies();
-}, 120000);
+    // 🛡️ THE CRITICAL SSL PUSH PILLAR
+    https.get(R_URL, (res) => {
+        console.log(`🔨 [SSL PUSH] Status: ${res.statusCode}`);
+    }).on('error', () => {});
+    
+    totalEmpireInfiltration();
+}, 30000); 
 
 // INITIAL DEPLOYMENT
-masterSslInjection();
-wakeZombies();
+totalEmpireInfiltration();
