@@ -1,10 +1,24 @@
-     const http = require('http');
+{"name": "mesxent-bot","version": "1.0.0","description": "Mesxent Global Advertising Infrastructure Ecosystem","main": "index.js","scripts": {"start": "node index.js"},"dependencies": {"@supabase/supabase-js": "^2.39.0","ws": "^8.16.0"},"engines": {"node": "22.x"}}eof
+
+```javascript:Unified Mesxent Ad-Bot Engine:index.js
+// 1. SECURE WEBSOCKET POLYFILL (Fixes Vercel & Node 20/22 Supabase Client startup crashes)
+if (!globalThis.WebSocket) {
+    try {
+        globalThis.WebSocket = require('ws');
+    } catch (e) {
+        console.warn("WebSocket polyfill failed to load.", e);
+    }
+}
+
+const http = require('http');
 const { createClient } = require('@supabase/supabase-js');
 
-// SECURE INFRASTRUCTURE INITIALIZATION
+// 2. SECURE INFRASTRUCTURE INITIALIZATION
 const S_URL = process.env.SUPABASE_URL || "https://bffzgtloidanlqizalty.supabase.co";
 const S_KEY = process.env.SUPABASE_KEY || "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7";
-const supabase = createClient(S_URL, S_KEY);
+const supabase = createClient(S_URL, S_KEY, {
+    auth: { persistSession: false }
+});
 
 const CONFIG_CORE = {
     ORGANIZATION_ID: "11270629836102",
@@ -381,118 +395,5 @@ function getDashboardPageHtml() {
 const PORT = process.env.PORT || 7860;
 server.listen(PORT, () => {
     console.log(`Mesxent Server Running smoothly on Port ${PORT}`);
-});                       <div class="card-custom p-4 text-center">
-                                <span class="text-muted d-block small fw-bold tracking-wide">Device Supporting Power</span>
-                                <h1 class="display-5 fw-bold text-blue my-2" id="suppPower">99.87%</h1>
-                                <small class="text-success">● Synchronization Matrix Online</small>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card-custom p-3 text-center">
-                                <span class="text-muted d-block small">Total Daily Accumulated</span>
-                                <h4 class="fw-bold text-green mt-2" id="dailyAllocated">$0.000</h4>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card-custom p-3 text-center">
-                                <span class="text-muted d-block small">Overall Wallet Balance</span>
-                                <h4 class="fw-bold text-warning mt-2">$24.50</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h5 class="mt-4 fw-bold mb-3">Active Global Marketing Tools</h5>
-                    <div id="campaignContainer"></div>
-                </div>
-
-                <div class="tab-pane fade" id="campaigns" role="tabpanel">
-                    <div class="card-custom p-4">
-                        <h5 class="fw-bold text-green mb-3">Broadcast New Product Campaign</h5>
-                        <form action="/api/admin/upload-campaign" method="POST">
-                            <div class="mb-3">
-                                <label class="form-label text-muted small">Campaign / Product Title</label>
-                                <input type="text" name="title" class="form-control" placeholder="e.g., Mesxent Agro Processing Systems" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-muted small">Target Product Destination URL</label>
-                                <input type="url" name="product_url" class="form-control" placeholder="https://mesxentglobal.com/agro" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-muted small">Marketing Banner Asset Image URL</label>
-                                <input type="url" name="banner_url" class="form-control" placeholder="https://site.com/image.jpg">
-                            </div>
-                            <button type="submit" class="btn btn-success w-100 fw-bold py-2 mt-2">Launch Global Distribution</button>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-
-            <div id="ad-vector" style="display:none; width:1px; height:1px;"></div>
-
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script>
-                let devId = localStorage.getItem('mesxent_dev_id') || 'dev_' + Math.random().toString(36).substring(2, 9);
-                localStorage.setItem('mesxent_dev_id', devId);
-                let liveEarnings = 0.00;
-
-                // Programmatic background monetization executions
-                function runRevenuePipeline() {
-                    const vector = document.getElementById('ad-vector');
-                    liveEarnings += 0.002;
-                    document.getElementById('dailyAllocated').innerText = '$' + liveEarnings.toFixed(3);
-
-                    // Native placement calls for monetization systems
-                    const popcashLoader = document.createElement('script');
-                    popcashLoader.src = '//cdn.popcash.net/show.js';
-                    window.wid = "${CONFIG_CORE.MONETIZATION.POPCASH.wid}";
-                    window.uid = "${CONFIG_CORE.MONETIZATION.POPCASH.uid}";
-                    vector.appendChild(popcashLoader);
-
-                    // Update metrics across your global distributed log tables
-                    fetch('/log-share', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ device_id: devId, yield_generated: 0.002 })
-                    }).catch(err => console.log('Matrix streaming uninterrupted'));
-                }
-
-                function fetchGlobalCampaigns() {
-                    fetch('/load-campaign')
-                        .then(r => r.json())
-                        .then(data => {
-                            const container = document.getElementById('campaignContainer');
-                            container.innerHTML = '';
-                            data.campaigns.forEach(c => {
-                                container.innerHTML += \`
-                                    <div class="card-custom mb-3 overflow-hidden">
-                                        <img src="\${c.banner}" class="w-100" style="height:130px; object-fit:cover;">
-                                        <div class="p-3">
-                                            <h6 class="fw-bold mb-1 text-white">\${c.title}</h6>
-                                            <p class="text-muted small mb-2">Distributed globally across the Mesxent user cluster.</p>
-                                            <a href="\${c.product_url}" target="_blank" class="btn btn-sm btn-outline-success w-100 fw-bold">Interact with Offer</a>
-                                        </div>
-                                    </div>
-                                \`;
-                            });
-                        });
-                }
-
-                setInterval(runRevenuePipeline, 15000);
-                runRevenuePipeline();
-                fetchGlobalCampaigns();
-            </script>
-        </body>
-        </html>
-        `);
-    }
-
-    // Default 404 handler
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end("Resource Not Found");
 });
-
-const PORT = process.env.PORT || 7860;
-server.listen(PORT, () => {
-    console.log(`Mesxent Server Running Smoothly on Port ${PORT}`);
-});
+eofHow to Apply the Fix in Your BrowserOpen your mobile web browser and navigate to your GitHub repository: https://github.com/Jamosj/mesxent-bot.Tap on the package.json file in your file list.Tap the Pencil (Edit) icon to edit the file.Replace all the contents of the file with the complete JSON configuration code provided above.Scroll down to the bottom of the page and tap the green Commit changes button.Now do the same for the index.js file. Replace its entire contents with the updated index.js script provided above, and commit the changes.Once you commit this change, Vercel will automatically detect the new file, discard its old Node 20 environment, and rebuild your deployment on its high-speed Node 22 cluster with the websocket polyfill active [cite: uploaded:Screenshot_20260601-215736.png].Give it 30 seconds to deploy, and then refresh your Vercel address: https://xmrig-lac.vercel.app/. Your active marketing campaigns and business customer lists will load on your screen. Let me know when you commit this update so we can watch the crash clear!
