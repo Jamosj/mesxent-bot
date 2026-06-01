@@ -1,26 +1,23 @@
-// 1. SECURE WEBSOCKET POLYFILL (Fixes Vercel & Node 20/22 Supabase Client startup crashes)
 if (!globalThis.WebSocket) {
-    try {
-        globalThis.WebSocket = require('ws');
-    } catch (e) {
-        console.warn("WebSocket polyfill failed to load.", e);
-    }
+    globalThis.WebSocket = class DummyWebSocket {
+        static CONNECTING = 0;
+        static OPEN = 1;
+        static CLOSING = 2;
+        static CLOSED = 3;
+        constructor() {
+            console.log("Mock WebSocket active for serverless engine stability");
+        }
+    };
 }
 
 const http = require('http');
 const { createClient } = require('@supabase/supabase-js');
 
-// 2. SECURE INFRASTRUCTURE INITIALIZATION WITH ERROR-BOUNDARIES
-let supabase;
-try {
-    const S_URL = process.env.SUPABASE_URL || "https://bffzgtloidanlqizalty.supabase.co";
-    const S_KEY = process.env.SUPABASE_KEY || "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7";
-    supabase = createClient(S_URL, S_KEY, {
-        auth: { persistSession: false }
-    });
-} catch (err) {
-    console.error("Supabase client failed to initialize safely. Proceeding with cache mode.", err);
-}
+const S_URL = process.env.SUPABASE_URL || "https://bffzgtloidanlqizalty.supabase.co";
+const S_KEY = process.env.SUPABASE_KEY || "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7";
+const supabase = createClient(S_URL, S_KEY, {
+    auth: { persistSession: false }
+});
 
 const CONFIG_CORE = {
     ORGANIZATION_ID: "11270629836102",
@@ -32,7 +29,6 @@ const CONFIG_CORE = {
     }
 };
 
-// 3. MASTER ROUTER & CONFIGURATION MATRIX
 const requestHandler = async (req, res) => {
     // Inject global cross-origin safe headers
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -45,12 +41,12 @@ const requestHandler = async (req, res) => {
         return;
     }
 
-    const url = new URL(req.url, `http://${req.headers.host}`);
+    // Parsing the URL safely using a hardcoded base to prevent Vercel proxy header crashes
+    const url = new URL(req.url, `http://localhost`);
 
     // API: Load Campaigns directly from Supabase (ensures persistence on Vercel)
     if (url.pathname === '/load-campaign') {
         try {
-            if (!supabase) throw new Error("Database client inactive");
             const { data, error } = await supabase
                 .from('marketing_campaigns')
                 .select('*')
@@ -59,19 +55,17 @@ const requestHandler = async (req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ status: "SUCCESS", campaigns: data || [] }));
         } catch (e) {
-            // Safe fallback response to prevent app crash if database query times out
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ status: "SUCCESS", campaigns: [] }));
         }
     }
 
-    // API: Handle Rich Customer Registration (Build Customer Database)
+    // API: Handle Business Customer Registration (Build Customer Database)
     if (url.pathname === '/api/register' && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
         req.on('end', async () => {
             try {
-                if (!supabase) throw new Error("Database offline");
                 const params = new URLSearchParams(body);
                 const full_name = params.get('full_name');
                 const phone_number = params.get('phone_number');
@@ -96,7 +90,6 @@ const requestHandler = async (req, res) => {
 
                     if (error) throw error;
                     
-                    // Redirect straight to logged-in Dashboard layout
                     res.writeHead(302, { 'Location': '/?registered=true' });
                     res.end();
                 } else {
@@ -117,7 +110,6 @@ const requestHandler = async (req, res) => {
         req.on('data', chunk => { body += chunk.toString(); });
         req.on('end', async () => {
             try {
-                if (!supabase) throw new Error("Database offline");
                 const params = new URLSearchParams(body);
                 const title = params.get('title');
                 const product_url = params.get('product_url');
@@ -151,7 +143,6 @@ const requestHandler = async (req, res) => {
         req.on('data', chunk => { body += chunk.toString(); });
         req.on('end', async () => {
             try {
-                if (!supabase) throw new Error("Database offline");
                 const data = JSON.parse(body);
                 await supabase
                     .from('traffic_logs')
@@ -400,10 +391,8 @@ function getDashboardPageHtml() {
     `;
 }
 
-// 4. EXPORT HANDLER FOR VERCEL SERVERLESS FRAMEWORK
 module.exports = requestHandler;
 
-// 5. RUN PERSISTENT SERVER INSTANCE ONLY WHEN RUNNING ON PERSISTENT CLOUDS (Render, Hugging Face, Local)
 if (!process.env.VERCEL) {
     const server = http.createServer(requestHandler);
     const PORT = process.env.PORT || 7860;
@@ -412,14 +401,4 @@ if (!process.env.VERCEL) {
     });
 }
 ```
-eof
-
----
-
-### Step 2: Push Your Code & Clear the Cache
-
-1. Go to your GitHub repository: `https://github.com/Jamosj/mesxent-bot`.
-2. Open your `index.js` file, tap the Pencil icon, replace its entire contents with the updated script above, and commit the changes.
-3. Open your Vercel Dashboard, tap on your `mesxent-bot` project, and watch the deployment logs. Vercel will rebuild the deployment using the serverless export.
-
-Once the compile succeeds, refresh your Vercel link `https://xmrig-lac.vercel.app/`! It will instantly load your beautiful dashboard [cite: uploaded:Screenshot_20260601-215736.png], and we can verify your campaigns and business sign-ups in parallel.
+`
