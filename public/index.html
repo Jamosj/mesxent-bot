@@ -10,80 +10,114 @@
         body { background-color: #060913; color: #e2e8f0; font-family: system-ui, sans-serif; }
         .card-custom { background: #0f1626; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; }
         .text-green { color: #10b981; } .text-blue { color: #3b82f6; } .text-naira { color: #f59e0b; }
+        .nav-tabs .nav-link { color: #94a3b8; font-weight: bold; }
+        .nav-tabs .nav-link.active { color: #10b981; background: transparent; border-bottom: 3px solid #10b981; }
         .gate-bg { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .d-none { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- AUTH GATE -->
+    <!-- 1. AUTH & REGISTRATION GATES -->
     <div id="systemLoginGate" class="gate-bg">
         <div class="card-custom w-100" style="max-width: 400px;">
-            <h4 class="text-green text-center mb-4">MESXENT OS COMMAND</h4>
+            <h4 class="text-green text-center mb-4">MESXENT NETWORK OS</h4>
             <input type="text" id="loginUser" class="form-control mb-3 bg-dark text-white" placeholder="Username">
             <input type="password" id="loginPass" class="form-control mb-3 bg-dark text-white" placeholder="Password">
-            <button class="btn btn-success w-100 fw-bold" onclick="processAuth()">Access Secure Workspace</button>
+            <button class="btn btn-success w-100 fw-bold" onclick="processAuth()">Access Workspace</button>
+            <button class="btn btn-link text-blue w-100 mt-2" onclick="showRegister()">Register New Business Node</button>
         </div>
     </div>
 
-    <!-- MAIN WORKSPACE -->
+    <div id="systemRegisterGate" class="gate-bg d-none">
+        <div class="card-custom w-100" style="max-width: 400px;">
+            <h4 class="text-green text-center mb-4">Node Registration</h4>
+            <input type="text" id="reg_name" class="form-control mb-2" placeholder="Full Name">
+            <input type="email" id="reg_email" class="form-control mb-2" placeholder="Business Email">
+            <button class="btn btn-success w-100" onclick="submitRegistration()">Register Now</button>
+            <button class="btn btn-link text-muted w-100 mt-2" onclick="hideRegister()">Back to Login</button>
+        </div>
+    </div>
+
+    <!-- 2. FULL RESTORED WORKSPACE -->
     <div id="appInterfaceWorkspace" class="p-3 d-none">
-        <h4 class="text-green fw-bold">CHAIRMAN'S OFFICE</h4>
-        
-        <!-- EXPANDED CAMPAIGN LOADER -->
-        <div id="adminLoader" class="card-custom mt-4">
+        <div class="d-flex justify-content-between mb-3">
+            <h4 class="text-green fw-bold">CHAIRMAN'S OFFICE</h4>
+            <button class="btn btn-sm btn-outline-danger" onclick="location.reload()">Logout</button>
+        </div>
+
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item"><button class="nav-link active" onclick="showTab('adminOverview')">Overview</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="showTab('adminLoader')">Campaign Loader</button></li>
+        </ul>
+
+        <!-- RESTORED OVERVIEW -->
+        <div id="adminOverview">
+            <div class="row g-3 mb-4">
+                <div class="col-4 card-custom text-center"><small>Ads/Sec</small><h3 id="liveAdsSec" class="text-blue">38</h3></div>
+                <div class="col-4 card-custom text-center"><small>Nodes</small><h3 id="liveNodes" class="text-green">0</h3></div>
+                <div class="col-4 card-custom text-center"><small>Naira Value</small><h3 id="liveNaira" class="text-naira">₦0</h3></div>
+            </div>
+        </div>
+
+        <!-- RESTORED & ENHANCED LOADER -->
+        <div id="adminLoader" class="d-none card-custom">
             <h5>Deploy Global Campaign & Ad Units</h5>
             <form id="campaignForm">
                 <input type="text" id="cam_title" class="form-control mb-2" placeholder="Campaign Title" required>
-                <textarea id="cam_desc" class="form-control mb-2" placeholder="Campaign Description / Objective" rows="2"></textarea>
-                <input type="url" id="cam_url" class="form-control mb-2" value="https://www.mesxentventureglobal.store" placeholder="Monetization / Landing Link">
-                <input type="text" id="cam_ad_id" class="form-control mb-2" placeholder="Ad Unit ID / Placement Token">
-                
+                <textarea id="cam_desc" class="form-control mb-2" placeholder="Campaign Description" rows="2"></textarea>
+                <input type="url" id="cam_url" class="form-control mb-2" value="https://www.mesxentventureglobal.store">
+                <input type="text" id="cam_ad_id" class="form-control mb-2" placeholder="Ad Unit ID / Token">
                 <select id="cam_media_type" class="form-select mb-2">
-                    <option value="IMAGE">Image Content</option>
-                    <option value="VIDEO">Video Content</option>
-                    <option value="PDF">PDF Catalog</option>
+                    <option value="IMAGE">Image</option>
+                    <option value="VIDEO">Video</option>
                 </select>
                 <button type="submit" class="btn btn-success w-100">Broadcast Campaign & Activate Ad-Units</button>
             </form>
         </div>
     </div>
 
-    <!-- EMBEDDED AD-MONETIZATION SANDBOX (Stays active in the background) -->
-    <div id="ad-sandbox" style="display:none; width:1px; height:1px;"></div>
-
     <script>
         const _supabase = supabase.createClient("https://bffzgtloidanlqizalty.supabase.co", "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7");
 
-        // AD PLATFORM EMBEDDING
-        function injectAdPlatforms(adId) {
-            const sandbox = document.getElementById('ad-sandbox');
-            const loader = document.createElement('script');
-            // Your primary monetization engine
-            loader.src = '//cdn.popcash.net/show.js'; 
-            window.wid = adId || "750528"; 
-            window.uid = "498480";
-            sandbox.appendChild(loader);
-            console.log("Monetization platform active with ID:", adId);
+        // NAVIGATION LOGIC
+        function showTab(id) {
+            document.getElementById('adminOverview').classList.add('d-none');
+            document.getElementById('adminLoader').classList.add('d-none');
+            document.getElementById(id).classList.remove('d-none');
         }
 
-        // FULL CAMPAIGN SUBMISSION WITH MONETIZATION DATA
+        function showRegister() { document.getElementById('systemLoginGate').classList.add('d-none'); document.getElementById('systemRegisterGate').classList.remove('d-none'); }
+        function hideRegister() { document.getElementById('systemRegisterGate').classList.add('d-none'); document.getElementById('systemLoginGate').classList.remove('d-none'); }
+
+        async function processAuth() {
+            if(document.getElementById('loginUser').value === "Jeremy") {
+                document.getElementById('systemLoginGate').classList.add('d-none');
+                document.getElementById('appInterfaceWorkspace').classList.remove('d-none');
+            }
+        }
+
+        // RESTORED SUBMISSION ENGINE
         document.getElementById('campaignForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const assetData = {
+            const data = {
                 title: document.getElementById('cam_title').value,
                 description: document.getElementById('cam_desc').value,
-                product_url: document.getElementById('cam_url').value,
-                ad_unit_id: document.getElementById('cam_ad_id').value,
-                media_type: document.getElementById('cam_media_type').value,
-                status: "ACTIVE"
+                ad_unit_id: document.getElementById('cam_ad_id').value
             };
+            const { error } = await _supabase.from('marketing_campaigns').insert([data]);
+            if (!error) alert("Campaign broadcasted with Ad-Units.");
+        });
 
-            // Deploy to your database
-            const { error } = await _supabase.from('marketing_campaigns').insert([assetData]);
-            
-            if (!error) {
-                // Activate Ad-Unit immediately
-                injectAdPlatforms(assetData.ad_unit_id);
+        async function submitRegistration() {
+            const data = { full_name: document.getElementById('reg_name').value, email: document.getElementById('reg_email').value };
+            await _supabase.from('customer_profiles').insert([data]);
+            alert("Registration successful.");
+            hideRegister();
+        }
+    </script>
+</body>
+</html>                injectAdPlatforms(assetData.ad_unit_id);
                 alert("Campaign broadcasted. Ad Monetization unit " + assetData.ad_unit_id + " initialized.");
                 document.getElementById('campaignForm').reset();
             }
