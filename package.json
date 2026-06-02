@@ -1,3 +1,12 @@
-{"name": "mesxent-bot","version": "1.0.0","description": "Mesxent Global Advertising Infrastructure Ecosystem","main": "index.js","scripts": {"start": "node index.js"},"dependencies": {"@supabase/supabase-js": "^2.39.0"},"engines": {"node": "22.x"}}eof
-
----
+{
+  "name": "mesxent-core-engine",
+  "version": "1.0.0",
+  "description": "Mesxent Ad OS and Customer Database",
+  "main": "api/index.js",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
