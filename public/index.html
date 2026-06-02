@@ -7,69 +7,62 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { background-color: #060913; color: #fff; font-family: sans-serif; }
-        .hero-agri { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=1000'); background-size: cover; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; }
+        body { background-color: #060913; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
         .card-custom { background: #0f1626; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; }
-        .nav-link { cursor: pointer; color: #94a3b8; font-weight: bold; }
-        .nav-link.active { color: #10b981; border-bottom: 3px solid #10b981; }
+        .nav-tabs .nav-link { color: #94a3b8; font-weight: bold; border: none; }
+        .nav-tabs .nav-link.active { color: #10b981; border-bottom: 3px solid #10b981; background: transparent; }
+        .gate-bg { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
         .d-none { display: none !important; }
+        .text-green { color: #10b981; }
     </style>
 </head>
 <body>
 
-    <div id="landingGate">
-        <div class="hero-agri">
-            <div>
-                <h1 class="fw-bold text-green">MESXENT AGRI-OS</h1>
-                <p>Global Automation Infrastructure</p>
-                <button class="btn btn-success" onclick="showSection('regGate')">Register New Node</button>
-                <button class="btn btn-outline-light" onclick="showSection('loginGate')">Chairman Login</button>
+    <div id="authGate" class="gate-bg">
+        <div class="card-custom w-100" style="max-width:400px">
+            <h4 class="text-green text-center mb-4">MESXENT AGRO SYSTEMS</h4>
+            <div id="loginSection">
+                <input type="text" id="loginUser" class="form-control mb-2 bg-dark text-white" placeholder="Username">
+                <button class="btn btn-success w-100" onclick="processAuth()">Chairman Access</button>
+                <button class="btn btn-link text-muted w-100" onclick="toggleView('regSection')">Register New Node</button>
+            </div>
+            <div id="regSection" class="d-none">
+                <input type="text" id="r_name" class="form-control mb-2" placeholder="Full Name">
+                <input type="email" id="r_email" class="form-control mb-2" placeholder="Email">
+                <button class="btn btn-success w-100" onclick="registerNode()">Confirm Application</button>
+                <button class="btn btn-link text-muted w-100" onclick="toggleView('loginSection')">Back to Login</button>
             </div>
         </div>
     </div>
 
-    <div id="authContainer" class="p-4 d-none">
-        <div id="loginGate" class="card-custom mx-auto" style="max-width:400px">
-            <h4 class="text-green text-center">CHAIRMAN ACCESS</h4>
-            <input type="text" id="loginUser" class="form-control mb-2" placeholder="Username">
-            <button class="btn btn-success w-100" onclick="processAuth()">ACCESS COMMAND</button>
-        </div>
-        <div id="regGate" class="card-custom mx-auto d-none" style="max-width:400px">
-            <h4 class="text-green text-center">NODE REGISTRATION</h4>
-            <input type="text" id="r_name" class="form-control mb-2" placeholder="Full Name">
-            <input type="email" id="r_email" class="form-control mb-2" placeholder="Email">
-            <button class="btn btn-success w-100" onclick="registerNode()">SUBMIT APPLICATION</button>
-        </div>
-    </div>
-
-    <div id="appInterface" class="p-3 d-none">
+    <div id="mainDashboard" class="p-3 d-none">
         <div class="d-flex justify-content-between mb-4">
-            <h5 class="text-green">CHAIRMAN'S OFFICE</h5>
-            <button class="btn btn-sm btn-outline-danger" onclick="location.reload()">LOGOUT</button>
+            <h5 class="text-green">CHAIRMAN'S OFFICIAL COMMAND OFFICE</h5>
+            <button class="btn btn-sm btn-outline-danger" onclick="location.reload()">Logout</button>
         </div>
 
-        <ul class="nav mb-3">
-            <li class="nav-item"><a class="nav-link active" onclick="tabSwitch('overview')">Overview</a></li>
-            <li class="nav-item"><a class="nav-link" onclick="tabSwitch('loader')">Campaigns</a></li>
-            <li class="nav-item"><a class="nav-link" onclick="tabSwitch('users')">User Dashboards</a></li>
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item"><button class="nav-link active" onclick="switchTab('overview')">Ecosystem Overview</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="switchTab('loader')">Load Global Campaigns</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="switchTab('users')">User Dashboards</button></li>
         </ul>
 
-        <div id="overviewTab" class="row g-2 mb-4">
-            <div class="col-4 card-custom text-center"><small>Ads/Sec</small><h4 id="liveAds">0</h4></div>
-            <div class="col-4 card-custom text-center"><small>Nodes</small><h4 id="liveNodes">0</h4></div>
-            <div class="col-4 card-custom text-center"><small>Naira</small><h4 id="liveNaira">₦0</h4></div>
+        <div id="overviewTab" class="row g-3">
+            <div class="col-4 card-custom text-center"><small>Ads/Sec</small><h3 id="liveAds">0</h3></div>
+            <div class="col-4 card-custom text-center"><small>Entities</small><h3 id="liveNodes">0</h3></div>
+            <div class="col-4 card-custom text-center"><small>Naira Value</small><h3 id="liveNaira">₦0</h3></div>
         </div>
 
         <div id="loaderTab" class="card-custom d-none">
-            <h5>Campaign Deployment</h5>
             <input type="text" id="cam_title" class="form-control mb-2" placeholder="Campaign Title">
-            <textarea id="cam_desc" class="form-control mb-2" placeholder="Description"></textarea>
-            <input type="text" id="cam_ad_id" class="form-control mb-2" placeholder="Ad Unit ID">
-            <button class="btn btn-success w-100" onclick="deployCampaign()">BROADCAST</button>
+            <textarea id="cam_desc" class="form-control mb-2" placeholder="Campaign Description / Objective"></textarea>
+            <input type="url" id="cam_url" class="form-control mb-2" value="https://www.mesxentventureglobal.store">
+            <input type="text" id="cam_ad_id" class="form-control mb-2" placeholder="Ad Unit ID / Placement Token">
+            <button class="btn btn-success w-100" onclick="deployCampaign()">Broadcast Globally</button>
         </div>
 
         <div id="usersTab" class="card-custom d-none">
-            <h5>Manage Registered Entities</h5>
+            <h6>Registered Organization Nodes</h6>
             <div id="userList"></div>
         </div>
     </div>
@@ -77,42 +70,46 @@
     <script>
         const _supabase = supabase.createClient("https://bffzgtloidanlqizalty.supabase.co", "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7");
 
-        function showSection(id) {
-            document.querySelectorAll('#landingGate, #authContainer, #loginGate, #regGate').forEach(el => el.classList.add('d-none'));
-            if(id === 'landingGate') document.getElementById('landingGate').classList.remove('d-none');
-            else { document.getElementById('authContainer').classList.remove('d-none'); document.getElementById(id).classList.remove('d-none'); }
+        function toggleView(v) {
+            document.getElementById('loginSection').classList.add('d-none');
+            document.getElementById('regSection').classList.add('d-none');
+            document.getElementById(v).classList.remove('d-none');
         }
 
-        function tabSwitch(tab) {
-            document.querySelectorAll('#overviewTab, #loaderTab, #usersTab').forEach(el => el.classList.add('d-none'));
-            document.getElementById(tab + 'Tab').classList.remove('d-none');
+        function switchTab(t) {
+            ['overview', 'loader', 'users'].forEach(tab => document.getElementById(tab + 'Tab').classList.add('d-none'));
+            document.getElementById(t + 'Tab').classList.remove('d-none');
         }
 
         async function processAuth() {
             if(document.getElementById('loginUser').value === "Jeremy") {
-                document.getElementById('authContainer').classList.add('d-none');
-                document.getElementById('appInterface').classList.remove('d-none');
-                setInterval(refreshStats, 3000);
-                refreshStats();
+                document.getElementById('authGate').classList.add('d-none');
+                document.getElementById('mainDashboard').classList.remove('d-none');
+                setInterval(refresh, 3000); refresh();
             }
         }
 
-        async function refreshStats() {
+        async function refresh() {
             const { count: ads } = await _supabase.from('traffic_logs').select('*', { count: 'exact', head: true });
             const { count: nodes } = await _supabase.from('customer_profiles').select('*', { count: 'exact', head: true });
-            document.getElementById('liveAds').innerText = ads || 0;
-            document.getElementById('liveNodes').innerText = nodes || 0;
-            document.getElementById('liveNaira').innerText = "₦" + ((ads || 0) * 1500).toLocaleString();
+            const adCount = ads || 0;
+            const nodeCount = nodes || 0;
+            document.getElementById('liveAds').innerText = adCount;
+            document.getElementById('liveNodes').innerText = nodeCount;
+            document.getElementById('liveNaira').innerText = "₦" + (adCount * 1500).toLocaleString();
         }
 
         async function registerNode() {
             await _supabase.from('customer_profiles').insert([{ full_name: document.getElementById('r_name').value }]);
-            alert("Registration Submitted");
-            showSection('landingGate');
+            alert("Application Submitted");
         }
 
         async function deployCampaign() {
-            await _supabase.from('marketing_campaigns').insert([{ title: document.getElementById('cam_title').value }]);
+            await _supabase.from('marketing_campaigns').insert([{ 
+                title: document.getElementById('cam_title').value,
+                description: document.getElementById('cam_desc').value,
+                ad_unit_id: document.getElementById('cam_ad_id').value 
+            }]);
             alert("Campaign Broadcasted");
         }
     </script>
