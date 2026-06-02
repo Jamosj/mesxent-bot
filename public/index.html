@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { background-color: #0c101b; color: #e2e8f0; font-family: system-ui, sans-serif; }
-        .card-custom { background: #141b2d; border: 1px solid #1f293d; border-radius: 12px; }
+        .card-custom { background: #141b2d; border: 1px solid #1f293d; border-radius: 12px; height: 100%; }
         .text-green { color: #10b981; }
         .text-blue { color: #3b82f6; }
         .nav-tabs .nav-link { color: #94a3b8; border: none; }
@@ -16,6 +16,8 @@
         .form-control, .form-select { background-color: #090d16; border: 1px solid #1f293d; color: white; }
         .form-control:focus, .form-select:focus { background-color: #090d16; color: white; border-color: #10b981; box-shadow: none; }
         .secure-lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+        .media-preview-box { background: #090d16; border-radius: 8px; max-height: 220px; object-fit: cover; width: 100%; }
+        .affiliate-badge { position: absolute; top: 10px; right: 10px; background: rgba(59, 130, 246, 0.9); font-size: 0.75rem; color: white; padding: 2px 8px; border-radius: 4px; }
     </style>
 </head>
 <body class="p-3">
@@ -43,12 +45,12 @@
     <div class="tab-content" id="appTabsContent">
         
         <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
-            <div class="row g-3">
+            <div class="row g-3 mb-4">
                 <div class="col-12">
                     <div class="card-custom p-4 text-center">
                         <span class="text-muted d-block small fw-bold">Network Distribution Capacity</span>
                         <h1 class="display-5 fw-bold text-blue my-2">99.98%</h1>
-                        <small class="text-success">● Protected Brand Routing Active</small>
+                        <small class="text-success">● Monitored Brand Distribution Active</small>
                     </div>
                 </div>
                 <div class="col-6">
@@ -65,8 +67,17 @@
                 </div>
             </div>
 
-            <h5 class="mt-4 fw-bold mb-3">Live Campaigns Stream</h5>
-            <div id="campaignContainer"></div>
+            <div class="row g-4">
+                <div class="col-md-7">
+                    <h5 class="fw-bold mb-3 text-green">Live Corporate & Media Stream</h5>
+                    <div id="campaignContainer"></div>
+                </div>
+
+                <div class="col-md-5">
+                    <h5 class="fw-bold mb-3 text-blue">Affiliate Ad Placements</h5>
+                    <div id="affiliateAdContainer"></div>
+                </div>
+            </div>
         </div>
 
         <div class="tab-pane fade" id="signup" role="tabpanel">
@@ -118,34 +129,61 @@
         <div class="tab-pane fade" id="campaigns" role="tabpanel">
             
             <div id="mdAuthGate" class="card-custom secure-lock-screen">
-                <h4 class="text-warning fw-bold mb-2">⚠️ Managing Director Verification</h4>
+                <h4 class="text-warning fw-bold mb-2">⚠️ Managing Director Authentication</h4>
                 <p class="text-muted text-center small mb-4" style="max-width: 320px;">
-                    This control dashboard broadcasts live assets globally. Access is restricted exclusively to the Chief Executive/MD.
+                    This control dashboard broadcasts assets globally. Access is restricted exclusively to the Chief Executive/MD.
                 </p>
                 <div class="w-100" style="max-width: 300px;">
-                    <input type="password" id="mdPinField" class="form-control text-center fs-4 tracking-widest mb-3" placeholder="ENTER ACCESS PIN">
-                    <button type="button" class="btn btn-warning w-100 fw-bold py-2" onclick="verifyMDPin()">Unlock Administrative Panels</button>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">Admin Username</label>
+                        <input type="text" id="mdUserField" class="form-control text-center" placeholder="Username">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">Security Password</label>
+                        <input type="password" id="mdPassField" class="form-control text-center" placeholder="Password">
+                    </div>
+                    <button type="button" class="btn btn-warning w-100 fw-bold py-2" onclick="verifyMDLogin()">Authenticate Access</button>
                 </div>
             </div>
 
             <div id="mdCampaignFormWrapper" class="card-custom p-4 d-none">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="fw-bold text-green mb-0">Broadcast Global Corporate Campaign</h5>
-                    <button class="btn btn-sm btn-danger fw-bold" onclick="lockMDPortal()">Lock Panel</button>
+                    <button class="btn btn-sm btn-danger fw-bold" onclick="lockMDPortal()">Log Out</button>
                 </div>
                 <form id="campaignForm">
                     <div class="mb-3">
                         <label class="form-label text-muted small">Campaign Title</label>
-                        <input type="text" id="cam_title" class="form-control" placeholder="e.g., Premium Poultry Feed Shipments" required>
+                        <input type="text" id="cam_title" class="form-control" placeholder="e.g., Batch C Organic Poultry Feeds Catalog" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-muted small">Target Product Link (Landing Domain)</label>
                         <input type="url" id="cam_url" class="form-control" value="https://mesxentventureglobal.store" required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label text-muted small">Banner Image URL</label>
-                        <input type="url" id="cam_banner" class="form-control" placeholder="https://site.com/banner.jpg">
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted small">Asset Media Type</label>
+                            <select id="cam_media_type" class="form-select" onchange="toggleUrlPlaceholders()">
+                                <option value="IMAGE">Image Link (PNG, JPG, JPEG, GIF)</option>
+                                <option value="VIDEO">Video Link (MP4, WebM)</option>
+                                <option value="PDF">Document Link (PDF Catalog / Invoice)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted small">Campaign Category Class</label>
+                            <select id="cam_class" class="form-select">
+                                <option value="MESXENT_CORE">Mesxent Official Brand Stream</option>
+                                <option value="AFFILIATE_AD">Third Party / Affiliate Advertisement Column</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small" id="urlInputLabel">Media Resource URL</label>
+                        <input type="url" id="cam_media_url" class="form-control" placeholder="https://yourstorage.com/file.jpg" required>
+                    </div>
+
                     <button type="submit" class="btn btn-success w-100 fw-bold py-2">Deploy Live Globally</button>
                 </form>
             </div>
@@ -158,27 +196,56 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Supabase Initialization Parameters
+        // Connected Database Parameters
         const S_URL = "https://bffzgtloidanlqizalty.supabase.co";
         const S_KEY = "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7";
         const _supabase = supabase.createClient(S_URL, S_KEY);
 
-        // Your secure Managing Director Entry PIN
-        const MD_MASTER_PIN = "1127"; 
+        // Owner Account Presets
+        const ADMIN_USER = "Jeremy";
+        const ADMIN_PASS = "CHAIRMAN_2026";
         let isAuthorizedMD = false;
 
         let deviceId = localStorage.getItem('mes_dev_id') || 'dev_' + Math.random().toString(36).substring(2, 9);
         localStorage.setItem('mes_dev_id', deviceId);
         let dayRevenue = 0.00;
 
-        // Corrected Fallback pointing directly to your legal store domain
-        const fallbackCampaigns = [{
-            title: "Mesxent Venture Global Official Launch",
-            product_url: "https://mesxentventureglobal.store",
-            banner: "https://images.unsplash.com/photo-1593113598332-cd288d649433?w=500"
-        }];
+        // Clean Brand Fallback Data
+        const fallbackCampaigns = [
+            {
+                title: "Mesxent Venture Global Official Launch",
+                product_url: "https://mesxentventureglobal.store",
+                media_url: "https://images.unsplash.com/photo-1595855759920-86582396756a?w=600",
+                media_type: "IMAGE",
+                category_class: "MESXENT_CORE"
+            },
+            {
+                title: "Premium Aggregated Farming Systems Affiliates",
+                product_url: "https://mesxentventureglobal.store",
+                media_url: "https://images.unsplash.com/photo-1625246333195-78d9c38ad451?w=400",
+                media_type: "IMAGE",
+                category_class: "AFFILIATE_AD"
+            }
+        ];
 
-        // MD Gatekeeper Routing Scripts
+        // UI Helpers
+        function toggleUrlPlaceholders() {
+            const mType = document.getElementById('cam_media_type').value;
+            const label = document.getElementById('urlInputLabel');
+            const field = document.getElementById('cam_media_url');
+            
+            if (mType === "VIDEO") {
+                label.innerText = "Video Streaming URL (.mp4 / .webm)";
+                field.placeholder = "https://yourstorage.com/promo_video.mp4";
+            } else if (mType === "PDF") {
+                label.innerText = "Document Cloud URL (.pdf)";
+                field.placeholder = "https://yourstorage.com/product_brochure.pdf";
+            } else {
+                label.innerText = "Image Asset URL (.jpg / .png / .gif)";
+                field.placeholder = "https://yourstorage.com/banner_graphics.jpg";
+            }
+        }
+
         function checkMDAuth() {
             if (isAuthorizedMD) {
                 document.getElementById('mdAuthGate').classList.add('d-none');
@@ -189,27 +256,45 @@
             }
         }
 
-        function verifyMDPin() {
-            const enteredPin = document.getElementById('mdPinField').value;
-            if (enteredPin === MD_MASTER_PIN) {
+        function verifyMDLogin() {
+            const user = document.getElementById('mdUserField').value;
+            const pass = document.getElementById('mdPassField').value;
+            
+            if (user === ADMIN_USER && pass === ADMIN_PASS) {
                 isAuthorizedMD = true;
-                document.getElementById('mdPinField').value = "";
+                document.getElementById('mdUserField').value = "";
+                document.getElementById('mdPassField').value = "";
                 checkMDAuth();
             } else {
-                alert("ACCESS DENIED: Invalid Managing Director Passcode Security Verification.");
-                document.getElementById('mdPinField').value = "";
+                alert("ACCESS DENIED: Invalid Owner Credentials.");
+                document.getElementById('mdPassField').value = "";
             }
         }
 
         function lockMDPortal() {
             isAuthorizedMD = false;
             checkMDAuth();
-            // Programmatically return to dashboard tab
-            const triggerEl = document.querySelector('#dash-tab');
-            bootstrap.Tab.getInstance(triggerEl).show();
+            bootstrap.Tab.getInstance(document.querySelector('#dash-tab')).show();
         }
 
-        // Programmatic Background Ad Monetization Matrix
+        // Native Multi-Format Media Renderer Engine
+        function renderMediaElement(url, type) {
+            if (type === "VIDEO") {
+                return `<video src="${url}" controls class="media-preview-box" muted playsinline></video>`;
+            } else if (type === "PDF") {
+                return `
+                    <div class="p-4 text-center bg-dark rounded mb-2 border border-secondary">
+                        <span class="fs-1 d-block mb-2">📄</span>
+                        <small class="text-warning d-block mb-2">Corporate PDF Catalogue Document Attached</small>
+                        <a href="${url}" target="_blank" class="btn btn-xs btn-danger fw-bold px-3 py-1">Open PDF Resource</a>
+                    </div>
+                `;
+            } else {
+                return `<img src="${url}" class="w-100 media-preview-box">`;
+            }
+        }
+
+        // Active Ad Platform Integration Framework
         function triggerMonetization() {
             dayRevenue += 0.002;
             document.getElementById('dailyAllocated').innerText = '$' + dayRevenue.toFixed(3);
@@ -229,10 +314,13 @@
             }]);
         }
 
-        // Sync Campaigns from Ledger Storage
+        // Sync Database Records to Separate Dynamic Columns
         async function syncCampaigns() {
-            const container = document.getElementById('campaignContainer');
-            container.innerHTML = '';
+            const coreContainer = document.getElementById('campaignContainer');
+            const affContainer = document.getElementById('affiliateAdContainer');
+            
+            coreContainer.innerHTML = '';
+            affContainer.innerHTML = '';
             
             let { data: campaigns, error } = await _supabase
                 .from('marketing_campaigns')
@@ -242,20 +330,28 @@
             let displayList = (campaigns && campaigns.length > 0) ? campaigns : fallbackCampaigns;
 
             displayList.forEach(c => {
-                container.innerHTML += `
-                    <div class="card-custom mb-3 overflow-hidden">
-                        <img src="${c.banner || fallbackCampaigns[0].banner}" class="w-100" style="height:140px; object-fit:cover;">
+                const mediaComponent = renderMediaElement(c.media_url, c.media_type || 'IMAGE');
+                const cardHtml = `
+                    <div class="card-custom mb-3 overflow-hidden position-relative border border-secondary">
+                        ${c.category_class === 'AFFILIATE_AD' ? '<span class="affiliate-badge">AFFILIATE AD</span>' : ''}
+                        ${mediaComponent}
                         <div class="p-3">
                             <h6 class="fw-bold mb-1 text-white">${c.title}</h6>
-                            <p class="text-muted small mb-2">Verified Corporate Asset — Origin: mesxentventureglobal.store</p>
-                            <a href="${c.product_url || 'https://mesxentventureglobal.store'}" target="_blank" class="btn btn-sm btn-outline-success w-100 fw-bold">Interact & Support Website</a>
+                            <p class="text-muted small mb-2">Source Listing: mesxentventureglobal.store</p>
+                            <a href="${c.product_url || 'https://mesxentventureglobal.store'}" target="_blank" class="btn btn-sm btn-outline-success w-100 fw-bold">Interact & Open Site</a>
                         </div>
                     </div>
                 `;
+
+                if (c.category_class === 'AFFILIATE_AD') {
+                    affContainer.innerHTML += cardHtml;
+                } else {
+                    coreContainer.innerHTML += cardHtml;
+                }
             });
         }
 
-        // B2B Customer Pipeline Capture
+        // Core App Form Interchanges
         document.getElementById('businessForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const profile = {
@@ -270,29 +366,28 @@
             };
 
             const { error } = await _supabase.from('customer_profiles').insert([profile]);
-            if (error) {
-                alert("Submission error: " + error.message);
-            } else {
-                alert("Success! Profile data accurately updated in central database.");
+            if (error) alert("Error saving profile: " + error.message);
+            else {
+                alert("Profile synchronized successfully.");
                 document.getElementById('businessForm').reset();
             }
         });
 
-        // Protected Admin Campaign Injection
         document.getElementById('campaignForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const campaignData = {
                 title: document.getElementById('cam_title').value,
                 product_url: document.getElementById('cam_url').value,
-                banner: document.getElementById('cam_banner').value || fallbackCampaigns[0].banner,
+                media_url: document.getElementById('cam_media_url').value,
+                media_type: document.getElementById('cam_media_type').value,
+                category_class: document.getElementById('cam_class').value,
                 status: "ACTIVE"
             };
 
             const { error } = await _supabase.from('marketing_campaigns').insert([campaignData]);
-            if (error) {
-                alert("Upload error: " + error.message);
-            } else {
-                alert("Campaign successfully verified and deployed to global nodes!");
+            if (error) alert("Upload tracking error: " + error.message);
+            else {
+                alert("Campaign deployed successfully to the designated display tree!");
                 document.getElementById('campaignForm').reset();
                 syncCampaigns();
             }
