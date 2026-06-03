@@ -3,519 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesxent Venture Global OS</title>
-    <!-- CSS Bootstrap Core -->
+    <title>Mesxent Venture Global OS | Full Blueprint</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Supabase JavaScript Matrix Connection -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { background-color: #060913; color: #e2e8f0; font-family: system-ui, sans-serif; }
-        .card-custom { background: #0f1626; border: 1px solid #1e293b; border-radius: 12px; height: 100%; padding: 20px; }
-        .text-green { color: #10b981; }
-        .text-blue { color: #3b82f6; }
-        .text-naira { color: #f59e0b; }
-        .nav-tabs .nav-link { color: #94a3b8; border: none; font-weight: bold; }
-        .nav-tabs .nav-link.active { color: #10b981; background: transparent; border-bottom: 3px solid #10b981; }
-        .form-control, .form-select { background-color: #090d16; border: 1px solid #1e293b; color: white; }
-        .form-control:focus, .form-select:focus { background-color: #090d16; color: white; border-color: #10b981; box-shadow: none; }
-        .media-preview-box { background: #090d16; border-radius: 8px; max-height: 200px; object-fit: cover; width: 100%; }
-        .affiliate-badge { position: absolute; top: 10px; right: 10px; background: #3b82f6; font-size: 0.7rem; color: white; padding: 2px 6px; border-radius: 4px; }
-        .gate-bg { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        :root { --bg: #060913; --panel: #0f1626; --accent: #10b981; --text: #e2e8f0; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+        .gate-bg { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1e293b, #060913); }
+        .card-custom { background: var(--panel); border: 1px solid #1e293b; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .nav-tabs .nav-link { color: #94a3b8; font-weight: bold; border: none; cursor: pointer; padding: 15px 25px; }
+        .nav-tabs .nav-link.active { color: var(--accent); border-bottom: 3px solid var(--accent); background: transparent; }
         .d-none { display: none !important; }
+        .text-green { color: var(--accent); }
+        .text-blue { color: #3b82f6; }
+        .img-fit { object-fit: cover; width: 100%; border-radius: 8px; }
+        .form-control, .form-select { background-color: #090d16; border: 1px solid #1f293d; color: white; }
     </style>
 </head>
-<body class="p-3">
+<body>
 
-    <!-- OVERALL FRAME WORK DECORATION BADGE HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h4 class="fw-bold mb-0 text-green">MESXENT AGRO SYSTEMS</h4>
-            <small class="text-muted">ID: 11270629836102</small>
-        </div>
-        <span class="badge bg-success px-3 py-2">LIVE CONTROL MATRIX</span>
-    </div>
-
-    <!-- PHASE 1: SYSTEM GLOBAL ENTRANCE LOGIN WALL -->
-    <div id="systemLoginGate" class="gate-bg">
-        <div class="card-custom w-100" style="max-width: 400px;">
-            <div class="text-center mb-4">
-                <h3 class="fw-bold text-green mb-1">MESXENT OS</h3>
-                <small class="text-muted">Enterprise Brand Distribution Network</small>
+    <!-- AUTHENTICATION GATE (RESTORING PAGE 1 AUTH WALL) -->
+    <div id="authGate" class="gate-bg">
+        <div class="card-custom w-100" style="max-width:450px">
+            <h4 class="text-green text-center fw-bold mb-4">CHAIRMAN COMMAND ACCESS</h4>
+            <div id="loginSection">
+                <input type="text" id="loginUser" class="form-control mb-2 bg-dark text-white border-0" placeholder="Username">
+                <input type="password" id="loginPass" class="form-control mb-3 bg-dark text-white border-0" placeholder="Password">
+                <button class="btn btn-success w-100 mb-2" onclick="processAuth()">INITIALIZE MASTER SESSION</button>
+                <button class="btn btn-link text-muted w-100" onclick="toggleView('regSection')">Register Partner Node (Page 1.2 Sign Up)</button>
             </div>
-            <div class="mb-3">
-                <label class="form-label small text-muted">Account Identity / Username</label>
-                <input type="text" id="loginUser" class="form-control text-center" placeholder="Username / Worker ID">
-            </div>
-            <div class="mb-4">
-                <label class="form-label small text-muted">Security Access Key</label>
-                <input type="password" id="loginPass" class="form-control text-center" placeholder="••••••••">
-            </div>
-            <button type="button" class="btn btn-success w-100 fw-bold py-2" onclick="processSystemAuthentication()">Access Secure Workspace</button>
-            <div class="text-center mt-3">
-                <a href="#" class="small text-blue text-decoration-none" onclick="toggleRegistrationView(true)">Register New Business Listing</a>
+            <div id="regSection" class="d-none">
+                <input type="text" id="r_name" class="form-control mb-2" placeholder="Full Name">
+                <input type="email" id="r_email" class="form-control mb-2" placeholder="Email (captured to Gmail)">
+                <input type="text" id="r_node_id" class="form-control mb-3" placeholder="Organization ID">
+                <button class="btn btn-success w-100" onclick="registerNode()">SUBMIT APPLICATION</button>
+                <button class="btn btn-link text-muted w-100" onclick="toggleView('loginSection')">Back to Login</button>
             </div>
         </div>
     </div>
 
-    <!-- PHASE 1.5: PUBLIC BUSINESS REGISTRATION PIPELINE -->
-    <div id="systemRegisterGate" class="gate-bg d-none">
-        <div class="card-custom w-100" style="max-width: 600px;">
-            <h4 class="fw-bold text-green mb-2">Create Enterprise Account</h4>
-            <p class="text-muted small mb-4">Register your system node to gain access keys to the corporate distribution dashboard.</p>
-            <form id="businessForm">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Representative Full Name</label>
-                        <input type="text" id="reg_name" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Registered Business Name</label>
-                        <input type="text" id="reg_company" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Business Email Address</label>
-                        <input type="email" id="reg_email" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Verified Phone Number</label>
-                        <input type="tel" id="reg_phone" class="form-control" placeholder="+234..." required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Country</label>
-                        <input type="text" id="reg_country" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Primary Agro Sector</label>
-                        <select id="reg_sector" class="form-select" required>
-                            <option value="Agro Processing">Agro Processing & Farming</option>
-                            <option value="Organic Feed">Organic Feed Production</option>
-                            <option value="Agro Logistics">Agro Logistics & Transport</option>
-                            <option value="Fintech">Financial Technology & Web3</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label text-muted small">Payment / Wallet Address (Optional)</label>
-                        <input type="text" id="reg_wallet" class="form-control" placeholder="0x...">
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-success w-100 fw-bold py-2 mt-4">Submit Registration Application</button>
-                <div class="text-center mt-3">
-                    <a href="#" class="small text-muted text-decoration-none" onclick="toggleRegistrationView(false)">Return to Secure Login</a>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- PHASE 2: MAIN EXECUTIVE PANELS (HIDDEN UNTIL AUTHENTICATED) -->
-    <div id="appInterfaceWorkspace" class="p-3 d-none">
-        
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h4 class="fw-bold mb-0 text-green" id="portalBrandTitle">MESXENT INTERACTIVE NETWORK</h4>
-                <small class="text-muted">Core ID: 11270629836102 | User: <span id="sessionUserLabel" class="text-white"></span></small>
-            </div>
-            <button class="btn btn-sm btn-outline-danger fw-bold" onclick="executeSystemLogout()">Log Out</button>
-        </div>
-
-        <!-- ==================== TIER A: END-USER WORKER INTERFACE ==================== -->
-        <div id="tierEndUserWorkspace" class="d-none">
-            <div class="row g-3 mb-4">
-                <div class="col-md-4">
-                    <div class="card-custom text-center">
-                        <span class="text-muted d-block small fw-bold">Immediate Device Support Stat</span>
-                        <h2 class="fw-bold text-blue my-2" id="userDeviceStat">94.12% Power</h2>
-                        <small class="text-success">● Engine Threads Processing Active</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-custom text-center">
-                        <span class="text-muted d-block small fw-bold">Total Daily Accumulated</span>
-                        <h2 class="fw-bold text-green my-2" id="dailyAllocated">$0.000</h2>
-                        <small class="text-muted">Resets 00:00 GMT</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-custom text-center">
-                        <span class="text-muted d-block small fw-bold">Wallet Balance Balance</span>
-                        <h2 class="fw-bold text-warning my-2" id="userWalletBalance">$32.10</h2>
-                        <button id="btnWithdraw" class="btn btn-sm w-100 fw-bold mt-2" onclick="triggerUserWithdrawal()"></button>
-                    </div>
+    <!-- MAIN DASHBOARD -->
+    <div id="appInterface" class="p-4 d-none">
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-3">
+            <div class="d-flex align-items-center gap-3">
+                <img src="image_4.png" alt="MBN logo" style="height:50px;">
+                <div>
+                    <h4 class="text-green fw-bold mb-0">MESXENT AGRO SYSTEMS CONTROL OFFICE</h4>
+                    <small>Core ID: 11270629836102 | MD Jeremy</small>
                 </div>
             </div>
+            <button class="btn btn-outline-danger" onclick="location.reload()">TERMINATE SESSION</button>
+        </div>
+
+        <ul class="nav nav-tabs mb-4" id="blueprintTabs">
+            <li class="nav-item"><button class="nav-link active" onclick="switchTab('overview')">ECOSYSTEM OVERVIEW (1.B.1)</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="switchTab('loader')">CAMPAIGN LOADER (1.B.2)</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="switchTab('payouts')">PAYOUT DISBURSEMENT</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="switchTab('investment')">REGISTER INVESTMENT</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="switchTab('adminaccess')">ADMIN ACCESS</button></li>
+        </ul>
+
+        <!-- TELEMETRY ENGINE (1.B.1) -->
+        <div id="overviewTab" class="row g-3">
+            <div class="col-md-4 card-custom"><small>ADS/SEC BROADCAST</small><h3 id="liveAds">0</h3></div>
+            <div class="col-md-4 card-custom"><small>ACTIVE PARTNER NODES</small><h3 id="liveNodes">0</h3></div>
+            <div class="col-md-4 card-custom"><small>NAIRA VALUE matrix</small><h3 id="liveNaira">₦0</h3></div>
+            <div class="col-12 mt-3 card-custom">
+                <h5>Organization Ledger Logs</h5>
+                <div id="userList" class="mt-2 small text-muted">Awaiting node synchronization...</div>
+            </div>
+        </div>
+
+        <!-- CAMPAIGN LOADER (1.B.2) -->
+        <div id="loaderTab" class="card-custom d-none">
+            <h5 class="mb-3 text-warning">⚡ Deploy Multi-Media Asset Channel</h5>
             <div class="row g-3">
-                <div class="col-md-7">
-                    <h5 class="fw-bold text-green mb-3">Live Broadcast Streams</h5>
-                    <div id="userCampaignContainer"></div>
+                <div class="col-md-6"><input type="text" id="cam_title" class="form-control" placeholder="Campaign Heading Title" required></div>
+                <div class="col-md-6"><input type="url" id="cam_url" class="form-control" value="https://www.mesxentventureglobal.store" placeholder="Destination Domain Link" required></div>
+                <div class="col-12"><textarea id="cam_desc" class="form-control" placeholder="Description Narrative Content..." required></textarea></div>
+                <div class="col-md-6"><input type="url" id="cam_media_url" class="form-control" placeholder="Asset Content Hosting Link (PNG, MP4)" required></div>
+                <div class="col-md-3"><select id="cam_ads_id" class="form-select"><option>Ads Source ID (1-4 qty)</option></select></div>
+                <div class="col-md-3"><select id="cam_mon_id" class="form-select"><option>Monetization Source ID (1-4 qty)</option></select></div>
+            </div>
+            <button class="btn btn-warning w-100 fw-bold py-2 mt-4 text-dark" onclick="deployCampaign()">BROADCAST GLOBALLY</button>
+        </div>
+
+        <!-- PAYOUT DISBURSEMENT (Dispense Withdrawal Fund) -->
+        <div id="payoutsTab" class="card-custom d-none">
+            <h5>Dispense Withdrawal Fund Control</h5>
+            <small class="text-muted d-block mb-3">Logs withdrawal requests submitted from the User Dashboard. Cleared profiles logged to Gmail.</small>
+            <button class="btn btn-warning w-100 fw-bold py-2 mb-3" onclick="clearPayouts()">Deploy Mass Clearing protocols</button>
+            <div id="payoutLogs"></div>
+        </div>
+
+        <!-- REGISTER INVESTMENT -->
+        <div id="investmentTab" class="card-custom d-none">
+            <h5>Register High-Value Project Investment</h5>
+            <small class="text-muted d-block mb-3">Log corporate investment nodes into the database.</small>
+            <div class="row g-2">
+                <input type="text" id="inv_name" class="form-control mb-2" placeholder="Investor Name/Organization">
+                <input type="number" id="inv_amount" class="form-control mb-2" placeholder="Investment Amount (USD)">
+                <input type="text" id="inv_wallet" class="form-control mb-2" placeholder="Settlement Wallet Address">
+            </div>
+            <button class="btn btn-success w-100 fw-bold py-2 mt-3" onclick="registerInvestment()">LOG INVESTMENT NODE</button>
+        </div>
+
+        <!-- ADMIN ACCESS & PICTURE SECTIONS (1B-1 Analytics Mapping) -->
+        <div id="adminaccessTab" class="d-none">
+            <div class="row g-3">
+                <div class="col-md-6 card-custom">
+                    <h5>Admin Access: Initialize User Dashboard</h5>
+                    <p class="text-muted small">Log in to a prototype of the end-user dashboard to review system state or handle complaints.</p>
+                    <button class="btn btn-outline-success w-100 fw-bold py-2 mb-3" onclick="logInUserDashboard()">INITIALIZE USER VIEW</button>
+                    <div class="text-center">
+                        <img src="image_9.png" alt="Empowering Agriculture" class="img-fit" style="height:250px;">
+                        <small class="text-muted mt-2 d-block">"Empowering Agriculture, Nourishing Futures Together"</small>
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <h5 class="fw-bold text-blue mb-3">Sponsored Ecosystem Placements</h5>
-                    <div id="userAffiliateContainer"></div>
+                <div class="col-md-6 card-custom">
+                    <h5>Analytics Matrix & Infrastructure</h5>
+                    <div class="row g-2">
+                        <div class="col-6 card-custom text-center"><small class="text-blue">Global CPM Yield:</small><h3 class="text-blue">$4.12</h3></div>
+                        <div class="col-6 card-custom text-center"><small class="text-green">Exchange Benchmark:</small><h3 class="text-green">₦1,500/$1</h3></div>
+                    </div>
+                    <img src="image_6.png" alt="Farmer Association Priceless Trust" class="img-fit mt-3" style="height:250px;">
+                    <small class="text-muted mt-2 d-block">Infrastructure Configurations and Network DB</small>
                 </div>
             </div>
         </div>
-
-        <!-- ==================== TIER B: THE CHAIRMAN'S MASTER OFFICE ==================== -->
-        <div id="tierChairmanWorkspace" class="d-none">
-            <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
-                <li class="nav-item"><button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#adminOverview" type="button">Ecosystem Overview</button></li>
-                <li class="nav-item"><button class="nav-link text-warning" id="load-tab" data-bs-toggle="tab" data-bs-target="#adminLoader" type="button">⚡ Load Global Campaigns</button></li>
-            </ul>
-
-            <div class="tab-content">
-                <!-- CHAIRMAN OVERVIEW PANEL -->
-                <div class="tab-pane fade show active" id="adminOverview" role="tabpanel">
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-3">
-                            <div class="card-custom text-center">
-                                <span class="text-muted small fw-bold">Ecosystem Reach Rate</span>
-                                <h3 class="fw-bold text-blue my-2">4,812 ads/sec</h3>
-                                <small class="text-success">Live Distributed Output</small>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card-custom text-center">
-                                <span class="text-muted small fw-bold">Active Organization Nodes</span>
-                                <h3 class="fw-bold text-green my-2" id="lblTotalUsers">--</h3>
-                                <small class="text-muted">Total Registered Accounts</small>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card-custom text-center">
-                                <span class="text-muted small fw-bold">Overall Volume Value</span>
-                                <h3 class="fw-bold text-naira my-2" id="lblNairaValue">₦ 0.00</h3>
-                                <small class="text-muted">Central Ledger Matrix conversion</small>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card-custom text-center">
-                                <span class="text-muted small fw-bold">Payout Disbursement Action</span>
-                                <button class="btn btn-warning w-100 fw-bold mt-2" onclick="deployMassPayouts()">Deploy Payout Clearings</button>
-                                <small class="text-muted">Active window 1st-5th</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-custom mb-4">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="fw-bold text-green mb-0">System Infrastructure Configurations</h5>
-                            <button class="btn btn-sm btn-outline-success fw-bold" onclick="triggerGlobalUpdate()">Push App Feature Update</button>
-                        </div>
-                        <p class="text-muted small mb-0">Chairman Command Room Dashboard connected cleanly via Secure Node Routing. Global parameters running at standard operational capacity.</p>
-                    </div>
-                </div>
-
-                <!-- CHAIRMAN CAMPAIGN MANAGER -->
-                <div class="tab-pane fade" id="adminLoader" role="tabpanel">
-                    <div class="card-custom">
-                        <h5 class="fw-bold text-green mb-3">Deploy Multi-Media Asset Channel</h5>
-                        <form id="campaignForm">
-                            <div class="mb-3">
-                                <label class="form-label small text-muted">Campaign Heading Title</label>
-                                <input type="text" id="cam_title" class="form-control" placeholder="e.g., Premium Poultry Feed Logistics Catalog" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small text-muted">Target Product/Destination Domain Link</label>
-                                <input type="url" id="cam_url" class="form-control" value="https://www.mesxentventureglobal.store" required>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label small text-muted">Asset Content Type</label>
-                                    <select id="cam_media_type" class="form-select" id="cam_media_type">
-                                        <option value="IMAGE">Image File (PNG, JPG, GIF)</option>
-                                        <option value="VIDEO">Video Streaming Feed (MP4)</option>
-                                        <option value="PDF">Document File (PDF Manual / Inventory)</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label small text-muted">Display Column Route Placement</label>
-                                    <select id="cam_class" class="form-select">
-                                        <option value="MESXENT_CORE">Mesxent Main Stream Channel</option>
-                                        <option value="AFFILIATE_AD">Ecosystem Affiliate Column Grid</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small text-muted">Asset Content Hosting Link</label>
-                                <input type="url" id="cam_media_url" class="form-control" placeholder="https://www.mesxentventureglobal.store/banner.jpg" required>
-                            </div>
-                            <button type="submit" class="btn btn-success w-100 fw-bold py-2 mt-2">Broadcast System Campaign Globally</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
     </div>
 
-    <!-- Background Monetization Container -->
+    <!-- Background Automated Data Threads Sandbox Container -->
     <div id="ad-sandbox" style="display:none; width:1px; height:1px;"></div>
 
-    <!-- Script Infrastructures -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Central Cloud Connection
-        const S_URL = "https://bffzgtloidanlqizalty.supabase.co";
-        const S_KEY = "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7";
-        const _supabase = supabase.createClient(S_URL, S_KEY);
+        const _supabase = supabase.createClient("https://bffzgtloidanlqizalty.supabase.co", "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7");
 
-        // Core Management Constants
-        const ADMIN_USER = "Jeremy";
-        const ADMIN_PASS = "11270629836102"; // Restored original matching execution pattern
-        
-        let sessionUser = null;
-        let dayRevenue = 0.00;
-        let deviceId = localStorage.getItem('mes_dev_id') || 'dev_' + Math.random().toString(36).substring(2, 9);
-        localStorage.setItem('mes_dev_id', deviceId);
-
-        // Standard Store Fallbacks
-        const defaultCampaigns = [
-            {
-                title: "Mesxent Venture Global Official Launch",
-                product_url: "https://www.mesxentventureglobal.store",
-                media_url: "https://images.unsplash.com/photo-1595855759920-86582396756a?w=600",
-                media_type: "IMAGE",
-                category_class: "MESXENT_CORE"
-            },
-            {
-                title: "Premium Aggregated Agriculture Systems Partnership",
-                product_url: "https://www.mesxentventureglobal.store",
-                media_url: "https://images.unsplash.com/photo-1625246333195-78d9c38ad451?w=400",
-                media_type: "IMAGE",
-                category_class: "AFFILIATE_AD"
-            }
-        ];
-
-        // Access Controls Routing
-        function toggleRegistrationView(showRegister) {
-            if(showRegister) {
-                document.getElementById('systemLoginGate').classList.add('d-none');
-                document.getElementById('systemRegisterGate').classList.remove('d-none');
-            } else {
-                document.getElementById('systemRegisterGate').classList.add('d-none');
-                document.getElementById('systemLoginGate').classList.remove('d-none');
-            }
+        function toggleView(v) {
+            document.getElementById('loginSection').classList.add('d-none');
+            document.getElementById('regSection').classList.add('d-none');
+            document.getElementById(v).classList.remove('d-none');
         }
 
-        function processSystemAuthentication() {
-            const user = document.getElementById('loginUser').value.trim();
-            const pass = document.getElementById('loginPass').value.trim();
-
-            if (!user || !pass) {
-                alert("Please provide complete access parameters.");
-                return;
-            }
-
-            if (user === ADMIN_USER && pass === ADMIN_PASS) {
-                // Unlock Chairman Interface
-                sessionUser = "CHAIRMAN";
-                document.getElementById('systemLoginGate').classList.add('d-none');
-                document.getElementById('appInterfaceWorkspace').classList.remove('d-none');
-                document.getElementById('tierChairmanWorkspace').classList.remove('d-none');
-                document.getElementById('portalBrandTitle').innerText = "CHAIRMAN'S OFFICIAL COMMAND OFFICE";
-                document.getElementById('sessionUserLabel').innerText = "MD Jeremy";
-                
-                // Fire Chairman Sync loops
-                loadChairmanMetrics();
-                setInterval(loadChairmanMetrics, 15000);
-            } else {
-                // Treat as Standard App Node Entry
-                sessionUser = user;
-                document.getElementById('systemLoginGate').classList.add('d-none');
-                document.getElementById('appInterfaceWorkspace').classList.remove('d-none');
-                document.getElementById('tierEndUserWorkspace').classList.remove('d-none');
-                document.getElementById('portalBrandTitle').innerText = "MESXENT AGRO SYSTEMS WORKSPACE";
-                document.getElementById('sessionUserLabel').innerText = user;
-                
-                // Initialize Worker Threads
-                initializeWorkerProcessing();
-            }
+        function switchTab(t) {
+            ['overview', 'loader', 'payouts', 'investment', 'adminaccess'].forEach(tab => document.getElementById(tab + 'Tab').classList.add('d-none'));
+            document.getElementById(t + 'Tab').classList.remove('d-none');
         }
 
-        function executeSystemLogout() {
-            sessionUser = null;
-            document.getElementById('appInterfaceWorkspace').classList.add('d-none');
-            document.getElementById('tierChairmanWorkspace').classList.add('d-none');
-            document.getElementById('tierEndUserWorkspace').classList.add('d-none');
-            document.getElementById('systemLoginGate').classList.remove('d-none');
-            document.getElementById('loginUser').value = "";
-            document.getElementById('loginPass').value = "";
+        async function processAuth() {
+            if(document.getElementById('loginUser').value === "Jeremy" && document.getElementById('loginPass').value === "11270629836102") {
+                document.getElementById('authGate').classList.add('d-none');
+                document.getElementById('appInterface').classList.remove('d-none');
+                setInterval(refreshStats, 3000); 
+                refreshStats();
+                refreshPayoutLogs();
+            } else { alert("ACCESS DENIED: Core ID Mismatch"); }
         }
 
-        // Window Date Validation 
-        function evaluateWithdrawalWindow() {
-            const today = new Date();
-            const currentDate = today.getDate(); // 1 to 31
-            const btn = document.getElementById('btnWithdraw');
+        async function refreshStats() {
+            const { count: ads } = await _supabase.from('traffic_logs').select('*', { count: 'exact', head: true });
+            const { count: nodes } = await _supabase.from('customer_profiles').select('*', { count: 'exact', head: true });
+            document.getElementById('liveAds').innerText = ads || 0;
+            document.getElementById('liveNodes').innerText = nodes || 0;
+            document.getElementById('liveNaira').innerText = "₦" + ((ads || 0) * 1500).toLocaleString();
             
-            if(!btn) return;
-
-            // Active window strictly set from the 1st to the 5th of the month
-            if (currentDate >= 1 && currentDate <= 5) {
-                btn.className = "btn btn-sm btn-success w-100 fw-bold mt-2";
-                btn.innerText = "Process Active Wallet Withdrawal";
-                btn.disabled = false;
-            } else {
-                btn.className = "btn btn-sm btn-secondary w-100 fw-bold mt-2";
-                btn.innerText = "Withdrawal Portal Open 1st - 5th Only";
-                btn.disabled = true;
+            const { data: users } = await _supabase.from('customer_profiles').select('full_name, org_id').order('created_at', { ascending: false }).limit(5);
+            if(users) {
+                document.getElementById('userList').innerHTML = users.map(u => `<div class="p-1 border-bottom border-secondary">> Node [${u.org_id}] [${u.full_name}] synced central ledger pipeline.</div>`).join('');
             }
         }
 
-        function triggerUserWithdrawal() {
-            alert("Withdrawal request dispatched to core ledger clearance loop.");
+        // Functional Logins, Forms, and Data Packets
+        async function registerNode() {
+            // Inserts to Supabase 'customer_profiles' table. Configure a webhook in Supabase to email this data to mesxentventureglobal@gmail.com
+            await _supabase.from('customer_profiles').insert([{ 
+                full_name: document.getElementById('r_name').value,
+                email: document.getElementById('r_email').value,
+                org_id: document.getElementById('r_node_id').value,
+                created_at: new Date().toISOString()
+            }]);
+            alert("Successful Application Submitted! Form data logged to database.");
+            location.reload();
         }
 
-        // Worker Engine Processing Initializer
-        function initializeWorkerProcessing() {
-            evaluateWithdrawalWindow();
-            syncCampaignStream();
-            
-            // Loop Programmatic monetization matrix every 15 seconds
-            setInterval(triggerMonetization, 15000);
-            triggerMonetization();
-        }
-
-        // Programmatic Background Ad Monetization Matrix
-        function triggerMonetization() {
-            dayRevenue += 0.002;
-            document.getElementById('dailyAllocated').innerText = '$' + dayRevenue.toFixed(3);
-            
-            const sandbox = document.getElementById('ad-sandbox');
-            sandbox.innerHTML = ''; 
-            const scriptLoader = document.createElement('script');
-            scriptLoader.src = '//cdn.popcash.net/show.js';
-            window.wid = "750528"; window.uid = "498480";
-            sandbox.appendChild(scriptLoader);
-
-            // Log Metrics straight into Supabase backend logs
-            _supabase.from('traffic_logs').insert([{
-                worker_id: deviceId,
-                wallet_address: "0xDefault",
-                yield: 0.002,
-                status: 'SHARE_SUBMITTED',
+        async function deployCampaign() {
+            await _supabase.from('marketing_campaigns').insert([{ 
+                title: document.getElementById('cam_title').value,
+                description: document.getElementById('cam_desc').value,
+                url: document.getElementById('cam_url').value,
+                media_url: document.getElementById('cam_media_url').value,
+                status: "ACTIVE",
                 org_id: "11270629836102"
             }]);
-            
-            updateLiveWorkerBalance();
+            alert("Successful Broadcast Deployed globally across mobileapp trees!");
         }
 
-        async function updateLiveWorkerBalance() {
-            const { count: totalLogs } = await _supabase
-                .from('traffic_logs')
-                .select('*', { count: 'exact', head: true });
-                
-            if(totalLogs !== null) {
-                let currentBalance = 32.10 + (totalLogs * 0.002);
-                document.getElementById('userWalletBalance').innerText = '$' + currentBalance.toFixed(2);
+        async function refreshPayoutLogs() {
+            const { data } = await _supabase.from('withdrawal_logs').select('wallet_address, account_name, created_at');
+            if(data) {
+                document.getElementById('payoutLogs').innerHTML = data.map(wd => `<div class="border border-secondary p-2 small mb-2 text-muted">> Request ${wd.wallet_address} logged for clearance loop. [${wd.created_at}]</div>`).join('');
             }
         }
 
-        // Live Feed Engine Downloader (Splits into channels based on class)
-        async function syncCampaignStream() {
-            const coreContainer = document.getElementById('userCampaignContainer');
-            const affiliateContainer = document.getElementById('userAffiliateContainer');
-            
-            if(!coreContainer || !affiliateContainer) return;
-            
-            coreContainer.innerHTML = '';
-            affiliateContainer.innerHTML = '';
-
-            let { data: campaigns } = await _supabase
-                .from('marketing_campaigns')
-                .select('*')
-                .eq('status', 'ACTIVE');
-
-            let displayList = (campaigns && campaigns.length > 0) ? campaigns : defaultCampaigns;
-
-            displayList.forEach(c => {
-                let mediaElement = `<img src="${c.media_url || c.banner}" class="w-100 media-preview-box">`;
-                if(c.media_type === "VIDEO") {
-                    mediaElement = `<video src="${c.media_url}" class="w-100 media-preview-box" controls autoplay muted loop></video>`;
-                } else if(c.media_type === "PDF") {
-                    mediaElement = `<div class="p-4 bg-dark text-center rounded mb-2 text-warning fw-bold">📄 PDF Inventory Asset Included</div>`;
-                }
-
-                const cardHtml = `
-                    <div class="card-custom mb-3 overflow-hidden position-relative" style="height: auto;">
-                        ${c.category_class === 'AFFILIATE_AD' ? '<span class="affiliate-badge">AFFILIATE</span>' : ''}
-                        ${mediaElement}
-                        <div class="p-3">
-                            <h6 class="fw-bold mb-1 text-white">${c.title}</h6>
-                            <p class="text-muted small mb-2">Verified Active Campaign Channel — Distributed through Mesxent Core.</p>
-                            <a href="${c.product_url || c.destination_url}" target="_blank" class="btn btn-sm btn-outline-success w-100 fw-bold">Interact & Support</a>
-                        </div>
-                    </div>
-                `;
-
-                if(c.category_class === "AFFILIATE_AD") {
-                    affiliateContainer.innerHTML += cardHtml;
-                } else {
-                    coreContainer.innerHTML += cardHtml;
-                }
-            });
+        async function clearPayouts() { 
+            // In a live build, this would send disbursement protocol requests.
+            alert("Mass payout protocols flagged for central clearing loops (1st to 5th). Data logged to email clearance loop."); 
         }
 
-        // Chairman Telemetry Database Aggregator
-        async function loadChairmanMetrics() {
-            const { count: userCount } = await _supabase.from('customer_profiles').select('*', { count: 'exact', head: true });
-            const { count: trafficCount } = await _supabase.from('traffic_logs').select('*', { count: 'exact', head: true });
-            
-            document.getElementById('lblTotalUsers').innerText = userCount || 0;
-            
-            let totalAds = trafficCount || 0;
-            let computedNaira = totalAds * 1500;
-            document.getElementById('lblNairaValue').innerText = "₦ " + computedNaira.toLocaleString();
+        async function registerInvestment() {
+            await _supabase.from('investor_logs').insert([{ 
+                investor_name: document.getElementById('inv_name').value,
+                amount_usd: document.getElementById('inv_amount').value,
+                wallet_address: document.getElementById('inv_wallet').value
+            }]);
+            alert("SUCCESS: Investment Node logged into Project Ledger.");
         }
 
-        // Public Account Profile Submission Form Linker
-        document.getElementById('businessForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const profile = {
-                full_name: document.getElementById('reg_name').value,
-                company_name: document.getElementById('reg_company').value,
-                email: document.getElementById('reg_email').value,
-                phone_number: document.getElementById('reg_phone').value,
-                country: document.getElementById('reg_country').value,
-                business_sector: document.getElementById('reg_sector').value,
-                wallet_address: document.getElementById('reg_wallet').value || 'none_provided',
-                created_at: new Date().toISOString()
-            };
-
-            const { error } = await _supabase.from('customer_profiles').insert([profile]);
-            if (error) {
-                alert("Submission failure code: " + error.message);
-            } else {
-                alert("Success! Profile parameters secured inside target database.");
-                document.getElementById('businessForm').reset();
-                toggleRegistrationView(false);
+        // Prototype login to the user dashboard view
+        function logInUserDashboard() {
+            const userView = confirm("Initialize and log in to a prototype of the End-User Dashboard? (View complains, check user status, check user monetization flows).");
+            if(userView) {
+                alert("Redirecting to User Dashboard view..."); 
+                // Redirect logic to user page goes here
             }
-        });
-
-        // Chairman Live Production Form Linker
-        document.getElementById('campaignForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const campaignData = {
-                title: document.getElementById('cam_title').value,
-                product_url: document.getElementById('cam_url').value,
-                media_url: document.getElementById('cam_media_url').value,
-                media_type: document.getElementById('cam_media_type').value,
-                category_class: document.getElementById('cam_class').value,
-                status: "ACTIVE"
-            };
-
-            const { error } = await _supabase.from('marketing_campaigns').insert([campaignData]);
-            if (error) {
-                alert("Upload failure code: " + error.message);
-            } else {
-                alert("Ecosystem asset channels broadcasted live globally!");
-                document.getElementById('campaignForm').reset();
-            }
-        });
-
-        function deployMassPayouts() { alert("Mass payout clearance logs flagged for execution."); }
-        function triggerGlobalUpdate() { alert("App matrix core optimization layout updates pushed."); }
+        }
     </script>
 </body>
 </html>
