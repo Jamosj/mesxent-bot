@@ -108,7 +108,7 @@
                 <h4 class="text-danger text-center fw-bold mb-2">CHAIRMAN COMMAND OFFICE</h4>
                 <p class="small text-muted text-center mb-4">Secured management portal for MD Jeremy. Cryptographic verification required.</p>
                 <div class="mb-2">
-                    <input type="text" id="chairmanUser" class="form-control" placeholder="Master Username">
+                    <input type="text" id="chairmanUser" class="form-control" placeholder="Username or Admin Email">
                 </div>
                 <div class="mb-3">
                     <input type="password" id="chairmanPass" class="form-control" placeholder="Security Protocol Password">
@@ -323,13 +323,12 @@
         // Public/User Processing Controls
         // -------------------------------------------------------------
         async function handleUserSignUp() {
-            const name = document.getElementById('u_reg_name').value;
-            const email = document.getElementById('u_reg_email').value;
-            const node = document.getElementById('u_reg_node').value;
+            const name = document.getElementById('u_reg_name').value.trim();
+            const email = document.getElementById('u_reg_email').value.trim();
+            const node = document.getElementById('u_reg_node').value.trim();
 
             if(!name || !email || !node) { alert("Please compile all empty form attributes."); return; }
 
-            // Inserts structural data payload into Supabase 'customer_profiles'
             const { error } = await _supabase.from('customer_profiles').insert([{ 
                 full_name: name,
                 email: email,
@@ -349,15 +348,13 @@
         }
 
         async function handleUserLogin() {
-            const loginCredential = document.getElementById('u_log_id').value;
+            const loginCredential = document.getElementById('u_log_id').value.trim();
             if(!loginCredential) { alert("Please pass an Organization Node ID or Email."); return; }
 
-            // Route to User View
             document.getElementById('publicLandingPage').classList.add('d-none');
             document.getElementById('userAppInterface').classList.remove('d-none');
             document.getElementById('userDisplayNode').innerText = `Active Session: Identity Node [${loginCredential}]`;
             
-            // Collect active user metrics
             const { count } = await _supabase.from('marketing_campaigns').select('*', { count: 'exact', head: true });
             document.getElementById('userCampCount').innerText = count || 0;
 
@@ -373,8 +370,8 @@
         }
 
         async function submitUserWithdrawal() {
-            const name = document.getElementById('u_wd_name').value;
-            const target = document.getElementById('u_wd_wallet').value;
+            const name = document.getElementById('u_wd_name').value.trim();
+            const target = document.getElementById('u_wd_wallet').value.trim();
 
             if(!name || !target) { alert("Please complete withdrawal directives info blocks."); return; }
 
@@ -394,23 +391,25 @@
         }
 
         // -------------------------------------------------------------
-        // Chairman Infrastructure Admin Controls
+        // Chairman Infrastructure Admin Controls (Robust & Cleaned Access)
         // -------------------------------------------------------------
         function processChairmanAuth() {
-            const user = document.getElementById('chairmanUser').value;
-            const pass = document.getElementById('chairmanPass').value;
+            const user = document.getElementById('chairmanUser').value.trim();
+            const pass = document.getElementById('chairmanPass').value.trim();
 
-            // Using the organization's core ID for validation
-            if(user === "Jeremy" && pass === "11270629836102") {
+            // Accepts Username or Admin Email, with strict whitespace protection
+            const isValidUser = (user === "Jeremy" || user === "michealjeremiah0@gmail.com");
+            const isValidPass = (pass === "11270629836102");
+
+            if(isValidUser && isValidPass) {
                 document.getElementById('publicLandingPage').classList.add('d-none');
                 document.getElementById('chairmanInterface').classList.remove('d-none');
                 
-                // Fire Telemetry Engine loops
                 statsInterval = setInterval(refreshTelemetry, 3000); 
                 refreshTelemetry();
                 loadPayoutLogs();
             } else { 
-                alert("ACCESS VIOLATION: Cryptographic Core ID Credentials Invalid."); 
+                alert("ACCESS VIOLATION: Cryptographic Core ID Credentials Invalid. Ensure your Organization ID contains exactly 14 digits with no missing spaces."); 
             }
         }
 
@@ -470,9 +469,9 @@
         }
 
         async function registerInvestment() {
-            const name = document.getElementById('inv_name').value;
-            const amount = document.getElementById('inv_amount').value;
-            const wallet = document.getElementById('inv_wallet').value;
+            const name = document.getElementById('inv_name').value.trim();
+            const amount = document.getElementById('inv_amount').value.trim();
+            const wallet = document.getElementById('inv_wallet').value.trim();
 
             if(!name || !amount || !wallet) { alert("All profile parameters are required to index capital assets."); return; }
 
