@@ -29,11 +29,7 @@
 </head>
 <body>
 
-    <!-- ================================================================= -->
-    <!-- SECTION 1: PUBLIC GLOBAL LANDING PAGE & USER GATEWAY              -->
-    <!-- ================================================================= -->
     <div id="publicLandingPage">
-        <!-- Public Navigation Header -->
         <nav class="navbar navbar-dark bg-dark px-4 border-bottom border-secondary">
             <div class="container-fluid">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="#">
@@ -48,7 +44,6 @@
             </div>
         </nav>
 
-        <!-- Main Hero Presentation -->
         <div class="hero-section text-center">
             <div class="container" style="max-width: 800px;">
                 <h1 class="display-5 fw-bold text-white mb-3">Next-Generation Agribusiness & Allied Manufacturing</h1>
@@ -61,10 +56,8 @@
             </div>
         </div>
 
-        <!-- Dynamic User Forms Container -->
         <div class="container my-5" style="max-width: 500px;">
             
-            <!-- User Registration Form -->
             <div id="userRegisterSection" class="card-custom">
                 <h4 class="text-green fw-bold mb-3 text-center">CREATE GLOBAL PARTNER ACCOUNT</h4>
                 <p class="small text-muted text-center mb-4">Register your decentralized node to tap into product marketing and agro-infrastructure campaigns.</p>
@@ -86,7 +79,6 @@
                 </div>
             </div>
 
-            <!-- User Login Form -->
             <div id="userLoginSection" class="card-custom d-none">
                 <h4 class="text-blue fw-bold mb-3 text-center">PARTNER PORTAL SIGN IN</h4>
                 <div class="mb-3">
@@ -103,7 +95,6 @@
                 </div>
             </div>
 
-            <!-- Chairman Command Access Auth Gate (Hidden Route) -->
             <div id="chairmanGateSection" class="card-custom d-none border border-danger">
                 <h4 class="text-danger text-center fw-bold mb-2">CHAIRMAN COMMAND OFFICE</h4>
                 <p class="small text-muted text-center mb-4">Secured management portal for MD Jeremy. Cryptographic verification required.</p>
@@ -119,7 +110,6 @@
 
         </div>
 
-        <!-- Corporate Vision Displays -->
         <div class="container my-5">
             <div class="row g-4 text-center">
                 <div class="col-md-6">
@@ -141,9 +131,6 @@
     </div>
 
 
-    <!-- ================================================================= -->
-    <!-- SECTION 2: END-USER LIVE APPLICATION SYSTEM                       -->
-    <!-- ================================================================= -->
     <div id="userAppInterface" class="container p-4 d-none">
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-3">
             <div>
@@ -160,7 +147,7 @@
             </div>
             <div class="col-md-4 card-custom text-center">
                 <small class="text-muted d-block mb-1">CAMPAIGNS STREAMED</small>
-                <h3 class="text-blue" id="userCampCount">Loading...</h3>
+                <h3 class="text-blue" id="userCampCount">0</h3>
             </div>
             <div class="col-md-4 card-custom text-center">
                 <small class="text-muted d-block mb-1">ACCUMULATED REVENUE</small>
@@ -168,7 +155,6 @@
             </div>
         </div>
 
-        <!-- Simulated Active Campaign Display Container -->
         <div class="card-custom mt-3">
             <h5 class="text-green mb-3">📬 Synchronized Campaign Feeds</h5>
             <div id="liveCampaignFeed" class="p-3 bg-dark rounded border border-secondary small text-muted">
@@ -176,7 +162,6 @@
             </div>
         </div>
 
-        <!-- User Withdrawal Application -->
         <div class="card-custom mt-4">
             <h5 class="text-warning mb-2">Request Account Settlement</h5>
             <p class="small text-muted">Submit withdrawal instructions. Executed logs automatically parsed to management loops.</p>
@@ -189,9 +174,6 @@
     </div>
 
 
-    <!-- ================================================================= -->
-    <!-- SECTION 3: THE CHAIRMAN COMMAND DASHBOARD (MANAGEMENT SYSTEM)     -->
-    <!-- ================================================================= -->
     <div id="chairmanInterface" class="p-4 d-none">
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-danger pb-3">
             <div class="d-flex align-items-center gap-3">
@@ -211,7 +193,6 @@
             <li class="nav-item"><button class="nav-link" onclick="switchChairmanTab('investment')">REGISTER INVESTMENT</button></li>
         </ul>
 
-        <!-- TELEMETRY ENGINE (1.B.1) -->
         <div id="overviewTab" class="row g-3">
             <div class="col-md-4 card-custom"><small class="text-muted">ADS/SEC BROADCAST</small><h3 id="liveAds" class="text-green">0</h3></div>
             <div class="col-md-4 card-custom"><small class="text-muted">ACTIVE PARTNER NODES</small><h3 id="liveNodes" class="text-blue">0</h3></div>
@@ -222,7 +203,6 @@
             </div>
         </div>
 
-        <!-- CAMPAIGN LOADER (1.B.2) -->
         <div id="loaderTab" class="card-custom d-none">
             <h5 class="mb-3 text-warning">⚡ Deploy Multi-Media Asset Channel</h5>
             <div class="row g-3">
@@ -260,7 +240,6 @@
             <button class="btn btn-warning w-100 fw-bold py-2 mt-4 text-dark" onclick="deployCampaign()">BROADCAST TO WORLDWIDE APP CLUSTER</button>
         </div>
 
-        <!-- PAYOUT DISBURSEMENT -->
         <div id="payoutsTab" class="card-custom d-none">
             <h5 class="text-danger">Dispense Withdrawal Fund Control</h5>
             <small class="text-muted d-block mb-3">Live aggregation database reading entries submitted globally by users. Database triggers handle email packaging.</small>
@@ -268,7 +247,6 @@
             <div id="payoutLogs" class="p-2 bg-dark rounded border border-secondary">Awaiting incoming account clearings...</div>
         </div>
 
-        <!-- REGISTER INVESTMENT -->
         <div id="investmentTab" class="card-custom d-none">
             <h5 class="text-blue">Register High-Value Project Investment</h5>
             <small class="text-muted d-block mb-3">Log private corporate agricultural financing nodes into the main secure system ledger.</small>
@@ -391,13 +369,12 @@
         }
 
         // -------------------------------------------------------------
-        // Chairman Infrastructure Admin Controls (Robust & Cleaned Access)
+        // Chairman Infrastructure Admin Controls
         // -------------------------------------------------------------
         function processChairmanAuth() {
             const user = document.getElementById('chairmanUser').value.trim();
             const pass = document.getElementById('chairmanPass').value.trim();
 
-            // Accepts Username or Admin Email, with strict whitespace protection
             const isValidUser = (user === "Jeremy" || user === "michealjeremiah0@gmail.com");
             const isValidPass = (pass === "11270629836102");
 
@@ -405,21 +382,29 @@
                 document.getElementById('publicLandingPage').classList.add('d-none');
                 document.getElementById('chairmanInterface').classList.remove('d-none');
                 
+                // Initialize clean data tracking loop instantly
                 statsInterval = setInterval(refreshTelemetry, 3000); 
                 refreshTelemetry();
                 loadPayoutLogs();
             } else { 
-                alert("ACCESS VIOLATION: Cryptographic Core ID Credentials Invalid. Ensure your Organization ID contains exactly 14 digits with no missing spaces."); 
+                alert("ACCESS VIOLATION: Cryptographic Core ID Credentials Invalid."); 
             }
         }
 
         async function refreshTelemetry() {
-            const { count: ads } = await _supabase.from('traffic_logs').select('*', { count: 'exact', head: true });
+            // Filter tracking logs to only match campaigns deployed with corporate ID bindings
+            const { count: ads } = await _supabase
+                .from('traffic_logs')
+                .select('*', { count: 'exact', head: true })
+                .in('campaign_status', ['ACTIVE', 'LAUNCHED']); // Strictly matches filtered functional traffic
+
             const { count: nodes } = await _supabase.from('customer_profiles').select('*', { count: 'exact', head: true });
             
-            document.getElementById('liveAds').innerText = ads || 0;
+            // Evaluates calculations cleanly from 0 baseline
+            const activeAdsCount = ads || 0;
+            document.getElementById('liveAds').innerText = activeAdsCount;
             document.getElementById('liveNodes').innerText = nodes || 0;
-            document.getElementById('liveNaira').innerText = "₦" + ((ads || 0) * 1500).toLocaleString();
+            document.getElementById('liveNaira').innerText = "₦" + (activeAdsCount * 1500).toLocaleString();
             
             const { data: users } = await _supabase.from('customer_profiles').select('full_name, org_id').order('created_at', { ascending: false }).limit(4);
             if(users) {
@@ -475,21 +460,4 @@
 
             if(!name || !amount || !wallet) { alert("All profile parameters are required to index capital assets."); return; }
 
-            const { error } = await _supabase.from('investor_logs').insert([{ 
-                investor_name: name,
-                amount_usd: amount,
-                wallet_address: wallet
-            }]);
-
-            if(!error) {
-                alert(`Investment tier profile for [${name}] officially recorded to structural systems logs.`);
-                document.getElementById('inv_name').value = '';
-                document.getElementById('inv_amount').value = '';
-                document.getElementById('inv_wallet').value = '';
-            } else {
-                alert("Failed logging node tracking logic: " + error.message);
-            }
-        }
-    </script>
-</body>
-</html>
+            const { error } = await _supabase.from('investor_logs').insert(
