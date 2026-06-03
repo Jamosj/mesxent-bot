@@ -3,461 +3,440 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesxent Venture Global OS | Global Platform</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Mesxent Venture Global - Ecosystem Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { 
-            --bg: #060913; 
-            --panel: #0f1626; 
-            --accent: #10b981; 
-            --text: #e2e8f0; 
-            --primary-blue: #3b82f6;
+        body {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
-        .card-custom { background: var(--panel); border: 1px solid #1e293b; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        .nav-tabs .nav-link { color: #94a3b8; font-weight: bold; border: none; cursor: pointer; padding: 15px 25px; }
-        .nav-tabs .nav-link.active { color: var(--accent); border-bottom: 3px solid var(--accent); background: transparent; }
-        .d-none { display: none !important; }
-        .text-green { color: var(--accent); }
-        .text-blue { color: var(--primary-blue); }
-        .img-fit { object-fit: cover; width: 100%; border-radius: 8px; }
-        .form-control, .form-select { background-color: #090d16; border: 1px solid #1f293d; color: white; }
-        .form-control:focus, .form-select:focus { background-color: #0c1220; color: white; border-color: var(--accent); box-shadow: none; }
-        .hero-section { background: linear-gradient(180deg, #0f1626 0%, #060913 100%); padding: 60px 20px; border-bottom: 1px solid #1e293b; }
+        .custom-gradient-btn {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+        .custom-gradient-btn:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+        .card-bg {
+            background-color: #111A36;
+            border: 1px solid #1E294B;
+        }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between">
 
-    <div id="publicLandingPage">
-        <nav class="navbar navbar-dark bg-dark px-4 border-bottom border-secondary">
-            <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-                    <img src="image_4.png" alt="MBN logo" style="height:40px;">
-                    <span class="fw-bold text-green text-uppercase">Mesxent Venture Global</span>
-                </a>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-outline-light btn-sm" onclick="showPublicForm('userLogin')">Sign In</button>
-                    <button class="btn btn-success btn-sm" onclick="showPublicForm('userRegister')">Join Network</button>
-                    <button class="btn btn-outline-danger btn-sm ms-3" onclick="showPublicForm('chairmanGate')">🛡️ Chairman Access</button>
-                </div>
+    <header class="w-full border-b border-slate-800 bg-[#0B132B] px-4 py-3 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-xs">MBN</div>
+                <span class="text-emerald-400 font-bold tracking-wider text-sm md:text-base">MESXENT VENTURE GLOBAL</span>
             </div>
-        </nav>
-
-        <div class="hero-section text-center">
-            <div class="container" style="max-width: 800px;">
-                <h1 class="display-5 fw-bold text-white mb-3">Next-Generation Agribusiness & Allied Manufacturing</h1>
-                <p class="lead text-muted mb-4">Empowering global food security and localized asset production through integrated smart technology and decentralized monetization ecosystems.</p>
-                <div class="row g-3 justify-content-center">
-                    <div class="col-md-4">
-                        <button class="btn btn-success w-100 py-3 fw-bold" onclick="showPublicForm('userRegister')">GET STARTED AS PARTNER</button>
-                    </div>
-                </div>
+            <div class="flex items-center space-x-2 flex-wrap gap-y-2">
+                <button id="navSignInBtn" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-1.5 px-3 rounded border border-slate-700 transition">
+                    Sign In
+                </button>
+                <button id="navJoinNetworkBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-1.5 px-3 rounded transition">
+                    Join Network
+                </button>
+                <button id="navChairmanBtn" class="bg-rose-900/80 hover:bg-rose-900 text-rose-200 text-xs font-semibold py-1.5 px-3 rounded border border-rose-700 transition flex items-center gap-1">
+                    🛡️ Chairman Access
+                </button>
             </div>
         </div>
+    </header>
 
-        <div class="container my-5" style="max-width: 500px;">
-            
-            <div id="userRegisterSection" class="card-custom">
-                <h4 class="text-green fw-bold mb-3 text-center">CREATE GLOBAL PARTNER ACCOUNT</h4>
-                <p class="small text-muted text-center mb-4">Register your decentralized node to tap into product marketing and agro-infrastructure campaigns.</p>
-                <div class="mb-3">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" id="u_reg_name" class="form-control" placeholder="John Doe" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" id="u_reg_email" class="form-control" placeholder="name@domain.com" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Preferred Partner/Organization ID</label>
-                    <input type="text" id="u_reg_node" class="form-control" placeholder="e.g. 1127062983" required>
-                </div>
-                <button class="btn btn-success w-100 fw-bold py-2 mt-2" onclick="handleUserSignUp()">SUBMIT APPLICATION</button>
-                <div class="text-center mt-3">
-                    <small class="text-muted">Already verified? <a href="#" class="text-green" onclick="showPublicForm('userLogin')">Log in here</a></small>
-                </div>
-            </div>
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
+        
+        <div class="w-full max-w-2xl mx-auto my-4">
 
-            <div id="userLoginSection" class="card-custom d-none">
-                <h4 class="text-blue fw-bold mb-3 text-center">PARTNER PORTAL SIGN IN</h4>
-                <div class="mb-3">
-                    <label class="form-label">Organization Node ID / Email</label>
-                    <input type="text" id="u_log_id" class="form-control" placeholder="Enter your ID or Email" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Security Access Password</label>
-                    <input type="password" id="u_log_pass" class="form-control" placeholder="••••••••" required>
-                </div>
-                <button class="btn btn-primary w-100 fw-bold py-2" onclick="handleUserLogin()">INITIALIZE DASHBOARD</button>
-                <div class="text-center mt-3">
-                    <small class="text-muted">New Node Request? <a href="#" class="text-green" onclick="showPublicForm('userRegister')">Register now</a></small>
-                </div>
-            </div>
-
-            <div id="chairmanGateSection" class="card-custom d-none border border-danger">
-                <h4 class="text-danger text-center fw-bold mb-2">CHAIRMAN COMMAND OFFICE</h4>
-                <p class="small text-muted text-center mb-4">Secured management portal for MD Jeremy. Cryptographic verification required.</p>
-                <div class="mb-2">
-                    <input type="text" id="chairmanUser" class="form-control" placeholder="Username or Admin Email">
-                </div>
-                <div class="mb-3">
-                    <input type="password" id="chairmanPass" class="form-control" placeholder="Security Protocol Password">
-                </div>
-                <button class="btn btn-danger w-100 fw-bold" onclick="processChairmanAuth()">INITIALIZE MASTER SESSION</button>
-                <button class="btn btn-link text-muted w-100 text-center btn-sm mt-2" onclick="showPublicForm('userRegister')">Return to Public Site</button>
-            </div>
-
-        </div>
-
-        <div class="container my-5">
-            <div class="row g-4 text-center">
-                <div class="col-md-6">
-                    <div class="card-custom h-100">
-                        <img src="image_9.png" alt="Empowering Agriculture" class="img-fit mb-3" style="height:220px;">
-                        <h5 class="text-green">Primary Agro Operations</h5>
-                        <p class="small text-muted">Modern large-scale irrigation systems, high-yield land preparation, and professional crop husbandry standards.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card-custom h-100">
-                        <img src="image_6.png" alt="Farmer Association Priceless Trust" class="img-fit mb-3" style="height:220px;">
-                        <h5 class="text-blue">Allied Manufacturing Branch</h5>
-                        <p class="small text-muted">Advanced post-harvest processing, transparently packaged cured/roasted meat and fish preservation formats designed for regional market networks.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="userAppInterface" class="container p-4 d-none">
-        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-3">
-            <div>
-                <h4 class="text-blue fw-bold mb-0">MESXENT PARTNER ENGINE</h4>
-                <small id="userDisplayNode">Active Member Node Platform</small>
-            </div>
-            <button class="btn btn-outline-light btn-sm" onclick="exitToPublic()">Log Out Node</button>
-        </div>
-
-        <div class="row g-3">
-            <div class="col-md-4 card-custom text-center">
-                <small class="text-muted d-block mb-1">MONETIZATION APPS ALIGNED</small>
-                <h3 class="text-green">Active (Game ID: 6017978)</h3>
-            </div>
-            <div class="col-md-4 card-custom text-center">
-                <small class="text-muted d-block mb-1">CAMPAIGNS STREAMED</small>
-                <h3 class="text-blue" id="userCampCount">0</h3>
-            </div>
-            <div class="col-md-4 card-custom text-center">
-                <small class="text-muted d-block mb-1">ACCUMULATED REVENUE</small>
-                <h3 class="text-warning">₦0.00</h3>
-            </div>
-        </div>
-
-        <div class="card-custom mt-3">
-            <h5 class="text-green mb-3">📬 Synchronized Campaign Feeds</h5>
-            <div id="liveCampaignFeed" class="p-3 bg-dark rounded border border-secondary small text-muted">
-                No active campaign content streams parsed to this network bracket yet.
-            </div>
-        </div>
-
-        <div class="card-custom mt-4">
-            <h5 class="text-warning mb-2">Request Account Settlement</h5>
-            <p class="small text-muted">Submit withdrawal instructions. Executed logs automatically parsed to management loops.</p>
-            <div class="row g-2">
-                <div class="col-md-6"><input type="text" id="u_wd_name" class="form-control" placeholder="Account Name"></div>
-                <div class="col-md-6"><input type="text" id="u_wd_wallet" class="form-control" placeholder="Settlement Crypto Wallet Address or Bank Wire Info"></div>
-            </div>
-            <button class="btn btn-warning w-100 fw-bold py-2 mt-3 text-dark" onclick="submitUserWithdrawal()">PROCEED WITH WITHDRAWAL PROTOCOL</button>
-        </div>
-    </div>
-
-
-    <div id="chairmanInterface" class="p-4 d-none">
-        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-danger pb-3">
-            <div class="d-flex align-items-center gap-3">
-                <img src="image_4.png" alt="MBN logo" style="height:50px;">
+            <div id="landingHero" class="text-center space-y-6 py-8">
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight">
+                    Next-Generation Agribusiness & <br class="hidden md:block">
+                    <span class="text-emerald-400">Allied Manufacturing</span>
+                </h1>
+                <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto">
+                    Empowering global food security and localized asset production through integrated smart technology and decentralized monetization ecosystems.
+                </p>
                 <div>
-                    <h4 class="text-danger fw-bold mb-0">CHAIRMAN SYSTEM CONTROL OFFICE</h4>
-                    <small>Core ID: 11270629836102 | Authorized: MD Jeremy</small>
+                    <button id="heroGetStartedBtn" class="custom-gradient-btn text-white text-sm font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-emerald-900/30 transition-all transform hover:-translate-y-0.5">
+                        GET STARTED AS PARTNER
+                    </button>
                 </div>
             </div>
-            <button class="btn btn-outline-danger btn-sm" onclick="exitToPublic()">TERMINATE MASTER MODE</button>
+
+            <div id="partnerSignUpForm" class="card-bg rounded-xl p-6 shadow-2xl hidden">
+                <div class="text-center mb-6">
+                    <h2 class="text-xl font-bold tracking-wider text-emerald-400 uppercase">Create Global Partner Account</h2>
+                    <p class="text-xs text-slate-400 mt-1">Register your decentralized node to tap into product marketing and agro-infrastructure campaigns.</p>
+                </div>
+                <form id="signUpActionForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Full Name</label>
+                        <input type="text" placeholder="John Doe" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Email Address</label>
+                        <input type="email" id="signUpEmail" placeholder="name@domain.com" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Preferred Partner/Organization ID</label>
+                        <input type="text" placeholder="e.g. 1127062983" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <button type="submit" class="w-full custom-gradient-btn text-white font-bold py-2.5 px-4 rounded text-sm transition uppercase tracking-wider mt-2">
+                        Submit Application
+                    </button>
+                </form>
+                <div class="text-center mt-4">
+                    <button id="toLoginBtn" class="text-xs text-slate-400 hover:text-emerald-400 transition underline">Already verified? Log in here</button>
+                </div>
+            </div>
+
+            <div id="partnerLoginForm" class="card-bg rounded-xl p-6 shadow-2xl hidden">
+                <div class="text-center mb-6">
+                    <h2 class="text-xl font-bold tracking-wider text-emerald-400 uppercase">Partner Node Authentication</h2>
+                    <p class="text-xs text-slate-400 mt-1">Provide verified credentials to access campaign distribution layers.</p>
+                </div>
+                <form id="loginActionForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Registered Email</label>
+                        <input type="email" id="loginEmail" placeholder="michealjeremiah0@gmail.com" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Access Passphrase</label>
+                        <input type="password" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <button type="submit" class="w-full custom-gradient-btn text-white font-bold py-2.5 px-4 rounded text-sm transition uppercase tracking-wider mt-2">
+                        Authenticate Node
+                    </button>
+                </form>
+            </div>
+
+            <div id="chairmanLoginForm" class="card-bg rounded-xl p-6 shadow-2xl border-rose-900/50 hidden">
+                <div class="text-center mb-6">
+                    <h2 class="text-xl font-bold tracking-wider text-rose-500 uppercase">Chairman Command Office</h2>
+                    <p class="text-xs text-slate-400 mt-1">Secured management portal for MD Jeremy. Cryptographic verification required.</p>
+                </div>
+                <form id="chairmanActionForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Security Signatory Alias</label>
+                        <input type="text" id="chairmanAlias" placeholder="Jeremy" required class="w-full bg-[#080F21] border border-slate-800 rounded p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Cryptographic Key / Password</label>
+                        <input type="password" id="chairmanPassword" placeholder="............" required class="w-full bg-[#080F21] border border-slate-800 rounded p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
+                    </div>
+                    <button type="submit" class="w-full bg-rose-700 hover:bg-rose-600 text-white font-bold py-2.5 px-4 rounded text-sm transition uppercase tracking-wider mt-2 shadow-lg shadow-rose-950/50">
+                        Initialize Master Session
+                    </button>
+                </form>
+            </div>
+
+            <div id="partnerDashboard" class="space-y-6 hidden">
+                <div class="card-bg rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 border-l-4 border-emerald-500">
+                    <div>
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-400">Mesxent Partner Engine</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Active Session: Identity Node [<span id="displayPartnerEmail" class="text-slate-200 font-mono">user@domain.com</span>]</p>
+                    </div>
+                    <button id="logoutPartnerBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold py-1 px-3 rounded border border-slate-700 transition">
+                        Log Out Node
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="card-bg rounded-xl p-4 text-center md:text-left">
+                        <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Monetization Apps Aligned</span>
+                        <span class="block text-lg font-bold text-emerald-400 mt-2">Active (Game ID: 6017978)</span>
+                    </div>
+                    <div class="card-bg rounded-xl p-4 text-center md:text-left">
+                        <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Campaigns Streamed</span>
+                        <span class="block text-3xl font-black text-white mt-1">0</span>
+                    </div>
+                    <div class="card-bg rounded-xl p-4 text-center md:text-left">
+                        <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Accumulated Revenue</span>
+                        <span class="block text-2xl font-black text-amber-400 mt-1">₦0.00</span>
+                    </div>
+                </div>
+
+                <div class="card-bg rounded-xl p-4">
+                    <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1 mb-3">
+                        📬 Synchronized Campaign Feeds
+                    </h3>
+                    <div class="bg-[#080F21] rounded border border-slate-800 p-8 text-center text-xs text-slate-500 italic">
+                        Awaiting active campaign distribution protocols...
+                    </div>
+                </div>
+
+                <div class="card-bg rounded-xl p-4 space-y-4">
+                    <div>
+                        <h3 class="text-sm font-bold text-amber-500">Request Account Settlement</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Submit withdrawal instructions. Executed logs automatically parsed to management loops.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" placeholder="Account Name" class="w-full bg-[#080F21] border border-slate-700 rounded p-2 text-xs text-white focus:outline-none">
+                        <input type="text" placeholder="Settlement Crypto Wallet Address or Bank Account Details" class="w-full bg-[#080F21] border border-slate-700 rounded p-2 text-xs text-white focus:outline-none">
+                    </div>
+                    <button class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs py-2 px-4 rounded tracking-wider uppercase transition">
+                        Proceed with Withdrawal Protocol
+                    </button>
+                </div>
+            </div>
+
+            <div id="chairmanDashboard" class="space-y-6 hidden">
+                <div class="card-bg rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 border-l-4 border-rose-600">
+                    <div>
+                        <h2 class="text-sm font-extrabold uppercase tracking-wider text-rose-500">Chairman System Control Office</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Core ID: <span class="font-mono text-rose-300">11270629836102</span> | Authorized: MD Jeremy</p>
+                    </div>
+                    <button id="logoutChairmanBtn" class="bg-rose-950/80 hover:bg-rose-900 text-rose-200 text-xs font-bold py-1 px-3 rounded border border-rose-800 transition uppercase tracking-wider">
+                        Terminate Master Mode
+                    </button>
+                </div>
+
+                <div class="flex border-b border-slate-800 gap-4 text-xs font-bold uppercase tracking-wider pb-1 overflow-x-auto">
+                    <button id="tabEcosystem" class="text-emerald-400 border-b-2 border-emerald-400 pb-2 px-1 whitespace-nowrap">Ecosystem Overview (1.B.1)</button>
+                    <button id="tabCampaign" class="text-slate-400 hover:text-white pb-2 px-1 whitespace-nowrap">Campaign Loader (1.B.2)</button>
+                    <button id="tabPayout" class="text-slate-400 hover:text-white pb-2 px-1 whitespace-nowrap">Payout Disbursement</button>
+                    <button id="tabInvestment" class="text-slate-400 hover:text-white pb-2 px-1 whitespace-nowrap">Register Investment</button>
+                </div>
+
+                <div id="chairmanPanels" class="space-y-6">
+                    <div id="panelEcosystem" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="card-bg rounded-xl p-4">
+                                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Ads/Sec Broadcast</span>
+                                <span class="block text-2xl font-black text-emerald-400 mt-1">38</span>
+                            </div>
+                            <div class="card-bg rounded-xl p-4">
+                                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active Partner Nodes</span>
+                                <span class="block text-2xl font-black text-blue-400 mt-1">0</span>
+                            </div>
+                            <div class="card-bg rounded-xl p-4">
+                                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Naira Value Matrix</span>
+                                <span class="block text-2xl font-black text-amber-400 mt-1">₦57,000</span>
+                            </div>
+                        </div>
+                        <div class="card-bg rounded-xl p-4">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Global Organization Ledger Logs</h3>
+                            <div class="text-xs font-mono text-slate-600 italic py-4">Awaiting node synchronization...</div>
+                        </div>
+                    </div>
+
+                    <div id="panelCampaign" class="card-bg rounded-xl p-5 space-y-4 hidden">
+                        <div>
+                            <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-wider">Campaign Loader Engine</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Inject verified product asset matrices directly into the globally connected live partner nodes.</p>
+                        </div>
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <label class="block text-slate-400 mb-1 font-semibold">Campaign Location Name</label>
+                                <input type="text" placeholder="e.g. Ilesa Roundabout Billboard" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 mb-1 font-semibold">Product Description</label>
+                                <textarea rows="2" placeholder="e.g. Mesxent Grill - Chicken, Fish, Asun, Kilichi" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 mb-1 font-semibold">Affiliate Core Target URL</label>
+                                <input type="url" placeholder="https://..." class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-slate-400 mb-1 font-semibold">Ads Source ID (1-4 config)</label>
+                                    <input type="number" placeholder="1" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-400 mb-1 font-semibold">Monetization Source ID (1-4 config)</label>
+                                    <input type="number" placeholder="2" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 mb-1 font-semibold">Source Optimization Encryption Code</label>
+                                <input type="text" placeholder="Standard MD5/SHA Payload signature keys" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
+                            </div>
+                            <button type="button" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded tracking-wider uppercase transition mt-2">
+                                🚀 Broadcast Campaign Live
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="panelPayout" class="card-bg rounded-xl p-5 text-center text-xs text-slate-500 py-12 hidden">
+                        🔒 No pending settlement protocols parsed in the automated management loop.
+                    </div>
+
+                    <div id="panelInvestment" class="card-bg rounded-xl p-5 text-center text-xs text-slate-500 py-12 hidden">
+                        📈 Agro-infrastructure pool registry allocation offline.
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <ul class="nav nav-tabs mb-4" id="blueprintTabs">
-            <li class="nav-item"><button class="nav-link active" onclick="switchChairmanTab('overview')">ECOSYSTEM OVERVIEW (1.B.1)</button></li>
-            <li class="nav-item"><button class="nav-link" onclick="switchChairmanTab('loader')">CAMPAIGN LOADER (1.B.2)</button></li>
-            <li class="nav-item"><button class="nav-link" onclick="switchChairmanTab('payouts')">PAYOUT DISBURSEMENT</button></li>
-            <li class="nav-item"><button class="nav-link" onclick="switchChairmanTab('investment')">REGISTER INVESTMENT</button></li>
-        </ul>
-
-        <div id="overviewTab" class="row g-3">
-            <div class="col-md-4 card-custom"><small class="text-muted">ADS/SEC BROADCAST</small><h3 id="liveAds" class="text-green">0</h3></div>
-            <div class="col-md-4 card-custom"><small class="text-muted">ACTIVE PARTNER NODES</small><h3 id="liveNodes" class="text-blue">0</h3></div>
-            <div class="col-md-4 card-custom"><small class="text-muted">NAIRA VALUE MATRIX</small><h3 id="liveNaira" class="text-warning">₦0</h3></div>
-            <div class="col-12 mt-3 card-custom">
-                <h5 class="text-green">Global Organization Ledger Logs</h5>
-                <div id="userList" class="mt-2 small text-muted">Awaiting node synchronization...</div>
+        <div id="branchCards" class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+            <div class="card-bg rounded-xl p-5 flex flex-col justify-between transition hover:border-emerald-500/40">
+                <div class="space-y-2">
+                    <div class="text-emerald-400 text-xl font-bold">🌾 Primary Agro Operations</div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Modern large-scale irrigation systems, high-yield land preparation, and professional crop husbandry standards designed for mass localized cultivation output.
+                    </p>
+                </div>
+            </div>
+            <div class="card-bg rounded-xl p-5 flex flex-col justify-between transition hover:border-emerald-500/40">
+                <div class="space-y-2">
+                    <div class="text-emerald-400 text-xl font-bold">🏭 Allied Manufacturing Branch</div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Advanced post-harvest processing, transparently packaged shelf-stable foods, and fish/meat preservation formats targeting extensive regional value delivery chains.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <div id="loaderTab" class="card-custom d-none">
-            <h5 class="mb-3 text-warning">⚡ Deploy Multi-Media Asset Channel</h5>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label class="form-label text-muted small">Campaign Heading Title</label>
-                    <input type="text" id="cam_title" class="form-control" placeholder="e.g. Premium Smoked Fish Global Campaign" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label text-muted small">Destination Domain Link</label>
-                    <input type="url" id="cam_url" class="form-control" value="https://www.mesxentventureglobal.store" required>
-                </div>
-                <div class="col-12">
-                    <label class="form-label text-muted small">Description Narrative Content</label>
-                    <textarea id="cam_desc" class="form-control" placeholder="Enter marketing descriptions or conversion pitches..." required></textarea>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label text-muted small">Asset Content Hosting Link (PNG, MP4)</label>
-                    <input type="url" id="cam_media_url" class="form-control" placeholder="https://domain.com/assets/media.png" required>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label text-muted small">Ads Source ID</label>
-                    <select id="cam_ads_id" class="form-select">
-                        <option value="6017978">Android - 6017978</option>
-                        <option value="6017979">Apple iOS - 6017979</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label text-muted small">Monetization Source</label>
-                    <select id="cam_mon_id" class="form-select">
-                        <option value="SUPERBASE_REALTIME">Supabase Cloud Stack</option>
-                        <option value="REDIS_RAILWAY">Redis Internal Mesh</option>
-                    </select>
-                </div>
-            </div>
-            <button class="btn btn-warning w-100 fw-bold py-2 mt-4 text-dark" onclick="deployCampaign()">BROADCAST TO WORLDWIDE APP CLUSTER</button>
-        </div>
+    </main>
 
-        <div id="payoutsTab" class="card-custom d-none">
-            <h5 class="text-danger">Dispense Withdrawal Fund Control</h5>
-            <small class="text-muted d-block mb-3">Live aggregation database reading entries submitted globally by users. Database triggers handle email packaging.</small>
-            <button class="btn btn-outline-danger w-100 fw-bold py-2 mb-3" onclick="clearPayouts()">Deploy Mass Settlement Protocols (1st to 5th)</button>
-            <div id="payoutLogs" class="p-2 bg-dark rounded border border-secondary">Awaiting incoming account clearings...</div>
-        </div>
-
-        <div id="investmentTab" class="card-custom d-none">
-            <h5 class="text-blue">Register High-Value Project Investment</h5>
-            <small class="text-muted d-block mb-3">Log private corporate agricultural financing nodes into the main secure system ledger.</small>
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <input type="text" id="inv_name" class="form-control" placeholder="Investor Entity/Name">
-                </div>
-                <div class="col-md-4">
-                    <input type="number" id="inv_amount" class="form-control" placeholder="Investment Capitalization (USD)">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" id="inv_wallet" class="form-control" placeholder="Assigned Settlement Protocol Wallet">
-                </div>
-            </div>
-            <button class="btn btn-primary w-100 fw-bold py-2 mt-3" onclick="registerInvestment()">LOG INVESTMENT TO CENTRAL ARCHIVE</button>
-        </div>
-    </div>
-
+    <footer class="w-full text-center py-4 border-t border-slate-900 bg-[#070D1E] text-[10px] text-slate-600 tracking-wider uppercase font-medium">
+        © 2026 Mesxent Global Ventures. Ecosystem Engine Node Operations.
+    </footer>
 
     <script>
-        // Connected API Handlers
-        const _supabase = supabase.createClient("https://bffzgtloidanlqizalty.supabase.co", "sb_publishable_laCBEwCIQ2cXnErxgZqVgg_OfvW48C7");
+        // DOM Form Elements Identification
+        const landingHero = document.getElementById('landingHero');
+        const partnerSignUpForm = document.getElementById('partnerSignUpForm');
+        const partnerLoginForm = document.getElementById('partnerLoginForm');
+        const chairmanLoginForm = document.getElementById('chairmanLoginForm');
+        const partnerDashboard = document.getElementById('partnerDashboard');
+        const chairmanDashboard = document.getElementById('chairmanDashboard');
+        const branchCards = document.getElementById('branchCards');
 
-        let statsInterval;
+        // Navigation Elements
+        const navSignInBtn = document.getElementById('navSignInBtn');
+        const navJoinNetworkBtn = document.getElementById('navJoinNetworkBtn');
+        const navChairmanBtn = document.getElementById('navChairmanBtn');
+        const heroGetStartedBtn = document.getElementById('heroGetStartedBtn');
+        const toLoginBtn = document.getElementById('toLoginBtn');
 
-        // -------------------------------------------------------------
-        // UI Navigation Architecture
-        // -------------------------------------------------------------
-        function showPublicForm(view) {
-            document.getElementById('userRegisterSection').classList.add('d-none');
-            document.getElementById('userLoginSection').classList.add('d-none');
-            document.getElementById('chairmanGateSection').classList.add('d-none');
+        // Functional Logouts
+        const logoutPartnerBtn = document.getElementById('logoutPartnerBtn');
+        const logoutChairmanBtn = document.getElementById('logoutChairmanBtn');
 
-            if (view === 'userRegister') document.getElementById('userRegisterSection').classList.remove('d-none');
-            if (view === 'userLogin') document.getElementById('userLoginSection').classList.remove('d-none');
-            if (view === 'chairmanGate') document.getElementById('chairmanGateSection').classList.remove('d-none');
+        // Input targets for conditional states
+        const signUpEmail = document.getElementById('signUpEmail');
+        const loginEmail = document.getElementById('loginEmail');
+        const displayPartnerEmail = document.getElementById('displayPartnerEmail');
+
+        // Master Screen State Controller
+        function resetView() {
+            landingHero.classList.add('hidden');
+            partnerSignUpForm.classList.add('hidden');
+            partnerLoginForm.classList.add('hidden');
+            chairmanLoginForm.classList.add('hidden');
+            partnerDashboard.classList.add('hidden');
+            chairmanDashboard.classList.add('hidden');
+            branchCards.classList.remove('hidden'); // Keep infrastructure metrics visible usually
         }
 
-        function switchChairmanTab(t) {
-            ['overview', 'loader', 'payouts', 'investment'].forEach(tab => document.getElementById(tab + 'Tab').classList.add('d-none'));
-            document.getElementById(t + 'Tab').classList.remove('d-none');
-        }
+        // --- BUTTON EVENT ROUTERS ---
+        
+        navSignInBtn.addEventListener('click', () => {
+            resetView();
+            partnerLoginForm.classList.remove('hidden');
+        });
 
-        function exitToPublic() {
-            clearInterval(statsInterval);
-            document.getElementById('userAppInterface').classList.add('d-none');
-            document.getElementById('chairmanInterface').classList.add('d-none');
-            document.getElementById('publicLandingPage').classList.remove('d-none');
-        }
+        navJoinNetworkBtn.addEventListener('click', () => {
+            resetView();
+            partnerSignUpForm.classList.remove('hidden');
+        });
 
-        // -------------------------------------------------------------
-        // Public/User Processing Controls
-        // -------------------------------------------------------------
-        async function handleUserSignUp() {
-            const name = document.getElementById('u_reg_name').value.trim();
-            const email = document.getElementById('u_reg_email').value.trim();
-            const node = document.getElementById('u_reg_node').value.trim();
+        navChairmanBtn.addEventListener('click', () => {
+            resetView();
+            chairmanLoginForm.classList.remove('hidden');
+        });
 
-            if(!name || !email || !node) { alert("Please compile all empty form attributes."); return; }
+        heroGetStartedBtn.addEventListener('click', () => {
+            resetView();
+            partnerSignUpForm.classList.remove('hidden');
+        });
 
-            const { error } = await _supabase.from('customer_profiles').insert([{ 
-                full_name: name,
-                email: email,
-                org_id: node,
-                created_at: new Date().toISOString()
-            }]);
+        toLoginBtn.addEventListener('click', () => {
+            resetView();
+            partnerLoginForm.classList.remove('hidden');
+        });
 
-            if(!error) {
-                alert(`SUCCESS! Node ${node} has successfully registered to the network. Form data logged.`);
-                document.getElementById('u_reg_name').value = '';
-                document.getElementById('u_reg_email').value = '';
-                document.getElementById('u_reg_node').value = '';
-                showPublicForm('userLogin');
+        // --- AUTHENTICATION ACTION PROCESSING SIMULATORS ---
+        
+        document.getElementById('signUpActionForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("SIGN UP COMPLETE:\nPlease verify your email node confirmation link!");
+            resetView();
+            // Instantly transfer verified profile seed target email to login view field
+            loginEmail.value = signUpEmail.value;
+            partnerLoginForm.classList.remove('hidden');
+        });
+
+        document.getElementById('loginActionForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            displayPartnerEmail.innerText = loginEmail.value || "michealjeremiah0@gmail.com";
+            resetView();
+            branchCards.classList.add('hidden'); // Hide footer options to clear dashboard clean interface look
+            partnerDashboard.classList.remove('hidden');
+        });
+
+        document.getElementById('chairmanActionForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const alias = document.getElementById('chairmanAlias').value;
+            const pass = document.getElementById('chairmanPassword').value;
+
+            // Security Validation parameters
+            if (alias.trim().toLowerCase() === 'jeremy' && pass === '11270629836102') {
+                resetView();
+                branchCards.classList.add('hidden');
+                chairmanDashboard.classList.remove('hidden');
             } else {
-                alert("Database node sync error: " + error.message);
+                // Return explicit cryptographically derived error string signature match from original state
+                alert("ACCESS VIOLATION: Cryptographic Core ID Credentials Invalid.");
             }
+        });
+
+        // --- DASHBOARD LOGOUT RETURNING TO HOME ENGINE ---
+        
+        logoutPartnerBtn.addEventListener('click', () => {
+            resetView();
+            landingHero.classList.remove('hidden');
+        });
+
+        logoutChairmanBtn.addEventListener('click', () => {
+            resetView();
+            landingHero.classList.remove('hidden');
+        });
+
+        // --- CHAIRMAN CONTROL PANEL TAB SWITCHING PARSER ---
+        const tabEcosystem = document.getElementById('tabEcosystem');
+        const tabCampaign = document.getElementById('tabCampaign');
+        const tabPayout = document.getElementById('tabPayout');
+        const tabInvestment = document.getElementById('tabInvestment');
+
+        const panelEcosystem = document.getElementById('panelEcosystem');
+        const panelCampaign = document.getElementById('panelCampaign');
+        const panelPayout = document.getElementById('panelPayout');
+        const panelInvestment = document.getElementById('panelInvestment');
+
+        function clearAllTabs() {
+            [tabEcosystem, tabCampaign, tabPayout, tabInvestment].forEach(t => {
+                t.classList.remove('text-emerald-400', 'border-b-2', 'border-emerald-400');
+                t.classList.add('text-slate-400');
+            });
+            [panelEcosystem, panelCampaign, panelPayout, panelInvestment].forEach(p => p.classList.add('hidden'));
         }
 
-        async function handleUserLogin() {
-            const loginCredential = document.getElementById('u_log_id').value.trim();
-            if(!loginCredential) { alert("Please pass an Organization Node ID or Email."); return; }
-
-            document.getElementById('publicLandingPage').classList.add('d-none');
-            document.getElementById('userAppInterface').classList.remove('d-none');
-            document.getElementById('userDisplayNode').innerText = `Active Session: Identity Node [${loginCredential}]`;
-            
-            const { count } = await _supabase.from('marketing_campaigns').select('*', { count: 'exact', head: true });
-            document.getElementById('userCampCount').innerText = count || 0;
-
-            const { data } = await _supabase.from('marketing_campaigns').select('*').limit(1).order('id', { ascending: false });
-            if(data && data.length > 0) {
-                document.getElementById('liveCampaignFeed').innerHTML = `
-                    <div class="border border-success p-2 rounded">
-                        <strong class="text-white d-block">${data[0].title}</strong>
-                        <p class="mb-1 text-muted">${data[0].description}</p>
-                        <a href="${data[0].url}" target="_blank" class="btn btn-sm btn-success py-0 px-2 mt-1">Load Campaign Domain</a>
-                    </div>`;
-            }
+        function setTabActive(tab, panel) {
+            clearAllTabs();
+            tab.classList.remove('text-slate-400');
+            tab.classList.add('text-emerald-400', 'border-b-2', 'border-emerald-400');
+            panel.classList.remove('hidden');
         }
 
-        async function submitUserWithdrawal() {
-            const name = document.getElementById('u_wd_name').value.trim();
-            const target = document.getElementById('u_wd_wallet').value.trim();
-
-            if(!name || !target) { alert("Please complete withdrawal directives info blocks."); return; }
-
-            const { error } = await _supabase.from('withdrawal_logs').insert([{
-                account_name: name,
-                wallet_address: target,
-                created_at: new Date().toISOString()
-            }]);
-
-            if(!error) {
-                alert("Settlement protocol safely logged. Process moved to admin clearance matrix.");
-                document.getElementById('u_wd_name').value = '';
-                document.getElementById('u_wd_wallet').value = '';
-            } else {
-                alert("Error recording asset payout command: " + error.message);
-            }
-        }
-
-        // -------------------------------------------------------------
-        // Chairman Infrastructure Admin Controls
-        // -------------------------------------------------------------
-        function processChairmanAuth() {
-            const user = document.getElementById('chairmanUser').value.trim();
-            const pass = document.getElementById('chairmanPass').value.trim();
-
-            const isValidUser = (user === "Jeremy" || user === "michealjeremiah0@gmail.com");
-            const isValidPass = (pass === "11270629836102");
-
-            if(isValidUser && isValidPass) {
-                document.getElementById('publicLandingPage').classList.add('d-none');
-                document.getElementById('chairmanInterface').classList.remove('d-none');
-                
-                // Initialize clean data tracking loop instantly
-                statsInterval = setInterval(refreshTelemetry, 3000); 
-                refreshTelemetry();
-                loadPayoutLogs();
-            } else { 
-                alert("ACCESS VIOLATION: Cryptographic Core ID Credentials Invalid."); 
-            }
-        }
-
-        async function refreshTelemetry() {
-            // Filter tracking logs to only match campaigns deployed with corporate ID bindings
-            const { count: ads } = await _supabase
-                .from('traffic_logs')
-                .select('*', { count: 'exact', head: true })
-                .in('campaign_status', ['ACTIVE', 'LAUNCHED']); // Strictly matches filtered functional traffic
-
-            const { count: nodes } = await _supabase.from('customer_profiles').select('*', { count: 'exact', head: true });
-            
-            // Evaluates calculations cleanly from 0 baseline
-            const activeAdsCount = ads || 0;
-            document.getElementById('liveAds').innerText = activeAdsCount;
-            document.getElementById('liveNodes').innerText = nodes || 0;
-            document.getElementById('liveNaira').innerText = "₦" + (activeAdsCount * 1500).toLocaleString();
-            
-            const { data: users } = await _supabase.from('customer_profiles').select('full_name, org_id').order('created_at', { ascending: false }).limit(4);
-            if(users) {
-                document.getElementById('userList').innerHTML = users.map(u => `<div class="p-1 border-bottom border-secondary">> Secure Connection verified: Network Node [${u.org_id}] under signature [${u.full_name}].</div>`).join('');
-            }
-        }
-
-        async function deployCampaign() {
-            const title = document.getElementById('cam_title').value;
-            const url = document.getElementById('cam_url').value;
-            const desc = document.getElementById('cam_desc').value;
-            const media = document.getElementById('cam_media_url').value;
-            const adsId = document.getElementById('cam_ads_id').value;
-
-            if(!title || !desc || !media) { alert("Please complete required campaign parameters."); return; }
-
-            const { error } = await _supabase.from('marketing_campaigns').insert([{ 
-                title: title,
-                description: desc,
-                url: url,
-                media_url: media,
-                status: "ACTIVE",
-                org_id: adsId
-            }]);
-
-            if(!error) {
-                alert(`Broadcast deployment active for target app platform ID ${adsId}!`);
-                document.getElementById('cam_title').value = '';
-                document.getElementById('cam_desc').value = '';
-                document.getElementById('cam_media_url').value = '';
-            } else {
-                alert("Database reject execution anomaly: " + error.message);
-            }
-        }
-
-        async function loadPayoutLogs() {
-            const { data } = await _supabase.from('withdrawal_logs').select('wallet_address, account_name, created_at').order('created_at', { ascending: false });
-            if(data && data.length > 0) {
-                document.getElementById('payoutLogs').innerHTML = data.map(wd => `<div class="p-1 border-bottom border-dark text-warning">> Request from [${wd.account_name}] to clear destination [${wd.wallet_address}] logged securely.</div>`).join('');
-            } else {
-                document.getElementById('payoutLogs').innerText = "No pending platform payouts logged in this current cycle.";
-            }
-        }
-
-        async function clearPayouts() { 
-            alert("Disbursement commands dispatched. Auto-webhook executing message outputs to database logging."); 
-        }
-
-        async function registerInvestment() {
-            const name = document.getElementById('inv_name').value.trim();
-            const amount = document.getElementById('inv_amount').value.trim();
-            const wallet = document.getElementById('inv_wallet').value.trim();
-
-            if(!name || !amount || !wallet) { alert("All profile parameters are required to index capital assets."); return; }
-
-            const { error } = await _supabase.from('investor_logs').insert(
+        tabEcosystem.addEventListener('click', () => setTabActive(tabEcosystem, panelEcosystem));
+        tabCampaign.addEventListener('click', () => setTabActive(tabCampaign, panelCampaign));
+        tabPayout.addEventListener('click', () => setTabActive(tabPayout, panelPayout));
+        tabInvestment.addEventListener('click', () => setTabActive(tabInvestment, panelInvestment));
+    </script>
+</body>
+</html>
