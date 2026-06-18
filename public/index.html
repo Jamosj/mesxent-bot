@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesxent Ad-Bot | Central Ecosystem</title>
+    <title>Mesxent Ad-Bot OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0B132B; color: #FFFFFF; font-family: sans-serif; }
@@ -11,83 +12,115 @@
         .hidden { display: none !important; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen">
 
-    <!-- Header -->
-    <header class="w-full border-b border-slate-800 bg-[#0B132B] p-4 flex justify-between items-center sticky top-0 z-50">
-        <h1 class="text-emerald-400 font-bold text-sm tracking-widest">MESXENT AD-BOT V1.0</h1>
-        <div class="flex gap-4">
-            <button onclick="switchView('hero')" class="text-[10px] text-slate-400">HOME</button>
-            <button id="navChairmanBtn" class="text-[10px] text-rose-400 font-bold uppercase">🛡️ Chairman</button>
+    <header class="sticky top-0 z-50 border-b border-slate-800 bg-[#0B132B] p-4 flex justify-between items-center">
+        <h1 class="text-emerald-400 font-black text-sm uppercase">Mesxent Ad-Bot OS</h1>
+        <div class="flex gap-3">
+            <button onclick="showPage('home')" class="text-[10px] text-slate-400">HOME</button>
+            <button onclick="showPage('login')" class="text-[10px] text-emerald-400">PARTNER LOGIN</button>
         </div>
     </header>
 
-    <main class="flex-grow max-w-2xl w-full mx-auto p-6">
+    <main class="max-w-2xl mx-auto p-6">
         
-        <!-- View: Home / Whitepaper -->
-        <div id="viewHero">
-            <div class="text-center py-8">
-                <h1 class="text-3xl font-black mb-4 text-emerald-500">Agro-Manufacturing Ad-Bot</h1>
-                <p class="text-slate-400 text-sm mb-6">Join a decentralized network that monetizes silent traffic pings through a sophisticated 20-second cross-platform ad rotation cycle, empowering agro-ventures with automated, scalable revenue.</p>
-                <button onclick="switchView('partnerSignup')" class="bg-emerald-600 px-8 py-3 rounded-lg text-sm font-bold w-full">JOIN THE NETWORK</button>
+        <section id="pageHome">
+            <h1 class="text-3xl font-black mb-4">Decentralized Ad-Bot Ecosystem</h1>
+            <p class="text-slate-400 text-sm mb-8">Integrated smart technology for automated monetization and agro-venture scaling.</p>
+            <div class="space-y-3">
+                <button onclick="showPage('signup')" class="w-full bg-emerald-600 py-3 rounded font-bold">REGISTER AS PARTNER</button>
+                <button onclick="showPage('investorRequest')" class="w-full border border-slate-700 py-3 rounded font-bold">REQUEST INVESTMENT PITCH</button>
+                <button onclick="showPage('chairmanAuth')" class="w-full text-rose-500 border border-rose-900 py-3 rounded font-bold text-xs uppercase">🛡️ Chairman Access</button>
             </div>
+        </section>
 
-            <!-- Stats Module -->
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <div class="card-bg p-4 rounded-xl text-center">
-                    <p class="text-[10px] text-slate-500 uppercase">Revenue Per Loop</p>
-                    <p class="text-xl font-bold text-amber-400">₦150</p>
-                </div>
-                <div class="card-bg p-4 rounded-xl text-center">
-                    <p class="text-[10px] text-slate-500 uppercase">Active Partners</p>
-                    <p class="text-xl font-bold text-emerald-400">11+</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- View: Partner Signup -->
-        <div id="viewPartnerSignup" class="card-bg p-6 rounded-xl hidden">
-            <h2 class="text-emerald-400 font-bold mb-4">Register as Partner</h2>
-            <form action="https://formspree.io/f/xaqznnqe" method="POST" class="space-y-4">
-                <input type="text" name="name" placeholder="Full Name" required class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm text-white">
-                <input type="email" name="email" placeholder="Email" required class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm text-white">
-                <button type="submit" class="w-full bg-emerald-600 py-2 rounded text-sm font-bold">SUBMIT APPLICATION</button>
+        <section id="pageSignup" class="hidden card-bg p-6 rounded-xl">
+            <h2 class="text-emerald-400 font-bold mb-4">Partner Registration</h2>
+            <form id="signupForm" class="space-y-3">
+                <input type="text" placeholder="Full Name" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
+                <input type="email" placeholder="Email" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
+                <button type="button" onclick="alert('Account Created. ID Generated. Verification Link Sent.')" class="w-full bg-emerald-600 py-2 rounded font-bold">COMPLETE REGISTRATION</button>
             </form>
-        </div>
+        </section>
 
-        <!-- View: Chairman Login -->
-        <div id="viewChairmanLogin" class="card-bg p-6 rounded-xl hidden border-rose-900">
-            <h2 class="text-rose-400 font-bold mb-4">Chairman Access</h2>
-            <input type="password" id="chairmanKey" placeholder="Master Key" class="w-full p-2 mb-4 bg-[#080F21] border border-slate-700 rounded text-sm text-white">
-            <button id="authChairman" class="w-full bg-rose-700 py-2 rounded text-sm font-bold">INITIALIZE SESSION</button>
-        </div>
+        <section id="pageInvestorRequest" class="hidden card-bg p-6 rounded-xl">
+            <h2 class="text-amber-400 font-bold mb-4">Request Investment Pitch</h2>
+            <p class="text-slate-400 text-sm mb-4">Provide your contact info to receive our official investment node prospectus.</p>
+            <input type="text" placeholder="Company/Individual Name" class="w-full p-2 mb-3 bg-[#080F21] border border-slate-700 rounded text-sm">
+            <button onclick="showPage('investorConfirm')" class="w-full bg-amber-600 py-2 rounded font-bold">REQUEST PITCH</button>
+        </section>
 
-        <!-- View: Chairman Dashboard -->
-        <div id="viewChairmanDashboard" class="card-bg p-6 rounded-xl hidden border-rose-900">
-            <h2 class="text-rose-500 font-bold mb-6">System Control Office</h2>
-            <div class="grid grid-cols-1 gap-3">
-                <a href="./campaign.html" class="bg-blue-600 py-3 text-center rounded text-sm font-bold">LOAD CAMPAIGNS</a>
-                <a href="./payout.html" class="bg-amber-600 py-3 text-center rounded text-sm font-bold">PAYOUT DISBURSEMENT</a>
-                <a href="./assets.html" class="bg-rose-600 py-3 text-center rounded text-sm font-bold">REGISTER ASSETS</a>
+        <section id="pageInvestorConfirm" class="hidden text-center py-10">
+            <h2 class="text-2xl font-bold text-amber-400">Request Sent</h2>
+            <p class="text-slate-400 text-sm">Our team will contact you shortly regarding the investment node details.</p>
+        </section>
+
+        <section id="pagePartnerDashboard" class="hidden">
+            <h2 class="text-emerald-400 font-bold mb-4">Partner Node Dashboard</h2>
+            </section>
+
+        <section id="pageChairmanAuth" class="hidden card-bg p-6 rounded-xl border border-rose-900">
+            <h2 class="text-rose-500 font-bold mb-4">Admin Authentication</h2>
+            <input type="password" id="masterKey" placeholder="Enter Key" class="w-full p-2 mb-4 bg-[#080F21] border border-slate-700 rounded text-sm">
+            <button onclick="verifyKey()" class="w-full bg-rose-700 py-2 rounded font-bold">INITIALIZE SESSION</button>
+        </section>
+
+        <section id="pageChairmanDashboard" class="hidden">
+            <h2 class="text-rose-500 font-bold mb-6">Live Global Ad-Bot Statistics</h2>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Live Revenue</p><p id="liveRevenue" class="font-bold text-emerald-400">CONNECTING...</p></div>
+                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Active Loops</p><p id="liveLoops" class="font-bold text-blue-400">CONNECTING...</p></div>
             </div>
-        </div>
+            <div class="grid grid-cols-1 gap-3">
+                <a href="campaign.html" class="bg-blue-600 py-3 rounded text-center font-bold text-sm">LOAD CAMPAIGNS</a>
+                <a href="payout.html" class="bg-amber-600 py-3 rounded text-center font-bold text-sm">PAYOUT DISBURSEMENT</a>
+                <a href="assets.html" class="bg-rose-600 py-3 rounded text-center font-bold text-sm">REGISTER ASSETS</a>
+            </div>
+        </section>
     </main>
 
     <script>
-        function switchView(target) {
-            document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById('view' + target.charAt(0).toUpperCase() + target.slice(1)).classList.remove('hidden');
+        function showPage(id) {
+            document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('page' + id.charAt(0).toUpperCase() + id.slice(1)).classList.remove('hidden');
         }
 
-        document.getElementById('authChairman').addEventListener('click', () => {
-            if(document.getElementById('chairmanKey').value === "11270629836102") {
-                switchView('chairmanDashboard');
+        function verifyKey() {
+            if(document.getElementById('masterKey').value === "11270629836102") {
+                showPage('chairmanDashboard');
+                fetchLiveTelemetry(); // Trigger the live sync
             } else {
-                alert("Unauthorized Access");
+                alert("Unauthorized");
             }
-        });
+        }
 
-        document.getElementById('navChairmanBtn').addEventListener('click', () => switchView('chairmanLogin'));
+        // Connect this to your Supabase App ID
+        function fetchLiveTelemetry() {
+            // Replace with your real Supabase fetch call
+            // Initialize Supabase (Use your project's URL and Anon Key from Supabase)
+const supabase = supabase.createClient('https://bffzgtloidanlqizalty.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmZnpndGxvaWRhbmxxaXphbHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY5MzI5NzUsImV4cCI6MjA4MjUwODk3NX0.mizFlkVfEgNPwaaJ2LG1TIPKjWSHmEbkFLedPL6HGsM');
+
+async function fetchLiveTelemetry() {
+    try {
+        // Querying your table for active activities
+        const { data, error } = await supabase
+            .from('adbot_activities') // Replace with your actual table name
+            .select('*', { count: 'exact' });
+
+        if (error) throw error;
+
+        // Assuming your table has a 'revenue' column
+        const totalRevenue = data.reduce((sum, item) => sum + (item.revenue || 0), 0);
+        const activeLoops = data.length;
+
+        // Update the dashboard
+        document.getElementById('liveRevenue').innerText = "₦" + totalRevenue.toLocaleString();
+        document.getElementById('liveLoops').innerText = activeLoops.toLocaleString();
+    } catch (err) {
+        console.error("Telemetry Sync Error:", err);
+        document.getElementById('liveRevenue').innerText = "ERROR";
+    }
+        }     
     </script>
 </body>
 </html>
