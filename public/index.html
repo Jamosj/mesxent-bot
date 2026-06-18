@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesxent Venture Global</title>
+    <title>Mesxent Ad-Bot | Central Ecosystem</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0B132B; color: #FFFFFF; font-family: sans-serif; }
@@ -11,42 +11,71 @@
         .hidden { display: none !important; }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen flex flex-col">
 
-    <header class="w-full border-b border-slate-800 bg-[#0B132B] p-4">
-        <div class="max-w-7xl mx-auto flex flex-wrap gap-4 items-center">
-            <span class="text-emerald-400 font-bold">MESXENT VENTURE GLOBAL</span>
-            <div class="flex gap-2">
-                <a href="index.html" class="bg-slate-800 text-white text-xs px-3 py-1 rounded">Overview</a>
-                <a href="campaign.html" class="bg-blue-600 text-white text-xs px-3 py-1 rounded">Campaigns</a>
-                <a href="payout.html" class="bg-amber-600 text-white text-xs px-3 py-1 rounded">Payout</a>
-                <a href="assets.html" class="bg-rose-600 text-white text-xs px-3 py-1 rounded">Assets</a>
-            </div>
+    <header class="w-full border-b border-slate-800 bg-[#0B132B] p-4 flex justify-between items-center sticky top-0 z-50">
+        <h1 class="text-emerald-400 font-bold text-sm tracking-widest">MESXENT AD-BOT V1.0</h1>
+        <div class="flex gap-2">
+            <button onclick="switchView('hero')" class="text-[10px] text-slate-400">HOME</button>
+            <button id="navChairmanBtn" class="text-[10px] text-rose-400 font-bold">🛡️ CHAIRMAN</button>
         </div>
     </header>
 
-    <main class="max-w-2xl mx-auto p-6">
-        <div id="landingHero" class="text-center py-10">
-            <h1 class="text-3xl font-black text-white">Next-Generation Agribusiness</h1>
-            <button id="showSignup" class="mt-6 bg-emerald-600 px-6 py-2 rounded text-sm font-bold">GET STARTED</button>
+    <main class="flex-grow max-w-2xl w-full mx-auto p-6">
+        
+        <div id="viewHero" class="text-center py-10">
+            <h1 class="text-3xl font-black mb-4">Agro-Manufacturing Ad-Bot</h1>
+            <p class="text-slate-400 text-sm mb-6">Decentralized monetization and asset management portal.</p>
+            <button onclick="switchView('partnerLogin')" class="bg-emerald-600 px-6 py-2 rounded text-sm font-bold">PARTNER ACCESS</button>
         </div>
 
-        <div id="partnerSignUpForm" class="card-bg p-6 rounded-xl hidden">
-            <h2 class="text-emerald-400 font-bold">Create Partner Account</h2>
-            <form action="https://formspree.io/f/xaqznnqe" method="POST" class="mt-4 space-y-4">
-                <input type="text" name="name" placeholder="Full Name" required class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
-                <input type="email" name="email" placeholder="Email" required class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
-                <button type="submit" class="w-full bg-emerald-600 py-2 rounded text-sm font-bold">SUBMIT</button>
-            </form>
+        <div id="viewPartnerLogin" class="card-bg p-6 rounded-xl hidden">
+            <h2 class="text-emerald-400 font-bold mb-4">Partner Authentication</h2>
+            <input type="email" placeholder="Email" class="w-full p-2 mb-4 bg-[#080F21] border border-slate-700 rounded text-sm text-white">
+            <button onclick="switchView('partnerDashboard')" class="w-full bg-emerald-600 py-2 rounded text-sm font-bold">LOGIN</button>
+        </div>
+
+        <div id="viewPartnerDashboard" class="card-bg p-6 rounded-xl hidden">
+            <h2 class="text-emerald-400 font-bold mb-4">Partner Node Active</h2>
+            <div class="space-y-4">
+                <div class="p-4 bg-[#080F21] rounded">Revenue: ₦0.00</div>
+                <button class="w-full bg-amber-600 py-2 rounded text-sm font-bold">REQUEST WITHDRAWAL</button>
+            </div>
+        </div>
+
+        <div id="viewChairmanLogin" class="card-bg p-6 rounded-xl hidden border-rose-900">
+            <h2 class="text-rose-400 font-bold mb-4">Chairman Command</h2>
+            <input type="password" id="chairmanKey" placeholder="Master Key" class="w-full p-2 mb-4 bg-[#080F21] border border-slate-700 rounded text-sm text-white">
+            <button id="authChairman" class="w-full bg-rose-700 py-2 rounded text-sm font-bold">INITIALIZE SESSION</button>
+        </div>
+
+        <div id="viewChairmanDashboard" class="card-bg p-6 rounded-xl hidden border-rose-900">
+            <h2 class="text-rose-500 font-bold mb-6">System Control Office</h2>
+            <div class="grid grid-cols-1 gap-3">
+                <button onclick="window.location.href='campaign.html'" class="bg-blue-600 py-3 rounded text-sm font-bold">LOAD CAMPAIGNS</button>
+                <button onclick="window.location.href='payout.html'" class="bg-amber-600 py-3 rounded text-sm font-bold">PAYOUT DISBURSEMENT</button>
+                <button onclick="window.location.href='assets.html'" class="bg-rose-600 py-3 rounded text-sm font-bold">REGISTER ASSETS</button>
+            </div>
         </div>
     </main>
 
     <script>
-        // Simple, non-crashing toggle
-        document.getElementById('showSignup').addEventListener('click', () => {
-            document.getElementById('partnerSignUpForm').classList.remove('hidden');
-            document.getElementById('landingHero').classList.add('hidden');
+        function switchView(target) {
+            document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById('view' + target.charAt(0).toUpperCase() + target.slice(1)).classList.remove('hidden');
+        }
+
+        // Chairman Auth Logic
+        document.getElementById('authChairman').addEventListener('click', () => {
+            const key = document.getElementById('chairmanKey').value;
+            if(key === "11270629836102") { // Core ID as password
+                switchView('chairmanDashboard');
+            } else {
+                alert("Unauthorized Access");
+            }
         });
+
+        document.getElementById('navChairmanBtn').addEventListener('click', () => switchView('chairmanLogin'));
     </script>
 </body>
 </html>
