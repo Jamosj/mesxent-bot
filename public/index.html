@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesxent Ad-Bot OS</title>
+    <title>Mesxent Ad-Bot OS | Unified Ecosystem</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { background-color: #0B132B; color: #FFFFFF; font-family: sans-serif; }
         .card-bg { background-color: #111A36; border: 1px solid #1E294B; }
@@ -16,48 +16,49 @@
 
     <header class="sticky top-0 z-50 border-b border-slate-800 bg-[#0B132B] p-4 flex justify-between items-center">
         <h1 class="text-emerald-400 font-black text-sm uppercase">Mesxent Ad-Bot OS</h1>
-        <div class="flex gap-3">
+        <div class="flex gap-4">
             <button onclick="showPage('home')" class="text-[10px] text-slate-400">HOME</button>
-            <button onclick="showPage('login')" class="text-[10px] text-emerald-400">PARTNER LOGIN</button>
+            <button onclick="showPage('chairmanAuth')" class="text-[10px] text-rose-500 font-bold uppercase underline">🛡️ Chairman</button>
         </div>
     </header>
 
     <main class="max-w-2xl mx-auto p-6">
         
         <section id="pageHome">
-            <h1 class="text-3xl font-black mb-4">Decentralized Ad-Bot Ecosystem</h1>
-            <p class="text-slate-400 text-sm mb-8">Integrated smart technology for automated monetization and agro-venture scaling.</p>
+            <h1 class="text-3xl font-black mb-4">Ad-Bot Monetization Network</h1>
             <div class="space-y-3">
-                <button onclick="showPage('signup')" class="w-full bg-emerald-600 py-3 rounded font-bold">REGISTER AS PARTNER</button>
+                <button onclick="showPage('signup')" class="w-full bg-emerald-600 py-3 rounded font-bold">PARTNER REGISTRATION</button>
+                <button onclick="showPage('login')" class="w-full bg-slate-800 py-3 rounded font-bold">PARTNER LOGIN</button>
                 <button onclick="showPage('investorRequest')" class="w-full border border-slate-700 py-3 rounded font-bold">REQUEST INVESTMENT PITCH</button>
-                <button onclick="showPage('chairmanAuth')" class="w-full text-rose-500 border border-rose-900 py-3 rounded font-bold text-xs uppercase">🛡️ Chairman Access</button>
             </div>
         </section>
 
         <section id="pageSignup" class="hidden card-bg p-6 rounded-xl">
             <h2 class="text-emerald-400 font-bold mb-4">Partner Registration</h2>
-            <form id="signupForm" class="space-y-3">
-                <input type="text" placeholder="Full Name" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
-                <input type="email" placeholder="Email" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
-                <button type="button" onclick="alert('Account Created. ID Generated. Verification Link Sent.')" class="w-full bg-emerald-600 py-2 rounded font-bold">COMPLETE REGISTRATION</button>
+            <form onsubmit="event.preventDefault(); alert('Registration Complete. Your User ID is MB-' + Math.floor(Math.random()*10000) + '. Verification link sent to your email.'); showPage('home')" class="space-y-3">
+                <input type="text" required placeholder="Full Name" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
+                <input type="email" required placeholder="Email" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
+                <input type="password" required placeholder="Password" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
+                <button type="submit" class="w-full bg-emerald-600 py-2 rounded font-bold">ACTIVATE ACCOUNT</button>
             </form>
+        </section>
+
+        <section id="pageLogin" class="hidden card-bg p-6 rounded-xl">
+            <h2 class="text-emerald-400 font-bold mb-4">Partner Access</h2>
+            <input type="text" placeholder="User ID / Email" class="w-full p-2 mb-3 bg-[#080F21] border border-slate-700 rounded text-sm">
+            <button onclick="showPage('partnerDashboard')" class="w-full bg-emerald-600 py-2 rounded font-bold">LOGIN</button>
+        </section>
+
+        <section id="pagePartnerDashboard" class="hidden text-center py-10">
+            <h2 class="text-2xl font-bold text-emerald-400 mb-4">Node Active</h2>
+            <p class="text-slate-400 text-sm">Your adbot service is running in the background. Generating revenue...</p>
         </section>
 
         <section id="pageInvestorRequest" class="hidden card-bg p-6 rounded-xl">
             <h2 class="text-amber-400 font-bold mb-4">Request Investment Pitch</h2>
-            <p class="text-slate-400 text-sm mb-4">Provide your contact info to receive our official investment node prospectus.</p>
             <input type="text" placeholder="Company/Individual Name" class="w-full p-2 mb-3 bg-[#080F21] border border-slate-700 rounded text-sm">
             <button onclick="showPage('investorConfirm')" class="w-full bg-amber-600 py-2 rounded font-bold">REQUEST PITCH</button>
         </section>
-
-        <section id="pageInvestorConfirm" class="hidden text-center py-10">
-            <h2 class="text-2xl font-bold text-amber-400">Request Sent</h2>
-            <p class="text-slate-400 text-sm">Our team will contact you shortly regarding the investment node details.</p>
-        </section>
-
-        <section id="pagePartnerDashboard" class="hidden">
-            <h2 class="text-emerald-400 font-bold mb-4">Partner Node Dashboard</h2>
-            </section>
 
         <section id="pageChairmanAuth" class="hidden card-bg p-6 rounded-xl border border-rose-900">
             <h2 class="text-rose-500 font-bold mb-4">Admin Authentication</h2>
@@ -66,61 +67,42 @@
         </section>
 
         <section id="pageChairmanDashboard" class="hidden">
-            <h2 class="text-rose-500 font-bold mb-6">Live Global Ad-Bot Statistics</h2>
+            <h2 class="text-rose-500 font-bold mb-6">Live System Statistics</h2>
             <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Live Revenue</p><p id="liveRevenue" class="font-bold text-emerald-400">CONNECTING...</p></div>
-                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Active Loops</p><p id="liveLoops" class="font-bold text-blue-400">CONNECTING...</p></div>
+                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Live Revenue</p><p id="liveRevenue" class="font-bold text-emerald-400">...</p></div>
+                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Active Loops</p><p id="liveLoops" class="font-bold text-blue-400">...</p></div>
             </div>
             <div class="grid grid-cols-1 gap-3">
                 <a href="campaign.html" class="bg-blue-600 py-3 rounded text-center font-bold text-sm">LOAD CAMPAIGNS</a>
                 <a href="payout.html" class="bg-amber-600 py-3 rounded text-center font-bold text-sm">PAYOUT DISBURSEMENT</a>
-                <a href="assets.html" class="bg-rose-600 py-3 rounded text-center font-bold text-sm">REGISTER ASSETS</a>
+                <a href="assets.html" class="bg-rose-600 py-3 rounded text-center font-bold text-sm">MANAGE ASSETS</a>
             </div>
         </section>
     </main>
 
     <script>
+        const supabase = supabase.createClient('https://bffzgtloidanlqizalty.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmZnpndGxvaWRhbmxxaXphbHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY5MzI5NzUsImV4cCI6MjA4MjUwODk3NX0.mizFlkVfEgNPwaaJ2LG1TIPKjWSHmEbkFLedPL6HGsM');
+
         function showPage(id) {
             document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
             document.getElementById('page' + id.charAt(0).toUpperCase() + id.slice(1)).classList.remove('hidden');
         }
 
-        function verifyKey() {
-            if(document.getElementById('masterKey').value === "11270629836102") {
-                showPage('chairmanDashboard');
-                fetchLiveTelemetry(); // Trigger the live sync
-            } else {
-                alert("Unauthorized");
+        async function fetchLiveTelemetry() {
+            const { data, count } = await supabase.from('adbot_activities').select('*', { count: 'exact' });
+            if (data) {
+                const rev = data.reduce((sum, item) => sum + (item.revenue || 0), 0);
+                document.getElementById('liveRevenue').innerText = "₦" + rev.toLocaleString();
+                document.getElementById('liveLoops').innerText = (count || 0).toLocaleString();
             }
         }
 
-        // Connect this to your Supabase App ID
-        function fetchLiveTelemetry() {
-            // Replace with your real Supabase fetch call
-            // Initialize Supabase (Use your project's URL and Anon Key from Supabase)
-const supabase = supabase.createClient('https://bffzgtloidanlqizalty.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmZnpndGxvaWRhbmxxaXphbHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY5MzI5NzUsImV4cCI6MjA4MjUwODk3NX0.mizFlkVfEgNPwaaJ2LG1TIPKjWSHmEbkFLedPL6HGsM');
-
-async function fetchLiveTelemetry() {
-    try {
-        // Querying your table for active activities
-        const { data, error } = await supabase
-            .from('adbot_activities') // Replace with your actual table name
-            .select('*', { count: 'exact' });
-
-        if (error) throw error;
-
-        // Assuming your table has a 'revenue' column
-        const totalRevenue = data.reduce((sum, item) => sum + (item.revenue || 0), 0);
-        const activeLoops = data.length;
-
-        // Update the dashboard
-        document.getElementById('liveRevenue').innerText = "₦" + totalRevenue.toLocaleString();
-        document.getElementById('liveLoops').innerText = activeLoops.toLocaleString();
-    } catch (err) {
-        console.error("Telemetry Sync Error:", err);
-        document.getElementById('liveRevenue').innerText = "ERROR";
-    }
-        }     
+        function verifyKey() {
+            if(document.getElementById('masterKey').value === "11270629836102") {
+                showPage('chairmanDashboard');
+                fetchLiveTelemetry();
+            } else { alert("Unauthorized"); }
+        }
     </script>
 </body>
 </html>
