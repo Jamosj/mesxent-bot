@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesxent Ad-Bot OS | Full System</title>
+    <title>Mesxent Ad-Bot OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { background-color: #0B132B; color: #FFFFFF; font-family: sans-serif; }
         .card-bg { background-color: #111A36; border: 1px solid #1E294B; }
-        .hidden { display: none !important; }
+        /* Using inline style for visibility to prevent CSS interference */
+        .page-content { display: none; }
+        .active-page { display: block !important; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -17,82 +19,83 @@
     <header class="sticky top-0 z-50 border-b border-slate-800 bg-[#0B132B] p-4 flex justify-between items-center">
         <h1 class="text-emerald-400 font-black text-sm uppercase">Mesxent Ad-Bot OS</h1>
         <div class="flex gap-4">
-            <button onclick="showPage('home')" class="text-[10px] text-slate-400 hover:text-white">HOME</button>
-            <button onclick="showPage('chairmanAuth')" class="text-[10px] text-rose-500 font-bold uppercase">🛡️ Chairman</button>
+            <button onclick="showPage('pageHome')" class="text-[10px] text-slate-400 font-bold uppercase">Home</button>
+            <button onclick="showPage('pageChairmanAuth')" class="text-[10px] text-rose-500 font-bold uppercase">🛡️ Chairman</button>
         </div>
     </header>
 
     <main class="max-w-2xl mx-auto p-6">
         
-        <section id="pageHome">
+        <section id="pageHome" class="page-content active-page">
             <h1 class="text-3xl font-black mb-4 text-emerald-500">Agro-Manufacturing Ad-Bot</h1>
             <p class="text-slate-400 text-sm mb-8">Decentralized monetization and asset management portal.</p>
             <div class="space-y-3">
-                <button onclick="showPage('signup')" class="w-full bg-emerald-600 py-3 rounded font-bold uppercase text-sm">PARTNER REGISTRATION</button>
-                <button onclick="showPage('login')" class="w-full bg-slate-800 py-3 rounded font-bold uppercase text-sm">PARTNER LOGIN</button>
-                <button onclick="showPage('investorRequest')" class="w-full border border-slate-700 py-3 rounded font-bold uppercase text-sm">REQUEST INVESTMENT PITCH</button>
+                <button onclick="showPage('pageSignup')" class="w-full bg-emerald-600 py-3 rounded font-bold uppercase text-sm">Partner Registration</button>
+                <button onclick="showPage('pageLogin')" class="w-full bg-slate-800 py-3 rounded font-bold uppercase text-sm">Partner Login</button>
+                <button onclick="showPage('pageInvestorRequest')" class="w-full border border-slate-700 py-3 rounded font-bold uppercase text-sm">Request Investment Pitch</button>
             </div>
         </section>
 
-        <section id="pageSignup" class="hidden card-bg p-6 rounded-xl">
+        <section id="pageSignup" class="page-content card-bg p-6 rounded-xl">
             <h2 class="text-emerald-400 font-bold mb-4">Partner Registration</h2>
-            <form onsubmit="event.preventDefault(); alert('Registration Success. Your User ID is generated.'); showPage('home')" class="space-y-3">
+            <form onsubmit="event.preventDefault(); alert('Registration Success. Your User ID is MB-9999. Verification link sent.'); showPage('pageHome')" class="space-y-3">
                 <input type="text" required placeholder="Full Name" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
                 <input type="email" required placeholder="Email" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
+                <input type="password" required placeholder="Password" class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
                 <button type="submit" class="w-full bg-emerald-600 py-2 rounded font-bold">ACTIVATE ACCOUNT</button>
             </form>
         </section>
 
-        <section id="pageLogin" class="hidden card-bg p-6 rounded-xl">
+        <section id="pageLogin" class="page-content card-bg p-6 rounded-xl">
             <h2 class="text-emerald-400 font-bold mb-4">Partner Login</h2>
             <input type="text" placeholder="Email" class="w-full p-2 mb-3 bg-[#080F21] border border-slate-700 rounded text-sm">
-            <button onclick="showPage('partnerDashboard'); fetchTelemetry(false)" class="w-full bg-emerald-600 py-2 rounded font-bold">LOGIN & ACCESS DASHBOARD</button>
+            <button onclick="showPage('pagePartnerDashboard'); fetchTelemetry(false)" class="w-full bg-emerald-600 py-2 rounded font-bold">LOGIN & ACCESS DASHBOARD</button>
         </section>
 
-        <section id="pagePartnerDashboard" class="hidden card-bg p-6 rounded-xl">
+        <section id="pagePartnerDashboard" class="page-content card-bg p-6 rounded-xl">
             <h2 class="text-emerald-400 font-bold mb-4">Partner Dashboard</h2>
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="card-bg p-4 rounded"><p class="text-[9px] uppercase text-slate-500">Revenue</p><p id="userRevenue" class="font-bold text-emerald-400">SYNCING...</p></div>
-                <div class="card-bg p-4 rounded"><p class="text-[9px] uppercase text-slate-500">Loops</p><p id="userLoops" class="font-bold text-blue-400">SYNCING...</p></div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="card-bg p-4 rounded"><p class="text-[9px] uppercase text-slate-500">My Revenue</p><p id="userRevenue" class="font-bold text-emerald-400">Syncing...</p></div>
+                <div class="card-bg p-4 rounded"><p class="text-[9px] uppercase text-slate-500">Active Loops</p><p id="userLoops" class="font-bold text-blue-400">Syncing...</p></div>
             </div>
         </section>
 
-        <section id="pageInvestorRequest" class="hidden card-bg p-6 rounded-xl">
+        <section id="pageInvestorRequest" class="page-content card-bg p-6 rounded-xl">
             <h2 class="text-amber-400 font-bold mb-4">Request Investment Pitch</h2>
             <input type="text" placeholder="Company Name" class="w-full p-2 mb-3 bg-[#080F21] border border-slate-700 rounded text-sm">
-            <button onclick="showPage('home'); alert('Pitch request sent. Admin will contact you.')" class="w-full bg-amber-600 py-2 rounded font-bold">REQUEST PITCH</button>
+            <button onclick="showPage('pageHome'); alert('Request sent. Admin will contact you.')" class="w-full bg-amber-600 py-2 rounded font-bold">REQUEST PITCH</button>
         </section>
 
-        <section id="pageChairmanAuth" class="hidden card-bg p-6 rounded-xl border border-rose-900">
+        <section id="pageChairmanAuth" class="page-content card-bg p-6 rounded-xl border border-rose-900">
             <h2 class="text-rose-500 font-bold mb-4">Admin Authentication</h2>
-            <input type="password" id="masterKey" placeholder="Enter Master Key" class="w-full p-2 mb-4 bg-[#080F21] border border-slate-700 rounded text-sm">
+            <input type="password" id="masterKey" placeholder="Enter Key" class="w-full p-2 mb-4 bg-[#080F21] border border-slate-700 rounded text-sm">
             <button onclick="verifyKey()" class="w-full bg-rose-700 py-2 rounded font-bold">INITIALIZE SESSION</button>
         </section>
 
-        <section id="pageChairmanDashboard" class="hidden">
-            <h2 class="text-rose-500 font-bold mb-6">Live Global Ad-Bot Statistics</h2>
+        <section id="pageChairmanDashboard" class="page-content">
+            <h2 class="text-rose-500 font-bold mb-6">Live Global Statistics</h2>
             <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Live Revenue</p><p id="liveRevenue" class="font-bold text-emerald-400">SYNCING...</p></div>
-                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Active Loops</p><p id="liveLoops" class="font-bold text-blue-400">SYNCING...</p></div>
+                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Live Revenue</p><p id="liveRevenue" class="font-bold text-emerald-400">Syncing...</p></div>
+                <div class="card-bg p-4 rounded text-center"><p class="text-[9px] uppercase text-slate-500">Active Loops</p><p id="liveLoops" class="font-bold text-blue-400">Syncing...</p></div>
             </div>
             <div class="grid grid-cols-1 gap-3">
-                <button onclick="showPage('campaigns')" class="bg-blue-600 py-3 rounded text-center font-bold text-sm uppercase">Load Campaigns</button>
-                <button onclick="showPage('payouts')" class="bg-amber-600 py-3 rounded text-center font-bold text-sm uppercase">Payout Disbursement</button>
-                <button onclick="showPage('assets')" class="bg-rose-600 py-3 rounded text-center font-bold text-sm uppercase">Manage Assets</button>
+                <button onclick="showPage('pageCampaigns')" class="bg-blue-600 py-3 rounded text-center font-bold text-sm uppercase">Load Campaigns</button>
+                <button onclick="showPage('pagePayouts')" class="bg-amber-600 py-3 rounded text-center font-bold text-sm uppercase">Payout Disbursement</button>
+                <button onclick="showPage('pageAssets')" class="bg-rose-600 py-3 rounded text-center font-bold text-sm uppercase">Manage Assets</button>
             </div>
         </section>
 
-        <section id="pageCampaigns" class="hidden card-bg p-6 rounded-xl"><h2 class="text-blue-400 font-bold">Campaigns</h2></section>
-        <section id="pagePayouts" class="hidden card-bg p-6 rounded-xl"><h2 class="text-amber-400 font-bold">Payouts</h2></section>
-        <section id="pageAssets" class="hidden card-bg p-6 rounded-xl"><h2 class="text-rose-400 font-bold">Assets</h2></section>
+        <section id="pageCampaigns" class="page-content card-bg p-6 rounded-xl"><h2 class="text-blue-400 font-bold">Campaign Loader</h2></section>
+        <section id="pagePayouts" class="page-content card-bg p-6 rounded-xl"><h2 class="text-amber-400 font-bold">Payouts</h2></section>
+        <section id="pageAssets" class="page-content card-bg p-6 rounded-xl"><h2 class="text-rose-400 font-bold">Assets</h2></section>
     </main>
 
     <script>
         const supabase = supabase.createClient('https://bffzgtloidanlqizalty.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmZnpndGxvaWRhbmxxaXphbHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY5MzI5NzUsImV4cCI6MjA4MjUwODk3NX0.mizFlkVfEgNPwaaJ2LG1TIPKjWSHmEbkFLedPL6HGsM');
 
-        function showPage(id) {
-            document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('page' + id.charAt(0).toUpperCase() + id.slice(1)).classList.remove('hidden');
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(s => s.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
         }
 
         async function fetchTelemetry(isChairman) {
@@ -111,7 +114,7 @@
 
         function verifyKey() {
             if(document.getElementById('masterKey').value === "11270629836102") {
-                showPage('chairmanDashboard');
+                showPage('pageChairmanDashboard');
                 fetchTelemetry(true);
             } else { alert("Unauthorized"); }
         }
