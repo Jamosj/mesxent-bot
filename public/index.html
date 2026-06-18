@@ -285,6 +285,10 @@
         document.getElementById('navSignInBtn').addEventListener('click', () => switchView('login'));
         document.getElementById('toLoginBtn').addEventListener('click', () => switchView('login'));
         document.getElementById('navChairmanBtn').addEventListener('click', () => switchView('chairmanLogin'));
+        // Add these to your existing Navigation Actions
+document.getElementById('navCampaign').addEventListener('click', () => window.location.href = 'campaign.html');
+document.getElementById('navPayout').addEventListener('click', () => window.location.href = 'payout.html');
+document.getElementById('navAssets').addEventListener('click', () => window.location.href = 'assets.html');
 
         // Formspree Hijack & Seamless Background Engine
         document.getElementById("agro-revenue-form").addEventListener("submit", function(e) {
