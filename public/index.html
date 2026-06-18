@@ -57,27 +57,14 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
         
+        <!-- NAVIGATION MENU INSERTED HERE -->
         <nav class="w-full max-w-2xl bg-slate-800 rounded-lg p-3 mb-6 flex justify-around border border-slate-700 shadow-xl">
             <a href="index.html" class="text-white font-bold text-xs uppercase hover:text-emerald-400">Overview</a>
-            <a href="campaign.html" class="text-white font-bold text-xs uppercase hover:text-blue-400">Campaign Loader</a>
+            <a href="campaign.html" class="text-white font-bold text-xs uppercase hover:text-blue-400">Campaigns</a>
             <a href="payout.html" class="text-white font-bold text-xs uppercase hover:text-amber-400">Payout</a>
         </nav>
-        <div class="w-full max-w-2xl mx-auto my-4">
-            <div id="landingHero" class="text-center space-y-6 py-8">
-                ```
+        <!-- END OF NAVIGATION MENU -->
 
-
-
-### Why this is the safest spot:
-* **Above your content:** It will appear at the top of your dashboard, but it stays **inside** the white/grey background area of your app, so it won't break the layout.
-* **Preserves your logic:** By putting it inside the `<main>` tag, you keep the header (your "Chairman Access" logo) and the footer separate from the navigation, so they continue to look exactly the way they do now.
-
-### Your checklist to avoid a crash:
-1.  **Do not delete** anything that is already there. Just hit "Enter" after the `<main...>` line and paste the `<nav>...</nav>` block.
-2.  **Verify the `main` tag:** Ensure you have only one `<main>` tag.
-3.  **Save and Push:** Once you paste this, click the Source Control (branch) icon in StackBlitz to save it to GitHub.
-
-**Do you see that `<main>` tag in your code now?** Once you find it, paste the menu there, and let me know when you have successfully pushed the change to GitHub.   
         <div class="w-full max-w-2xl mx-auto my-4">
 
             <div id="landingHero" class="text-center space-y-6 py-8">
@@ -319,68 +306,36 @@
                 if (response.ok) {
                     status.classList.remove('hidden', 'bg-rose-950/50', 'text-rose-400');
                     status.classList.add('bg-emerald-950/50', 'text-emerald-400');
-                    status.innerHTML = "✓ Node Application Dispatched to Management!";
+                    status.innerHTML = "✓ Node Application Queued. Management will parse your credentials shortly.";
                     form.reset();
-                    
-                    setTimeout(function() {
-                        btn.disabled = false;
-                        btn.innerText = "Submit To Management";
-                        btn.style.background = "";
-                        status.classList.add('hidden');
-                        switchView('hero');
-                    }, 3000);
                 } else {
-                    throw new Error('Submission failed');
+                    status.classList.remove('hidden', 'bg-emerald-950/50', 'text-emerald-400');
+                    status.classList.add('bg-rose-950/50', 'text-rose-400');
+                    status.innerHTML = "⚠ Node Error: Failed to broadcast to management loops. Check connectivity.";
                 }
-            }).catch(error => {
                 btn.disabled = false;
-                btn.innerText = "Submit To Management";
+                btn.innerText = "SUBMIT TO MANAGEMENT";
                 btn.style.background = "";
-                status.classList.remove('hidden', 'bg-emerald-950/50', 'text-emerald-400');
-                status.classList.add('bg-rose-950/50', 'text-rose-400');
-                status.innerHTML = "✕ System Gateway Timeout. Re-verify network routing.";
             });
         });
-
-        // Local Authentication Engines
-        document.getElementById('loginActionForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            document.getElementById('displayPartnerEmail').innerText = document.getElementById('loginEmail').value;
-            switchView('dashboard');
+        
+        // Chairman Access Tab Logic
+        const tabs = ['Ecosystem', 'Campaign', 'Payout', 'Investment'];
+        tabs.forEach(tab => {
+            document.getElementById('tab' + tab).addEventListener('click', () => {
+                tabs.forEach(t => {
+                    const btn = document.getElementById('tab' + t);
+                    btn.classList.replace('text-emerald-400', 'text-slate-400');
+                    btn.classList.remove('border-b-2', 'border-emerald-400');
+                    btn.classList.add('hover:text-white');
+                });
+                
+                const activeBtn = document.getElementById('tab' + tab);
+                activeBtn.classList.replace('text-slate-400', 'text-emerald-400');
+                activeBtn.classList.add('border-b-2', 'border-emerald-400');
+                activeBtn.classList.remove('hover:text-white');
+            });
         });
-
-        document.getElementById('chairmanActionForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            if(document.getElementById('chairmanAlias').value.toLowerCase() === 'jeremy') {
-                switchView('chairmanDashboard');
-            }
-        });
-
-        document.getElementById('logoutPartnerBtn').addEventListener('click', () => switchView('hero'));
-        document.getElementById('logoutChairmanBtn').addEventListener('click', () => switchView('hero'));
-    </script> 
-    <script>
-// This listener sits at the top level and catches all clicks on the page
-document.addEventListener('click', function (event) {
-    // Check if the clicked element is a tab/button
-    const target = event.target.closest('[data-target]');
-    
-    if (target) {
-        event.preventDefault();
-        const targetId = target.getAttribute('data-target');
-        
-        console.log("Global Click Caught for:", targetId);
-        
-        // Hide all panels
-        document.querySelectorAll('.panel-content').forEach(p => p.style.display = 'none');
-        
-        // Show target panel
-        const activePanel = document.getElementById(targetId);
-        if (activePanel) {
-            activePanel.style.display = 'block';
-        }
-    }
-});
     </script>
 </body>
 </html>
