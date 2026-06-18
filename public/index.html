@@ -337,6 +337,29 @@
 
         document.getElementById('logoutPartnerBtn').addEventListener('click', () => switchView('hero'));
         document.getElementById('logoutChairmanBtn').addEventListener('click', () => switchView('hero'));
+    </script> 
+    <script>
+// This listener sits at the top level and catches all clicks on the page
+document.addEventListener('click', function (event) {
+    // Check if the clicked element is a tab/button
+    const target = event.target.closest('[data-target]');
+    
+    if (target) {
+        event.preventDefault();
+        const targetId = target.getAttribute('data-target');
+        
+        console.log("Global Click Caught for:", targetId);
+        
+        // Hide all panels
+        document.querySelectorAll('.panel-content').forEach(p => p.style.display = 'none');
+        
+        // Show target panel
+        const activePanel = document.getElementById(targetId);
+        if (activePanel) {
+            activePanel.style.display = 'block';
+        }
+    }
+});
     </script>
 </body>
 </html>
