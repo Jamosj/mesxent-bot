@@ -35,41 +35,24 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-    <header class="w-full border-b border-slate-800 bg-[#0B132B] px-4 py-3 sticky top-0 z-50"><div class="flex items-center space-x-2 flex-wrap gap-y-2">
-    <button id="navCampaign" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-1.5 px-3 rounded">Campaigns</button>
-    <button id="navPayout" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold py-1.5 px-3 rounded">Payout</button>
-    </div>
+    <header class="w-full border-b border-slate-800 bg-[#0B132B] px-4 py-3 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center space-x-2">
                 <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-xs">MBN</div>
                 <span class="text-emerald-400 font-bold tracking-wider text-sm md:text-base">MESXENT VENTURE GLOBAL</span>
             </div>
             <div class="flex items-center space-x-2 flex-wrap gap-y-2">
-                <button id="navSignInBtn" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-1.5 px-3 rounded border border-slate-700 transition">
-                    Sign In
-                </button>
-                <button id="navJoinNetworkBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-1.5 px-3 rounded transition">
-                    Join Network
-                </button>
-                <button id="navChairmanBtn" class="bg-rose-900/80 hover:bg-rose-900 text-rose-200 text-xs font-semibold py-1.5 px-3 rounded border border-rose-700 transition flex items-center gap-1">
-                    🛡️ Chairman Access
-                </button>
+                <button id="navCampaign" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-1.5 px-3 rounded transition">Campaigns</button>
+                <button id="navPayout" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold py-1.5 px-3 rounded transition">Payout</button>
+                <button id="navSignInBtn" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-1.5 px-3 rounded border border-slate-700 transition">Sign In</button>
+                <button id="navJoinNetworkBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-1.5 px-3 rounded transition">Join Network</button>
+                <button id="navChairmanBtn" class="bg-rose-900/80 hover:bg-rose-900 text-rose-200 text-xs font-semibold py-1.5 px-3 rounded border border-rose-700 transition flex items-center gap-1">🛡️ Chairman Access</button>
             </div>
         </div>
     </header>
 
     <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
-        
-        <!-- NAVIGATION MENU INSERTED HERE -->
-        <nav class="w-full max-w-2xl bg-slate-800 rounded-lg p-3 mb-6 flex justify-around border border-slate-700 shadow-xl">
-            <a href="index.html" class="text-white font-bold text-xs uppercase hover:text-emerald-400">Overview</a>
-            <a href="campaign.html" class="text-white font-bold text-xs uppercase hover:text-blue-400">Campaigns</a>
-            <a href="payout.html" class="text-white font-bold text-xs uppercase hover:text-amber-400">Payout</a>
-        </nav>
-        <!-- END OF NAVIGATION MENU -->
-
         <div class="w-full max-w-2xl mx-auto my-4">
-
             <div id="landingHero" class="text-center space-y-6 py-8">
                 <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight">
                     Next-Generation Agribusiness & <br class="hidden md:block">
@@ -89,182 +72,19 @@
                 <form id="agro-revenue-form" action="https://formspree.io/f/xaqznnqe" method="POST" class="space-y-4">
                     <div style="text-align: center; margin-bottom: 20px;">
                         <h2 class="text-xl font-bold tracking-wider text-emerald-400 uppercase">Create Global Partner Account</h2>
-                        <p class="text-xs text-slate-400 mt-1">Register your decentralized node to tap into product marketing and agro-infrastructure campaigns.</p>
                     </div>
-                    
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Full Name</label>
-                        <input type="text" name="name" placeholder="John Doe" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Email Address</label>
-                        <input type="email" name="email" placeholder="name@domain.com" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Preferred Partner/Organization ID</label>
-                        <input type="text" name="organization_id" value="11270629836102" readonly class="w-full bg-[#1E294B] border border-slate-700 rounded p-2.5 text-sm text-slate-400 font-bold focus:outline-none">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Request Type / Inquiry</label>
-                        <select name="request_type" class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 cursor-pointer">
-                            <option value="New Partner Sign Up">New Trainee Sign Up / Account Activation</option>
-                            <option value="Revenue Withdrawal Request">Revenue Withdrawal Request</option>
-                            <option value="General System Inquiry">System Inquiry / Support Complaint</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Additional Details / Complaints</label>
-                        <textarea name="message" rows="3" placeholder="Enter details about your inquiry, wallet addresses, or feedback here..." class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 resize-none"></textarea>
-                    </div>
-
-                    <div id="form-status" class="hidden text-center text-xs font-bold p-2.5 rounded"></div>
-
-                    <button type="submit" id="submit-btn" class="w-full custom-gradient-btn text-white font-bold py-2.5 px-4 rounded text-sm transition uppercase tracking-wider mt-2">
-                        Submit To Management
-                    </button>
+                    <input type="text" name="name" placeholder="John Doe" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white">
+                    <input type="email" name="email" placeholder="name@domain.com" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white">
+                    <input type="text" name="organization_id" value="11270629836102" readonly class="w-full bg-[#1E294B] border border-slate-700 rounded p-2.5 text-sm text-slate-400 font-bold">
+                    <button type="submit" id="submit-btn" class="w-full custom-gradient-btn text-white font-bold py-2.5 px-4 rounded text-sm uppercase">Submit</button>
                 </form>
-                <div class="text-center mt-4">
-                    <button id="toLoginBtn" class="text-xs text-slate-400 hover:text-emerald-400 transition underline">Already verified? Log in here</button>
-                </div>
+                <div class="text-center mt-4"><button id="toLoginBtn" class="text-xs text-slate-400 hover:text-emerald-400 underline">Already verified? Log in here</button></div>
             </div>
-
-            <div id="partnerLoginForm" class="card-bg rounded-xl p-6 shadow-2xl hidden">
-                <div class="text-center mb-6">
-                    <h2 class="text-xl font-bold tracking-wider text-emerald-400 uppercase">Partner Node Authentication</h2>
-                    <p class="text-xs text-slate-400 mt-1">Provide verified credentials to access campaign distribution layers.</p>
-                </div>
-                <form id="loginActionForm" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Registered Email</label>
-                        <input type="email" id="loginEmail" placeholder="michealjeremiah0@gmail.com" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Access Passphrase</label>
-                        <input type="password" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <button type="submit" class="w-full custom-gradient-btn text-white font-bold py-2.5 px-4 rounded text-sm transition uppercase tracking-wider mt-2">
-                        Authenticate Node
-                    </button>
-                </form>
             </div>
-
-            <div id="chairmanLoginForm" class="card-bg rounded-xl p-6 shadow-2xl border-rose-900/50 hidden">
-                <div class="text-center mb-6">
-                    <h2 class="text-xl font-bold tracking-wider text-rose-500 uppercase">Chairman Command Office</h2>
-                    <p class="text-xs text-slate-400 mt-1">Secured management portal for MD Jeremy. Cryptographic verification required.</p>
-                </div>
-                <form id="chairmanActionForm" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Security Signatory Alias</label>
-                        <input type="text" id="chairmanAlias" placeholder="Jeremy" required class="w-full bg-[#080F21] border border-slate-800 rounded p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Cryptographic Key / Password</label>
-                        <input type="password" id="chairmanPassword" placeholder="............" required class="w-full bg-[#080F21] border border-slate-800 rounded p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
-                    </div>
-                    <button type="submit" class="w-full bg-rose-700 hover:bg-rose-600 text-white font-bold py-2.5 px-4 rounded text-sm transition uppercase tracking-wider mt-2 shadow-lg shadow-rose-950/50">
-                        Initialize Master Session
-                    </button>
-                </form>
-            </div>
-
-            <div id="partnerDashboard" class="space-y-6 hidden">
-                <div class="card-bg rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 border-l-4 border-emerald-500">
-                    <div>
-                        <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-400">Mesxent Partner Engine</h2>
-                        <p class="text-xs text-slate-400 mt-0.5">Active Session: Identity Node [<span id="displayPartnerEmail" class="text-slate-200 font-mono">user@domain.com</span>]</p>
-                    </div>
-                    <button id="logoutPartnerBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold py-1 px-3 rounded border border-slate-700 transition">
-                        Log Out Node
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="card-bg rounded-xl p-4 text-center md:text-left">
-                        <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Monetization Apps Aligned</span>
-                        <span class="block text-lg font-bold text-emerald-400 mt-2">Active (Game ID: 6017978)</span>
-                    </div>
-                    <div class="card-bg rounded-xl p-4 text-center md:text-left">
-                        <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Campaigns Streamed</span>
-                        <span class="block text-3xl font-black text-white mt-1">0</span>
-                    </div>
-                    <div class="card-bg rounded-xl p-4 text-center md:text-left">
-                        <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Accumulated Revenue</span>
-                        <span class="block text-2xl font-black text-amber-400 mt-1">₦0.00</span>
-                    </div>
-                </div>
-
-                <div class="card-bg rounded-xl p-4">
-                    <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1 mb-3">
-                        📬 Synchronized Campaign Feeds
-                    </h3>
-                    <div class="bg-[#080F21] rounded border border-slate-800 p-8 text-center text-xs text-slate-500 italic">
-                        Awaiting active campaign distribution protocols...
-                    </div>
-                </div>
-
-                <div class="card-bg rounded-xl p-4 space-y-4">
-                    <div>
-                        <h3 class="text-sm font-bold text-amber-500">Request Account Settlement</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">Submit withdrawal instructions. Executed logs automatically parsed to management loops.</p>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <input type="text" placeholder="Account Name" class="w-full bg-[#080F21] border border-slate-700 rounded p-2 text-xs text-white focus:outline-none">
-                        <input type="text" placeholder="Settlement Crypto Wallet Address or Bank Account Details" class="w-full bg-[#080F21] border border-slate-700 rounded p-2 text-xs text-white focus:outline-none">
-                    </div>
-                    <button class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs py-2 px-4 rounded tracking-wider uppercase transition">
-                        Proceed with Withdrawal Protocol
-                    </button>
-                </div>
-            </div>
-
-            <div id="chairmanDashboard" class="space-y-6 hidden">
-                <div class="card-bg rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 border-l-4 border-rose-600">
-                    <div>
-                        <h2 class="text-sm font-extrabold uppercase tracking-wider text-rose-500">Chairman System Control Office</h2>
-                        <p class="text-xs text-slate-400 mt-0.5">Core ID: <span class="font-mono text-rose-300">11270629836102</span> | Authorized: MD Jeremy</p>
-                    </div>
-                    <button id="logoutChairmanBtn" class="bg-rose-950/80 hover:bg-rose-900 text-rose-200 text-xs font-bold py-1 px-3 rounded border border-rose-800 transition uppercase tracking-wider">
-                        Terminate Master Mode
-                    </button>
-                </div>
-
-                <div class="flex border-b border-slate-800 gap-4 text-xs font-bold uppercase tracking-wider pb-1 overflow-x-auto">
-                    <button id="tabEcosystem" class="text-emerald-400 border-b-2 border-emerald-400 pb-2 px-1 whitespace-nowrap">Ecosystem Overview (1.B.1)</button>
-                    <button id="tabCampaign" class="text-slate-400 hover:text-white pb-2 px-1 whitespace-nowrap">Campaign Loader (1.B.2)</button>
-                    <button id="tabPayout" class="text-slate-400 hover:text-white pb-2 px-1 whitespace-nowrap">Payout Disbursement</button>
-                    <button id="tabInvestment" class="text-slate-400 hover:text-white pb-2 px-1 whitespace-nowrap">Register Investment</button>
-                </div>
-
-                <div id="chairmanPanels" class="space-y-6">
-                    <div id="panelEcosystem" class="space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="card-bg rounded-xl p-4">
-                                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Ads/Sec Broadcast</span>
-                                <span class="block text-2xl font-black text-rose-400 mt-1">38</span>
-                            </div>
-                            <div class="card-bg rounded-xl p-4">
-                                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active Partner Nodes</span>
-                                <span class="block text-2xl font-black text-white mt-1">0</span>
-                            </div>
-                            <div class="card-bg rounded-xl p-4">
-                                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Naira Value Matrix</span>
-                                <span class="block text-2xl font-black text-amber-400 mt-1">₦57,000</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </main>
 
     <footer class="w-full border-t border-slate-800 bg-[#070D1F] px-4 py-3 text-center text-[10px] text-slate-500 font-mono tracking-wider">
-        MESXENT HOLDINGS AD-BOT OPERATING SYSTEM V1.0.A // SECURED EDGE ENGINE
+        MESXENT HOLDINGS AD-BOT OPERATING SYSTEM V1.0.A
     </footer>
 
     <script>
@@ -278,8 +98,8 @@
         };
 
         function switchView(target) {
-            Object.values(views).forEach(v => v.classList.add('hidden'));
-            views[target].classList.remove('hidden');
+            Object.values(views).forEach(v => { if(v) v.classList.add('hidden') });
+            if(views[target]) views[target].classList.remove('hidden');
         }
 
         // Navigation Actions
@@ -288,61 +108,10 @@
         document.getElementById('navSignInBtn').addEventListener('click', () => switchView('login'));
         document.getElementById('toLoginBtn').addEventListener('click', () => switchView('login'));
         document.getElementById('navChairmanBtn').addEventListener('click', () => switchView('chairmanLogin'));
-        // Add these to your existing Navigation Actions
-document.getElementById('navCampaign').addEventListener('click', () => window.location.href = 'campaign.html');
-document.getElementById('navPayout').addEventListener('click', () => window.location.href = 'payout.html');
-document.getElementById('navAssets').addEventListener('click', () => window.location.href = 'assets.html');
 
-        // Formspree Hijack & Seamless Background Engine
-        document.getElementById("agro-revenue-form").addEventListener("submit", function(e) {
-            e.preventDefault();
-            
-            var form = this;
-            var btn = document.getElementById("submit-btn");
-            var status = document.getElementById("form-status");
-            
-            btn.disabled = true;
-            btn.innerText = "PROCESSING...";
-            btn.style.background = "#4b5563";
-
-            fetch(form.action, {
-                method: form.method,
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    status.classList.remove('hidden', 'bg-rose-950/50', 'text-rose-400');
-                    status.classList.add('bg-emerald-950/50', 'text-emerald-400');
-                    status.innerHTML = "✓ Node Application Queued. Management will parse your credentials shortly.";
-                    form.reset();
-                } else {
-                    status.classList.remove('hidden', 'bg-emerald-950/50', 'text-emerald-400');
-                    status.classList.add('bg-rose-950/50', 'text-rose-400');
-                    status.innerHTML = "⚠ Node Error: Failed to broadcast to management loops. Check connectivity.";
-                }
-                btn.disabled = false;
-                btn.innerText = "SUBMIT TO MANAGEMENT";
-                btn.style.background = "";
-            });
-        });
-        
-        // Chairman Access Tab Logic
-        const tabs = ['Ecosystem', 'Campaign', 'Payout', 'Investment'];
-        tabs.forEach(tab => {
-            document.getElementById('tab' + tab).addEventListener('click', () => {
-                tabs.forEach(t => {
-                    const btn = document.getElementById('tab' + t);
-                    btn.classList.replace('text-emerald-400', 'text-slate-400');
-                    btn.classList.remove('border-b-2', 'border-emerald-400');
-                    btn.classList.add('hover:text-white');
-                });
-                
-                const activeBtn = document.getElementById('tab' + tab);
-                activeBtn.classList.replace('text-slate-400', 'text-emerald-400');
-                activeBtn.classList.add('border-b-2', 'border-emerald-400');
-                activeBtn.classList.remove('hover:text-white');
-            });
-        });
+        // New Direct Navigation
+        document.getElementById('navCampaign').addEventListener('click', () => window.location.href = 'campaign.html');
+        document.getElementById('navPayout').addEventListener('click', () => window.location.href = 'payout.html');
     </script>
 </body>
 </html>
