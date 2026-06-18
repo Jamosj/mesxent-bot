@@ -3,150 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesxent Venture Global - Ecosystem Portal</title>
+    <title>Mesxent Venture Global</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background-color: #0B132B;
-            color: #FFFFFF;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-        .custom-gradient-btn {
-            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-        }
-        .custom-gradient-btn:hover {
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-        }
-        .card-bg {
-            background-color: #111A36;
-            border: 1px solid #1E294B;
-        }
+        body { background-color: #0B132B; color: #FFFFFF; font-family: sans-serif; }
+        .card-bg { background-color: #111A36; border: 1px solid #1E294B; }
+        .hidden { display: none !important; }
     </style>
-</head> 
-<div id="aads-banner-container" style="width: 100%; margin: 10px auto; position: relative; z-index: 99998; text-align: center;">
-    <iframe data-aa='2441010' src='//acceptable.a-ads.com/2441010/?size=Adaptive' style='border:0; padding:0; width:100%; height:60px; overflow:hidden; display: block; margin: auto;'></iframe>
-</div>
-<head>
-    <div style="text-align: center; margin: 10px 0;">
-        <a href="https://rm358.com/4/11087247" target="_blank" style="color: #00ffcc; text-decoration: none; font-weight: bold;">
-            🚀 Activate Agro Partner Campaigns
-        </a>
-    </div>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen">
 
-    <header class="w-full border-b border-slate-800 bg-[#0B132B] px-4 py-3 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-xs">MBN</div>
-                <span class="text-emerald-400 font-bold tracking-wider text-sm md:text-base">MESXENT VENTURE GLOBAL</span>
-            </div>
-            <div class="flex items-center space-x-2 flex-wrap gap-y-2">
-                <button id="navCampaign" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-1.5 px-3 rounded transition">Campaigns</button>
-                <button id="navPayout" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold py-1.5 px-3 rounded transition">Payout</button>
-                <button id="navSignInBtn" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-1.5 px-3 rounded border border-slate-700 transition">Sign In</button>
-                <button id="navJoinNetworkBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-1.5 px-3 rounded transition">Join Network</button>
-                <button id="navChairmanBtn" class="bg-rose-900/80 hover:bg-rose-900 text-rose-200 text-xs font-semibold py-1.5 px-3 rounded border border-rose-700 transition flex items-center gap-1">🛡️ Chairman Access</button>
+    <header class="w-full border-b border-slate-800 bg-[#0B132B] p-4">
+        <div class="max-w-7xl mx-auto flex flex-wrap gap-4 items-center">
+            <span class="text-emerald-400 font-bold">MESXENT VENTURE GLOBAL</span>
+            <div class="flex gap-2">
+                <a href="index.html" class="bg-slate-800 text-white text-xs px-3 py-1 rounded">Overview</a>
+                <a href="campaign.html" class="bg-blue-600 text-white text-xs px-3 py-1 rounded">Campaigns</a>
+                <a href="payout.html" class="bg-amber-600 text-white text-xs px-3 py-1 rounded">Payout</a>
+                <a href="assets.html" class="bg-rose-600 text-white text-xs px-3 py-1 rounded">Assets</a>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
-        <div class="w-full max-w-2xl mx-auto my-4">
-            <div id="landingHero" class="text-center space-y-6 py-8">
-                <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight">
-                    Next-Generation Agribusiness & <br class="hidden md:block">
-                    <span class="text-emerald-400">Allied Manufacturing</span>
-                </h1>
-                <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto">
-                    Empowering global food security and localized asset production through integrated smart technology and decentralized monetization ecosystems.
-                </p>
-                <div>
-                    <button id="heroGetStartedBtn" class="custom-gradient-btn text-white text-sm font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-emerald-900/30 transition-all transform hover:-translate-y-0.5">
-                        GET STARTED AS PARTNER
-                    </button>
-                </div>
-            </div>
+    <main class="max-w-2xl mx-auto p-6">
+        <div id="landingHero" class="text-center py-10">
+            <h1 class="text-3xl font-black text-white">Next-Generation Agribusiness</h1>
+            <button id="showSignup" class="mt-6 bg-emerald-600 px-6 py-2 rounded text-sm font-bold">GET STARTED</button>
+        </div>
 
-            <div id="partnerSignUpForm" class="card-bg rounded-xl p-6 shadow-2xl hidden">
-                <form id="agro-revenue-form" action="https://formspree.io/f/xaqznnqe" method="POST" class="space-y-4">
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <h2 class="text-xl font-bold tracking-wider text-emerald-400 uppercase">Create Global Partner Account</h2>
-                    </div>
-                    <input type="text" name="name" placeholder="John Doe" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white">
-                    <input type="email" name="email" placeholder="name@domain.com" required class="w-full bg-[#080F21] border border-slate-700 rounded p-2.5 text-sm text-white">
-                    <input type="text" name="organization_id" value="11270629836102" readonly class="w-full bg-[#1E294B] border border-slate-700 rounded p-2.5 text-sm text-slate-400 font-bold">
-                    <button type="submit" id="submit-btn" class="w-full custom-gradient-btn text-white font-bold py-2.5 px-4 rounded text-sm uppercase">Submit</button>
-                </form>
-                <div class="text-center mt-4"><button id="toLoginBtn" class="text-xs text-slate-400 hover:text-emerald-400 underline">Already verified? Log in here</button></div>
-            </div>
-            </div>
+        <div id="partnerSignUpForm" class="card-bg p-6 rounded-xl hidden">
+            <h2 class="text-emerald-400 font-bold">Create Partner Account</h2>
+            <form action="https://formspree.io/f/xaqznnqe" method="POST" class="mt-4 space-y-4">
+                <input type="text" name="name" placeholder="Full Name" required class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
+                <input type="email" name="email" placeholder="Email" required class="w-full p-2 bg-[#080F21] border border-slate-700 rounded text-sm">
+                <button type="submit" class="w-full bg-emerald-600 py-2 rounded text-sm font-bold">SUBMIT</button>
+            </form>
+        </div>
     </main>
 
-    <footer class="w-full border-t border-slate-800 bg-[#070D1F] px-4 py-3 text-center text-[10px] text-slate-500 font-mono tracking-wider">
-        MESXENT HOLDINGS AD-BOT OPERATING SYSTEM V1.0.A
-    </footer>
-
     <script>
-        const views = {
-            hero: document.getElementById('landingHero'),
-            signup: document.getElementById('partnerSignUpForm'),
-            login: document.getElementById('partnerLoginForm'),
-            chairmanLogin: document.getElementById('chairmanLoginForm'),
-            dashboard: document.getElementById('partnerDashboard'),
-            chairmanDashboard: document.getElementById('chairmanDashboard')
-        };
-
-        function switchView(target) {
-            Object.values(views).forEach(v => { if(v) v.classList.add('hidden') });
-            if(views[target]) views[target].classList.remove('hidden');
-        }
-
-        // Navigation Actions
-        document.getElementById('heroGetStartedBtn').addEventListener('click', () => switchView('signup'));
-        document.getElementById('navJoinNetworkBtn').addEventListener('click', () => switchView('signup'));
-        document.getElementById('navSignInBtn').addEventListener('click', () => switchView('login'));
-        document.getElementById('toLoginBtn').addEventListener('click', () => switchView('login'));
-        document.getElementById('navChairmanBtn').addEventListener('click', () => switchView('chairmanLogin'));
-
-        // New Direct Navigation
-        document.getElementById('navCampaign').addEventListener('click', () => window.location.href = 'campaign.html');
-        document.getElementById('navPayout').addEventListener('click', () => window.location.href = 'payout.html');
-    </script> 
-    <script>
-    const views = {
-        hero: document.getElementById('landingHero'),
-        signup: document.getElementById('partnerSignUpForm'),
-        login: document.getElementById('partnerLoginForm'),
-        chairmanLogin: document.getElementById('chairmanLoginForm'),
-        dashboard: document.getElementById('partnerDashboard'),
-        chairmanDashboard: document.getElementById('chairmanDashboard')
-    };
-
-    function switchView(target) {
-        // Only proceed if the target view actually exists in the DOM
-        if (!views[target]) {
-            console.error("View not found:", target);
-            return; 
-        }
-        
-        // Hide all views first
-        Object.values(views).forEach(v => {
-            if(v) v.classList.add('hidden');
+        // Simple, non-crashing toggle
+        document.getElementById('showSignup').addEventListener('click', () => {
+            document.getElementById('partnerSignUpForm').classList.remove('hidden');
+            document.getElementById('landingHero').classList.add('hidden');
         });
-        
-        // Show the target view
-        views[target].classList.remove('hidden');
-    }
-
-    // Direct Navigation for new pages
-    document.getElementById('navCampaign').addEventListener('click', () => window.location.href = 'campaign.html');
-    document.getElementById('navPayout').addEventListener('click', () => window.location.href = 'payout.html');
-    
-    // Existing View Toggle buttons
-    if(document.getElementById('heroGetStartedBtn')) document.getElementById('heroGetStartedBtn').addEventListener('click', () => switchView('signup'));
-    if(document.getElementById('navSignInBtn')) document.getElementById('navSignInBtn').addEventListener('click', () => switchView('login'));
-    if(document.getElementById('navChairmanBtn')) document.getElementById('navChairmanBtn').addEventListener('click', () => switchView('chairmanLogin'));
     </script>
 </body>
 </html>
