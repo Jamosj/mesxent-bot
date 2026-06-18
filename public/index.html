@@ -112,6 +112,41 @@
         // New Direct Navigation
         document.getElementById('navCampaign').addEventListener('click', () => window.location.href = 'campaign.html');
         document.getElementById('navPayout').addEventListener('click', () => window.location.href = 'payout.html');
+    </script> 
+    <script>
+    const views = {
+        hero: document.getElementById('landingHero'),
+        signup: document.getElementById('partnerSignUpForm'),
+        login: document.getElementById('partnerLoginForm'),
+        chairmanLogin: document.getElementById('chairmanLoginForm'),
+        dashboard: document.getElementById('partnerDashboard'),
+        chairmanDashboard: document.getElementById('chairmanDashboard')
+    };
+
+    function switchView(target) {
+        // Only proceed if the target view actually exists in the DOM
+        if (!views[target]) {
+            console.error("View not found:", target);
+            return; 
+        }
+        
+        // Hide all views first
+        Object.values(views).forEach(v => {
+            if(v) v.classList.add('hidden');
+        });
+        
+        // Show the target view
+        views[target].classList.remove('hidden');
+    }
+
+    // Direct Navigation for new pages
+    document.getElementById('navCampaign').addEventListener('click', () => window.location.href = 'campaign.html');
+    document.getElementById('navPayout').addEventListener('click', () => window.location.href = 'payout.html');
+    
+    // Existing View Toggle buttons
+    if(document.getElementById('heroGetStartedBtn')) document.getElementById('heroGetStartedBtn').addEventListener('click', () => switchView('signup'));
+    if(document.getElementById('navSignInBtn')) document.getElementById('navSignInBtn').addEventListener('click', () => switchView('login'));
+    if(document.getElementById('navChairmanBtn')) document.getElementById('navChairmanBtn').addEventListener('click', () => switchView('chairmanLogin'));
     </script>
 </body>
 </html>
